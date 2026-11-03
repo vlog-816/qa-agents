@@ -1,0 +1,14 @@
+# Test evidence may contain real data
+workspace/**/evidence/
+workspace/**/screenshots/
+
+# Documents dropped into inbox may contain sensitive information
+inbox/*
+!inbox/.gitkeep
+
+# Personal configuration and secrets
+.claude/settings.local.json
+CLAUDE.local.md
+.env
+.env.*
+secrets/

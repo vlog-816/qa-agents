@@ -1,0 +1,49 @@
+# Framework-neutral test case template
+
+Goal: a test case **never mentions a framework, selector or code path**. The automation agent translates it to the configured framework (`automation.framework` in `qa-profile.yaml`) using a separate adapter skill. This way, changing framework does not require rewriting test cases.
+
+## Conventions
+
+- Keys (`id`, `req`, `platform`, ...) are always in English. Content follows the `language` in the profile.
+- Describe actions at the business level ("click the Login button"), not at the technical level ("click `#btn-login`").
+- Test data is fake data. Never copy real data into `test_data`.
+- Every test case links to at least one `REQ`.
+
+## Template (one block per test case)
+
+```yaml
+id: TC-001
+req: [REQ-001]
+title: Successful login with a valid account
+platform: web            # web | api | mobile
+priority: P1             # P1 | P2 | P3
+type: functional         # functional | negative | boundary | security | ...
+tags: [login, smoke]
+preconditions:
+  - The test account exists and is active
+test_data:
+  username: <fake test account>
+  password_env: QA_TEST_PASSWORD   # NAME of the environment variable; never write the password itself
+steps:
+  - n: 1
+    action: Open the login page
+    expected: The login form is displayed
+  - n: 2
+    action: Enter a valid username and password, then click Login
+    expected: The user is taken to the home page
+expected_result: The user logs in successfully and sees the home page
+automation_candidate: yes   # yes | no
+review_status: draft        # draft | in_review | approved | rejected (review state only)
+open_questions: []          # if not empty, stop and ask a human
+```
+
+Run results (Passed / Failed / Blocked / Not run) are **not** stored in the test case. They live in the execution report, so one test case can be run many times in different environments.
+
+## For `platform: api`, also add
+
+```yaml
+api:
+  method: POST
+  endpoint: /endpoint-name
+  expected_status: 200
+```
