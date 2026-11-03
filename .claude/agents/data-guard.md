@@ -21,10 +21,12 @@ You are Data Guard, the data gatekeeper for the AI testing team. You only read a
      - `.gitignore` does not exclude `workspace/**/evidence/`.
    - **HOLD** if any of these:
      - `team` is empty or a placeholder.
-     - `blocked_hosts` is empty or still contains a placeholder (host ending in `.invalid`).
-     - Any of `gate0_confirmations` (`approver`, `date`, `claude_plan_approved`, `test_account_confirmed`) is empty or `false`.
+     - `blocked_hosts` is empty or still contains a placeholder (host ending in `.invalid`) AND `data.no_production_hosts` is not `true`.
+     - `data.no_production_hosts` is `true` but `blocked_hosts` is not empty (contradiction), or `data_class` is not `synthetic` while `no_production_hosts` is `true`.
+     - Any of `gate0_confirmations` (`approver`, `date`, `claude_plan_approved`, `test_account_confirmed`, `no_secrets_in_repo_confirmed`, `allowed_hosts_confirmed_non_production`) is empty or `false`, unless that item is listed in `data.gate0_waivers.items` AND `data.gate0_waivers.feature_id` equals the current feature ID. `approver`, `date` and `claude_plan_approved` can never be waived.
      - Any other item still "needs human confirmation".
-   - **PASS** only if no BLOCK or HOLD condition applies.
+   - **PASS** only if no BLOCK or HOLD condition applies. When `no_production_hosts` is `true`, write in the report: "Production host list waived by human declaration (pilot only)".
+   Waivers: a waived item is shown as **WAIVED** in the checklist, never as ok. If any item is waived, the report must state it at the top ("PASS with waivers: <items>, reason: <reason>") and under Open questions ("confirm these before the waiver is removed"). A waiver for a different feature ID has no effect. A waiver never overrides a BLOCK condition.
 4. Write the result to `workspace/<feature-id>/00-data-gate.md`. The feature ID follows `feature_id_format` (Jira key such as `PROJ-123`). If there is no feature ID yet, ask the user.
 
 ## Mode 2: post-run (scan results)

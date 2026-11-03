@@ -1,5 +1,7 @@
 # HANDOFF: AI Testing Team on Claude Code (continue in plan mode)
 
+> **Outdated snapshot (written 2026-11-03).** For current progress and open items, see `workspace/WORKLOG.md`.
+
 - Written: 2026-11-03, by Claude in a claude.ai chat, for Claude Code.
 - Status: Phase 0 draft is complete. Nothing else has been built or tested.
 - You (Claude Code) have no memory of the chat that produced this. Everything you need is in this file and in the repository.

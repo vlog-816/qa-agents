@@ -25,12 +25,12 @@ Testing agents read and operate on real applications, so they may see personal d
 - [ ] Passwords and tokens are not in prompts or repo files; use environment variables or a secret store
 - [ ] The Claude account plan in use has been approved by the company for this type of data
 - [ ] If `data_class = masked`: a `masking_approval_ref` exists (security confirmed the masking process)
-- [ ] `blocked_hosts` lists the production host(s) (no placeholders)
+- [ ] `blocked_hosts` lists the production host(s) (no placeholders), or a human has declared `data.no_production_hosts: true` (allowed only for `synthetic` data and pilot targets; must be revisited when a production host exists)
 - [ ] Jira is in read-only mode
 - [ ] The `evidence/` folder is in `.gitignore`
 - [ ] Gate 0 approver (name, date): recorded in `data.gate0_confirmations` in `qa-profile.yaml`
 
-Human-only items (Claude plan approved, test account) are recorded by a person in `data.gate0_confirmations`. Data Guard reads them but never fills them in. If any is empty, the verdict is HOLD.
+Human-only items (Claude plan approved, test account, no secrets in repo, allowed hosts are non-production) are recorded by a person in `data.gate0_confirmations`. For a pilot, the approver may waive the last two for one named feature via `data.gate0_waivers`; waivers are reported as WAIVED and must be removed after the pilot. Data Guard reads them but never fills them in. If any is empty, the verdict is HOLD.
 
 Gate 0 is always `required` and is never relaxed.
 
