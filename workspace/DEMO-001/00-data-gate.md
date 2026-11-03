@@ -1,8 +1,10 @@
 # Data Guard: pre-run
 - Date: 2026-11-03
 - Feature ID: DEMO-001
-- Run scope: tooling check of the `playwright-cli` skill. Open ONE public page (https://demowebshop.tricentis.com/) in installed Chrome with a temporary profile, take one page snapshot and one screenshot, saved under `workspace/DEMO-001/evidence/run-2/`. No login, no forms, no purchases, fake data only.
-- Verdict: PASS with waivers: no_secrets_in_repo_confirmed, allowed_hosts_confirmed_non_production, reason: "Public practice site https://demowebshop.tricentis.com, fake data only; approver will set the confirmations later" / PASS kèm miễn trừ: no_secrets_in_repo_confirmed, allowed_hosts_confirmed_non_production (chỉ cho pilot).
+- Run scope (latest, run-3): tooling check of the `manual-tester` subagent with the `playwright-cli` skill. Open ONE public page (https://demowebshop.tricentis.com/) in installed Chrome with an in-memory profile, take one screenshot saved under `workspace/DEMO-001/evidence/run-3/`. No login, no forms, no purchases, no typed input, fake data only.
+- Previous run scope (run-2): same tooling check of `playwright-cli`, one page, one snapshot and one screenshot under `workspace/DEMO-001/evidence/run-2/`.
+- Verdict (run-3): PASS with waivers: no_secrets_in_repo_confirmed, allowed_hosts_confirmed_non_production, reason: "Public practice site https://demowebshop.tricentis.com, fake data only; approver will set the confirmations later" / PASS kèm miễn trừ: no_secrets_in_repo_confirmed, allowed_hosts_confirmed_non_production (chỉ cho pilot).
+- Verdict (run-2, kept): PASS with the same waivers.
 
 Production host list waived by human declaration (pilot only) / Danh sách host production được miễn theo khai báo của con người (chỉ cho pilot).
 
@@ -25,7 +27,7 @@ Production host list waived by human declaration (pilot only) / Danh sách host 
 | Every allowed host is non-production | WAIVED (not confirmed; value is `false`) | gate0_confirmations.allowed_hosts_confirmed_non_production; gate0_waivers |
 
 ## Waivers
-- Waiver `feature_id` is `DEMO-001`, which matches this run.
+- Waiver `feature_id` is `DEMO-001`, which matches this run (run-3).
 - WAIVED items: `no_secrets_in_repo_confirmed`, `allowed_hosts_confirmed_non_production`. Neither is `approver`, `date` or `claude_plan_approved`, so they are waivable.
 - Reason (from profile): public practice site, fake data only; approver will set the confirmations later.
 - Requested by: approver, in chat, 2026-11-03.
@@ -40,10 +42,19 @@ Production host list waived by human declaration (pilot only) / Danh sách host 
 - `data_class` is `synthetic`, so Data Guard may open the screenshot in post-run mode.
 - Chrome with a temporary profile means no saved accounts or cookies should be present. This is a human-side setup detail that Data Guard cannot verify.
 
+## Run-specific notes (run-3)
+- Subagent under test: `manual-tester` with the `playwright-cli` skill. Profile re-read for run-3: values unchanged from run-2 (same confirmations, same waiver for DEMO-001).
+- Only the allowed host `demowebshop.tricentis.com` is used, one page (the home page). No other host or redirect target is approved. Stop if the page redirects elsewhere.
+- No login, forms, purchases or typed input. Fake data only.
+- In-memory browser profile: no saved accounts or cookies should be present. Data Guard cannot verify this from files.
+- The screenshot goes only under `workspace/DEMO-001/evidence/run-3/` (gitignored by `workspace/**/evidence/`). Do not write snapshot or other output outside that folder.
+- `data_class` is `synthetic`, so Data Guard may open the screenshot in post-run mode.
+- Data Guard did not modify `qa-profile.yaml`.
+
 ## Findings
 | # | File / image | Line | Type | Masked value | Recommendation |
 |---|---|---|---|---|---|
-| - | - | - | none (pre-run, no data scan) | - | Run Data Guard post-run on `workspace/DEMO-001/evidence/run-2/` before sharing anything |
+| - | - | - | none (pre-run, no data scan) | - | Run Data Guard post-run on `workspace/DEMO-001/evidence/run-3/` (and run-2 if not yet done) before sharing anything |
 
 ## Open questions
 - None blocking. `demowebshop.tricentis.com` is a public domain, and Data Guard cannot independently verify it is non-production. The PASS relies on the name (demo shop), the profile comment, the human `no_production_hosts` declaration and the waiver. If the approver considers it unclear, treat it as production and stop.

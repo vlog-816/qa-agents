@@ -46,3 +46,29 @@ Reviewed and judged non-sensitive:
 ## Open questions
 - None from the scan. No images were left unscanned.
 - Carry-over (not a data finding): the Gate 0 waivers for `no_secrets_in_repo_confirmed` and `allowed_hosts_confirmed_non_production` still apply only to DEMO-001; confirm them before the waiver is removed.
+
+---
+
+# Data Guard: post-run, run-3 (added section; earlier results above are kept)
+- Date: 2026-11-03
+- Feature ID: DEMO-001
+- Verdict: PASS
+- data_class: synthetic (from qa-profile.yaml), so the image was opened and checked
+- Scope: workspace/DEMO-001/evidence/run-3/ only (2 files: home-1.png, home-1-snapshot.yml). Source: public page https://demowebshop.tricentis.com/ (host is in allowed_hosts), Chrome with in-memory profile, anonymous session, no login, no forms, no typed input.
+
+## Findings
+| # | File / image | Line | Type | Masked value | Recommendation |
+|---|---|---|---|---|---|
+| - | home-1-snapshot.yml | all (1-333) | none: no emails, phones, 9/12-digit IDs, 13-19 digit card or account numbers, passwords, tokens, API keys, JWT strings, Authorization/Bearer headers, names with addresses or dates of birth | - | - |
+| - | home-1.png | - | none: image shows only the anonymous home page (logo, menus, categories, tags, empty newsletter box, poll, welcome text, Tricentis Academy banner with a public vendor URL); no personal data, no credentials, no logged-in user name | - | - |
+
+Reviewed and judged non-sensitive:
+- Snapshot numbers are review counts, prices, element refs (e2 to e314), tag IDs in URLs and cart/wishlist counts (0). None are ID, card or phone formats.
+- Snapshot URLs are site-relative links or public social/vendor links; no query strings, session IDs or credentials.
+- Search box shows the default placeholder "Search store"; the newsletter textbox is empty. No cookies or headers are captured.
+- The public banner URL in the screenshot is vendor marketing content, not a secret.
+- Content is consistent with run-2 and with the stated no-login, no-input session.
+
+## Open questions
+- None from the scan. No images were left unscanned.
+- Carry-over (not a data finding): the Gate 0 waivers for `no_secrets_in_repo_confirmed` and `allowed_hosts_confirmed_non_production` still apply only to DEMO-001; confirm them before the waiver is removed.
