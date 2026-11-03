@@ -2,6 +2,29 @@
 
 Newest entry first. Each entry: date, done, decisions, open items. Never write secrets or real data here.
 
+## 2026-11-03: findings decided, session test inconclusive (DEMO-001)
+
+**Done**
+- Approver decisions: F-01 defect (low), F-02 defect, F-03 accepted and closed. Updated `06-report.md`.
+- Cart-per-session check: cleared visible cookies, cart stayed (cart cookie is HttpOnly): inconclusive. Cart left empty.
+
+**Open items**
+- Retry the new-session check with a clean browser profile (user clears site data) or skip.
+- Remove `data.gate0_waivers`, confirm the two Gate 0 items; review files and commit.
+- Re-run Data Guard post-run because `06-report.md` changed.
+
+## 2026-11-03: DEMO-001 execution sessions done, report written
+
+**Done**
+- Test plan approved by Boss-QA; approver decisions recorded in `03-test-plan.md`.
+- Ran exploration session 2; wrote `05-execution/session-2-notes.md` and `06-report.md` (3 findings: invalid quantity handling, In-stock products without Add to cart, cart total missing for shippable items).
+- Token record stage 2: +13,842 context tokens (browser stages total about 37,966).
+
+**Open items**
+- Data Guard post-run before sharing the report.
+- Approver answers Q10 to Q12 and decides on findings; remove Gate 0 waiver after the demo.
+- Not run: new-session persistence, shipping estimate, checkout.
+
 ## 2026-11-03: approver answers round 2 (DEMO-001)
 
 **Done**
