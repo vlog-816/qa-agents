@@ -39,6 +39,10 @@ Newest entry first. Each entry: date, done, decisions, open items. Never write s
 
 - Prompt test (2026-11-03): the `ask` rule for `npx playwright-cli` prompted for a single command in both Manual and Auto mode. An earlier compound command (`cat && ls && npx ...`) did not prompt; cause not proven. Rule: one command per call, prefer Manual mode, never Accept edits or Bypass.
 
+- BL-010 page test (DEMO-001 run-2): Data Guard pre-run PASS with waivers; opened `https://demowebshop.tricentis.com/` in installed Chrome via `playwright-cli` (in-memory profile), saved a screenshot and a page snapshot under `workspace/DEMO-001/evidence/run-2/`, closed the browser. Each command (`open`, `screenshot`, `close`) prompted for approval (confirmed by the user). Data Guard post-run on that folder: PASS (no personal data in the screenshot or snapshot). Warning seen: skill does not match tool version (not acted on).
+
+- BL-010 wired (user approved): `manual-tester.md` now lists `skills: playwright-cli` and Step 2.2 has the web rules (one command per call, allowed hosts, Chrome in-memory profile, no `run-code`/`eval`, Data Guard before and after, evidence in `evidence/run-<n>/`). Not yet tested by running the subagent: check that the `skills` field loads the skill and that its commands still prompt.
+
 **Open items**
 - BL-006 waiver cleanup still blocks any new feature. BL-010: browser download, a page test on an allowed host (needs Data Guard pre-run), then decide on wiring the skill (one command per call).
 - Changes are not committed.

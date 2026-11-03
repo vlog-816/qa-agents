@@ -21,3 +21,28 @@ Reviewed and judged non-sensitive:
 - None from the scan.
 - Carry-over for the human, not a data finding: Gate 0 items `no_secrets_in_repo_confirmed` and `allowed_hosts_confirmed_non_production` are only WAIVED for DEMO-001 (both still `false` in qa-profile.yaml). Confirm them and remove the waiver block after the demo.
 - Note: `docs/backlog/BACKLOG.md` is referenced by 07-traceability.md but is outside this scan scope (workspace/DEMO-001/ only).
+
+---
+
+# Data Guard: post-run, run-2 (added section; earlier results above are kept)
+- Date: 2026-11-03
+- Feature ID: DEMO-001
+- Verdict: PASS
+- data_class: synthetic (from qa-profile.yaml), so the image was opened and checked
+- Scope: workspace/DEMO-001/evidence/run-2/ only (2 files: home-1.png, home-1-snapshot.yml). Source: public page https://demowebshop.tricentis.com/ (host is in allowed_hosts), anonymous session, no login, no forms, no typed input.
+
+## Findings
+| # | File / image | Line | Type | Masked value | Recommendation |
+|---|---|---|---|---|---|
+| - | home-1-snapshot.yml | all (1-333) | none: no emails, phones, 9/12-digit IDs, 13-19 digit card or account numbers, passwords, tokens, API keys, JWT strings, Authorization/Bearer headers, names with addresses or dates of birth | - | - |
+| - | home-1.png | - | none: image shows only the anonymous home page (logo, menus, categories, tags, newsletter box empty, poll, welcome text); no personal data, no credentials, no logged-in user name | - | - |
+
+Reviewed and judged non-sensitive:
+- Snapshot numbers are review counts, prices (for example 25.00, 1590.00), element refs (e2 to e314), tag IDs in URLs and cart/wishlist counts (0). None are ID, card or phone formats.
+- Snapshot URLs are site-relative links or public social/vendor links (tricentis.com, nopCommerce, Facebook, Twitter, YouTube); no query strings, session IDs or credentials.
+- Search box shows the default placeholder "Search store"; the newsletter textbox is empty. No cookies or headers are captured in the snapshot.
+- "Copyright 2026 Tricentis Demo Web Shop" and demo product names are public site content.
+
+## Open questions
+- None from the scan. No images were left unscanned.
+- Carry-over (not a data finding): the Gate 0 waivers for `no_secrets_in_repo_confirmed` and `allowed_hosts_confirmed_non_production` still apply only to DEMO-001; confirm them before the waiver is removed.

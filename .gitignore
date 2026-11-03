@@ -6,8 +6,9 @@ workspace/**/screenshots/
 inbox/*
 !inbox/.gitkeep
 
-# Local tool installs
+# Local tool installs and tool scratch output
 node_modules/
+.playwright-cli/
 
 # Personal configuration and secrets
 .claude/settings.local.json

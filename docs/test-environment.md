@@ -47,7 +47,10 @@ Skills live in `.claude/skills/` (installed with `npx skills add ... --agent cla
 - Call form: `npx --no-install playwright-cli <command>` (not the bare `playwright-cli`, which is not on the PATH).
 - Update: `npm update @playwright/cli`, then review the `package-lock.json` diff and check the skill header (step 2 above).
 - Permission mode (tested 2026-11-03): a single `npx --no-install playwright-cli --version` prompted in both Manual and Auto mode. An earlier run with no prompt was a compound command (`a && b && c`) run right after the rules were added mid-session; the exact cause is not proven. So: run one command per call, prefer Manual mode for test runs, and never use Accept edits or Bypass permissions (not tested; Bypass skips ask rules).
-- The browser program is a separate large download and is not installed yet; ask the user first.
+- Browser: use the installed Chrome (`open <url> --browser=chrome`). The default profile is in-memory, so no personal sign-ins are used; never use `--persistent`, `--profile` or `attach`. Close it after use (`close`).
+- `playwright-cli` writes page snapshots to `.playwright-cli/` in the project root (git-ignored). Copy what is needed into `workspace/<feature-id>/evidence/run-<n>/`, then delete the folder.
+- The tool prints a warning that the skill does not match the tool version and suggests `playwright-cli install --skills`. Do not run that without the user's approval: it rewrites the skill and can bring back the `allowed-tools` line. Follow section 5 to update.
+- (Older note) The browser program is a separate large download and is not installed yet; ask the user first.
 
 ## 6. Not covered yet
 
