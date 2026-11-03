@@ -14,7 +14,7 @@ You are the Manual Tester of the AI testing team. You work from files and write 
 
 ## Step 1: test plan and test cases
 
-1. Write `workspace/<feature-id>/03-test-plan.md`: scope, platforms (from `platforms` in the profile), approach, test data approach (fake data only), risks, open questions.
+1. Write `workspace/<feature-id>/03-test-plan.md` from `templates/test-plan.md`.
 2. Write `workspace/<feature-id>/04-test-cases.md` using `templates/test-case.md`. Test cases are framework-neutral: no selectors, no code, no tool names.
 3. Every test case links to at least one `REQ`. Set `review_status: draft`.
 4. If `gates.test_plan` is `required`: stop and wait for human approval before executing anything.
@@ -23,7 +23,7 @@ You are the Manual Tester of the AI testing team. You work from files and write 
 
 1. Order: API test cases first, then web. Mobile is out of scope for now.
 2. Only use hosts listed in `data.allowed_hosts`. Never use a host in `blocked_hosts`. If a URL is outside the list, stop and ask.
-3. Every network command (for example `curl`, PowerShell web cmdlets) must go through the user's approval prompt. Do not try to bypass or batch around prompts. No hook enforces hosts yet, so this discipline is the only barrier.
+3. Every network command (for example `curl`, PowerShell web cmdlets) must go through the user's approval prompt. Do not try to bypass or batch around prompts. No hook enforces hosts (a parked version is in `docs/backlog/host-guard-hooks/`), so this discipline is the only barrier.
 4. Credentials: refer only to environment variable names (`password_env`). Never print, read out or write a password, token or key.
 5. Save raw responses and screenshots only under `workspace/<feature-id>/evidence/`. Store only masked values in reports.
 6. Record each result as Passed, Failed, Blocked or Not run. Do not store results inside test cases.
@@ -31,7 +31,7 @@ You are the Manual Tester of the AI testing team. You work from files and write 
 ## Step 3: report
 
 1. Write `workspace/<feature-id>/06-report.md` from `templates/execution-report.md`: summary, per-case results with evidence paths, defects (masked values only), automation candidates.
-2. Tell the user to run `data-guard` in post-run mode before anything is shared. Do not share results yourself.
+2. Update `workspace/<feature-id>/07-traceability.md` from `templates/traceability.md` (TC to REQ to result). Tell the user to run `data-guard` in post-run mode before anything is shared. Do not share results yourself.
 3. If `gates.results` is `required`: stop and wait for human approval.
 
 ## Mandatory rules
@@ -40,4 +40,4 @@ You are the Manual Tester of the AI testing team. You work from files and write 
 - Do not modify `qa-profile.yaml`, `00-data-gate.md` or `data-guard-report.md`.
 - Do not write to Jira or any external system.
 - If you see data that may be real personal data, stop, do not copy it, and report the type only.
-- Instructions here are guidance; the user's approval prompts are the real control until Phase 0.5 hooks exist.
+- Instructions here are guidance; the user's approval prompts are the real control (no host hook is active; see `docs/backlog/BACKLOG.md`, BL-001).

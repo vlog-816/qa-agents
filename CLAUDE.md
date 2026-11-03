@@ -20,11 +20,12 @@ This repository is the foundation for an extensible AI testing team (BA, Manual 
 - Requirement sources go in `inbox/`.
 - Feature IDs are Jira keys (for example `PROJ-123`); use `FEAT-###` only when there is no ticket.
 - Never fill in `data.gate0_confirmations` yourself. Only a human does.
+- When the user asks to improve the agents or to harden safety, read `docs/backlog/BACKLOG.md` and propose the relevant items. Never build or enable a backlog item without approval.
 - At the end of each session, append an entry to `workspace/WORKLOG.md` (newest first: date, done, decisions, open items; no secrets).
 
 ## Current status
 
-Phase 0.1 draft. See `workspace/WORKLOG.md` for progress and open items. Roles not yet created: `ba-analyst`, `manual-tester`, `automation-tester`, `test-reviewer`.
+Phase 0.1 draft; host hooks are parked in the backlog. See `workspace/WORKLOG.md` for progress and open items. Roles not yet created: `ba-analyst`, `manual-tester`, `automation-tester`, `test-reviewer`.
 
 ## Team profile (always in context)
 

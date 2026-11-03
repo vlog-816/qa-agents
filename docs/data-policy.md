@@ -80,7 +80,7 @@ If you suspect real data or secrets have leaked outside the permitted scope:
 
 - According to the Claude Code permissions documentation, `deny` rules for `Read` and `Edit` apply to the built-in file tools, **not** to Bash subprocesses. A `Read(./.env)` rule does not stop `cat .env` in Bash. Blocking at the operating-system level requires enabling the sandbox. (Cross-check: `code.claude.com/docs/en/permissions`.)
 - Bash rules rely on prefix matching and can be bypassed.
-- A hook that enforces `allowed_hosts` is Phase 0.5 work and has **not been written yet**.
+- A host-enforcing hook is **not active**. A written and offline-tested version is parked in `docs/backlog/host-guard-hooks/` (backlog BL-001): pattern-based, never run live, not independently reviewed. Native Windows has no sandbox (WSL2 needed).
 - Rules written in agent files or prompts are guidance, not hard barriers.
 
 ## 10. Questions for security or legal

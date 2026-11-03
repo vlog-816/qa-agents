@@ -1,0 +1,42 @@
+{
+  "_comment": "PROPOSED replacement for .claude/settings.json. Not active. Copy it over settings.json after review (it adds the hooks, removes the useless sudo rule, and asks before PowerShell Remove-Item).",
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(./**/*credential*)",
+      "Bash(git push *)",
+      "Bash(rm -rf *)"
+    ],
+    "ask": [
+      "Bash(curl *)",
+      "Bash(git commit *)",
+      "PowerShell(Remove-Item *)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell|WebFetch|WebSearch|mcp__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/check-host.js\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/limit-data-guard-writes.js\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -2,6 +2,37 @@
 
 Newest entry first. Each entry: date, done, decisions, open items. Never write secrets or real data here.
 
+## 2026-11-03: Phase 1 completed (templates and traceability)
+
+**Done**
+- Added `templates/test-plan.md` and `templates/traceability.md`; filled `workspace/DEMO-001/07-traceability.md` from the report (17 TCs, 7 not-clearly-run or failed noted).
+- `manual-tester.md` now uses both templates; README structure updated.
+
+**Open items**
+- Host enforcement still parked (BL-001); `test-reviewer` (BL-002) and `ba-analyst` (BL-003) not built.
+- Nothing committed.
+
+## 2026-11-03: host hooks parked in the backlog
+
+**Done**
+- At the user's request moved the hook work out of `.claude/` to `docs/backlog/host-guard-hooks/` (not active; `.claude/settings.json` unchanged). Offline tests still pass from the new folder (36/36).
+- Added `docs/backlog/BACKLOG.md` (BL-001 to BL-007) and a rule in `CLAUDE.md` to propose backlog items when the user wants to improve the agents. Docs now say no host hook is active.
+
+**Open items**
+- Nothing enforces `allowed_hosts` technically; approval prompts only. Revisit via BL-001.
+
+## 2026-11-03: Phase 0.5 hooks written (not yet enabled)
+
+**Done**
+- Verified hook facts in the official docs (stdin JSON, exit/JSON decisions, matcher regex, Windows shell, no native sandbox, trust dialog).
+- Wrote `.claude/hooks/check-host.js` (hosts outside `allowed_hosts` denied, blocked hosts denied, unknown targets of web tools ask, shell reads of `.env`/`secrets/` denied, fail closed), `.claude/hooks/limit-data-guard-writes.js`, and `.claude/hooks/tests/run.js` (36/36 pass, offline). Real-profile spot check: demo host and localhost allowed, example.com denied.
+- Wrote `.claude/hooks/settings.proposed.json` (hooks, no `sudo` rule, ask on PowerShell Remove-Item).
+
+**Blocked / open**
+- Enabling the hooks means editing `.claude/settings.json`. The auto-mode safety check refused my edit as self-modification, so I did not apply it. User must apply `settings.proposed.json` (or allow the edit).
+- After enabling: live test (curl to a non-allowed host must be denied), `/hooks` check, and confirm hooks run in the desktop app (workspace trust dialog).
+- Docs updated to say hooks are written but not yet active.
+
 ## 2026-11-03: findings decided, session test inconclusive (DEMO-001)
 
 **Done**

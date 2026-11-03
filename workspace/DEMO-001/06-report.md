@@ -4,7 +4,7 @@
 - Environment (`data_class`): synthetic (public demo shop https://demowebshop.tricentis.com, fake data only)
 - Run date: 2026-11-03
 - Data Guard pre-run: PASS (2 waived items)
-- Data Guard post-run: pending
+- Data Guard post-run: PASS (2026-11-03, rerun after report update)
 - Approach: exploratory, built-in browser. Approvals: requirements and test plan approved by Boss-QA on 2026-11-03.
 
 ## Summary

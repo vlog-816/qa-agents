@@ -21,6 +21,8 @@ qa-agents/
 ├── templates/
 │   ├── requirement.md         standard requirement template (multiple sources)
 │   ├── test-case.md           framework-neutral test case template
+│   ├── test-plan.md           test plan template
+│   ├── traceability.md        traceability matrix (REQ to TC to result)
 │   └── execution-report.md    execution report template
 ├── inbox/                     drop documents and exported tickets here (gitignored)
 └── workspace/                 results per feature
@@ -45,7 +47,7 @@ This kit was written from documentation and community guides and has not been te
 
 - A `deny` rule on `Read` **does not block** `cat .env` in Bash (per the permissions documentation). A sandbox or hook is needed for real enforcement.
 - `curl` is set to `ask`, so every API call will ask for approval. This suits the pilot phase and can be relaxed later.
-- A hook that enforces `allowed_hosts` is Phase 0.5 work and has not been written.
+- No hook enforces `allowed_hosts` yet. A parked, unreviewed version is in `docs/backlog/host-guard-hooks/` (see `docs/backlog/BACKLOG.md`).
 
 ## Still to be determined
 
