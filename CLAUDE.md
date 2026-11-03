@@ -6,7 +6,7 @@ This repository is the foundation for an extensible AI testing team (BA, Manual 
 
 1. `docs/data-policy.md` (mandatory before running any test)
 2. `qa-profile.yaml` (team settings: language, data_class, hosts, framework, gates)
-3. `templates/` (formats for requirements, test cases and execution reports)
+3. `templates/` (formats for requirements, test plans, test cases, execution reports and the traceability matrix)
 
 ## Rules for every session
 
@@ -25,7 +25,7 @@ This repository is the foundation for an extensible AI testing team (BA, Manual 
 
 ## Current status
 
-Phase 0.1 draft; host hooks are parked in the backlog. See `workspace/WORKLOG.md` for progress and open items. Roles not yet created: `ba-analyst`, `manual-tester`, `automation-tester`, `test-reviewer`.
+Phase 1 closed (scoped). Agents: `data-guard`, `manual-tester`. Not created yet: `ba-analyst`, `test-reviewer`, `automation-tester`. Host hooks and other ideas are parked in `docs/backlog/BACKLOG.md`. See `workspace/WORKLOG.md` for progress and open items.
 
 ## Team profile (always in context)
 

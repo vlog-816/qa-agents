@@ -2,6 +2,20 @@
 
 Newest entry first. Each entry: date, done, decisions, open items. Never write secrets or real data here.
 
+## 2026-11-03: Phase 1 closed (scoped); files added by the user with /btw
+
+**Delivered in Phase 1**
+- `manual-tester` agent; DEMO-001 (web, add to cart) run end to end: Gate 0, requirements, test plan, exploration, report, traceability, Data Guard post-run.
+- Token record, backlog (`docs/backlog/BACKLOG.md`).
+- Added by the user with `/btw` and scanned: `templates/test-plan.md`, `templates/traceability.md`, `workspace/DEMO-001/07-traceability.md`; `manual-tester.md` now uses them. README and CLAUDE.md updated to match.
+
+**Moved to the backlog (not done)**
+- `test-reviewer` (BL-002), `ba-analyst` (BL-003), `/execute` (BL-008), API testing (BL-009), Playwright tooling (BL-004), new-session cart check (BL-005), Gate 0 waiver cleanup (BL-006), host hooks (BL-001).
+
+**Open items**
+- Data Guard post-run again for DEMO-001 (07-traceability.md is newer than the last scan).
+- Account-level instructions (bilingual mode) were not visible in this session; user may start a new session to load them.
+
 ## 2026-11-03: Phase 1 completed (templates and traceability)
 
 **Done**

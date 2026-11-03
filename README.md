@@ -1,8 +1,8 @@
 # QA Agents Starter (Phase 0, draft 0.1)
 
-A starter kit for an extensible AI testing team: BA, Manual Tester, Automation Tester and additional roles will be added gradually. This version contains **only the standardized foundation and the data policy**. The BA, Manual Tester and Automation agents do not exist yet.
+A starter kit for an extensible AI testing team: BA, Manual Tester, Automation Tester and additional roles will be added gradually. This version contains **only the standardized foundation and the data policy**. Only the Data Guard and Manual Tester agents exist. BA work is done by the main session; Test Reviewer and Automation agents do not exist yet (see `docs/backlog/BACKLOG.md`).
 
-> **Status:** draft, not reviewed by security or legal, not yet tested. Do not use with real data.
+> **Status:** Phase 1 closed (scoped). Run once end to end on a public demo site (DEMO-001). Not reviewed by security or legal. Do not use with real data.
 
 ## Structure
 
@@ -17,13 +17,15 @@ qa-agents/
 ├── .claude/
 │   ├── settings.json          sample permissions (deny/ask)
 │   └── agents/
-│       └── data-guard.md      data gatekeeper agent
+│       ├── data-guard.md      data gatekeeper agent
+│       └── manual-tester.md   manual tester agent (test plan, test cases, report)
 ├── templates/
 │   ├── requirement.md         standard requirement template (multiple sources)
 │   ├── test-case.md           framework-neutral test case template
 │   ├── test-plan.md           test plan template
 │   ├── traceability.md        traceability matrix (REQ to TC to result)
 │   └── execution-report.md    execution report template
+├── docs/backlog/              parked ideas (BACKLOG.md) and parked host-guard hooks
 ├── inbox/                     drop documents and exported tickets here (gitignored)
 └── workspace/                 results per feature
 ```
