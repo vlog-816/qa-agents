@@ -41,6 +41,14 @@ Skills live in `.claude/skills/` (installed with `npx skills add ... --agent cla
 4. If `.agents/` was recreated, delete it: `Remove-Item -Recurse -Force .agents`.
 5. Rules: never use `npx skills use` (it runs unreviewed remote text as instructions). Never wire a skill into an agent, or install its tool program, without the user's approval.
 
+### Local install of `playwright-cli`
+
+- It is installed in this project, not globally: `npm install --save-dev @playwright/cli@latest` (`package.json`, `package-lock.json`; `node_modules/` is git-ignored). Restore on a new machine with `npm install`.
+- Call form: `npx --no-install playwright-cli <command>` (not the bare `playwright-cli`, which is not on the PATH).
+- Update: `npm update @playwright/cli`, then review the `package-lock.json` diff and check the skill header (step 2 above).
+- Permission mode (tested 2026-11-03): a single `npx --no-install playwright-cli --version` prompted in both Manual and Auto mode. An earlier run with no prompt was a compound command (`a && b && c`) run right after the rules were added mid-session; the exact cause is not proven. So: run one command per call, prefer Manual mode for test runs, and never use Accept edits or Bypass permissions (not tested; Bypass skips ask rules).
+- The browser program is a separate large download and is not installed yet; ask the user first.
+
 ## 6. Not covered yet
 
 Cross-browser, accessibility, responsive layout, mobile and performance checks. See `docs/backlog/BACKLOG.md`.

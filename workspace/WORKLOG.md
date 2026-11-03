@@ -35,8 +35,12 @@ Newest entry first. Each entry: date, done, decisions, open items. Never write s
 
 - Skill update routine documented in `docs/test-environment.md` (section 5): update with `npx skills add ... --agent claude-code --copy`, not `npx skills update`. `.agents/` removed by the user; `skills-lock.json` kept (a dry-run restore confirmed it still tracks both skills).
 
+- `@playwright/cli` 0.1.23 installed locally (not global): `package.json`, `package-lock.json`, `node_modules/` (git-ignored); added `ask` rules for `npx playwright-cli`. Version check works. Browser binary not downloaded; no page test run yet.
+
+- Prompt test (2026-11-03): the `ask` rule for `npx playwright-cli` prompted for a single command in both Manual and Auto mode. An earlier compound command (`cat && ls && npx ...`) did not prompt; cause not proven. Rule: one command per call, prefer Manual mode, never Accept edits or Bypass.
+
 **Open items**
-- BL-006 waiver cleanup still blocks any new feature. BL-010: confirm the ask rule really prompts (a test command ran with no visible prompt), then decide on installing the binary and wiring the skill.
+- BL-006 waiver cleanup still blocks any new feature. BL-010: browser download, a page test on an allowed host (needs Data Guard pre-run), then decide on wiring the skill (one command per call).
 - Changes are not committed.
 
 ## 2026-11-03: Phase 1 closed (scoped)

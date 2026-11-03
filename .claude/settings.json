@@ -20,6 +20,9 @@
       "Bash(npx --no-install playwright *)",
       "PowerShell(playwright-cli *)",
       "PowerShell(npx playwright *)",
+      "Bash(npx playwright-cli *)",
+      "Bash(npx --no-install playwright-cli *)",
+      "PowerShell(npx playwright-cli *)",
       "Bash(git commit *)"
     ]
   }
