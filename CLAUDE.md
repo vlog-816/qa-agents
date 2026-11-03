@@ -21,7 +21,8 @@ This repository is the foundation for an extensible AI testing team (BA, Manual 
 - Feature IDs are Jira keys (for example `PROJ-123`); use `FEAT-###` only when there is no ticket.
 - Never fill in `data.gate0_confirmations` yourself. Only a human does.
 - When the user asks to improve the agents or to harden safety, read `docs/backlog/BACKLOG.md` and propose the relevant items. Never build or enable a backlog item without approval.
-- At the end of each session, append an entry to `workspace/WORKLOG.md` (newest first: date, done, decisions, open items; no secrets).
+- After each completed milestone (and when the user says to save), update the "Current state" block and add a short entry to `workspace/WORKLOG.md` (newest first: date, done, decisions, open items; no secrets). Do not wait for the session to end.
+- At the start of each session, read the "Current state" block of `workspace/WORKLOG.md` (top of the file only) and continue from its open items.
 
 ## Current status
 

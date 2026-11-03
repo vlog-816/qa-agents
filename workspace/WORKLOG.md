@@ -1,163 +1,46 @@
 # Work log
 
-Newest entry first. Each entry: date, done, decisions, open items. Never write secrets or real data here.
+Newest entry first. Each entry: date, done, decisions, open items. Never write secrets or real data here. Older steps are condensed under "History"; full text is in git history.
 
-## 2026-11-03: Phase 1 closed (scoped); files added by the user with /btw
+## Current state (updated 2026-11-03)
 
-**Delivered in Phase 1**
-- `manual-tester` agent; DEMO-001 (web, add to cart) run end to end: Gate 0, requirements, test plan, exploration, report, traceability, Data Guard post-run.
-- Token record, backlog (`docs/backlog/BACKLOG.md`).
-- Added by the user with `/btw` and scanned: `templates/test-plan.md`, `templates/traceability.md`, `workspace/DEMO-001/07-traceability.md`; `manual-tester.md` now uses them. README and CLAUDE.md updated to match.
+- **Phase:** Phase 1 closed (scoped). Next options: test a new URL (web), test an API (BL-009), build `test-reviewer` (BL-002).
+- **Agents that exist:** `data-guard`, `manual-tester`. BA work is done by the main session. Browser steps run from the main session with the built-in browser (the `manual-tester` subagent has no browser).
+- **Active safety:** Gate 0 (Data Guard pre-run and post-run) and the user's approval prompts. **No host-enforcing hook is active**; a written, unreviewed version is parked in `docs/backlog/host-guard-hooks/` (BL-001).
+- **Profile:** `data_class: synthetic`; allowed hosts `localhost` and `demowebshop.tricentis.com`; `no_production_hosts: true`; Gate 0 waiver for `DEMO-001` only.
+- **Still open:**
+  - Gate 0 waiver: remove `data.gate0_waivers`, then check and set `no_secrets_in_repo_confirmed` and `allowed_hosts_confirmed_non_production` to `true` (BL-006). Needed before any new feature.
+  - DEMO-001: new-session cart check inconclusive (BL-005); shipping estimate and checkout not run; F-01 and F-02 are reported defects, not fixed.
+  - `qa-profile.yaml` has not been syntax-checked (no Python on this machine).
+  - Security/legal approval for the Claude plan is pending (Pro personal plan: synthetic data only). Evidence retention, metrics, cost limits, CI undecided.
+  - Check `git status`; edits after the last commit may be uncommitted.
+  - The user's account-level instructions (bilingual mode) were not visible in the Code session; a new session may load them.
+- **Key files to read:** `CLAUDE.md`, `qa-profile.yaml`, `docs/backlog/BACKLOG.md`, `workspace/DEMO-001/06-report.md`.
+
+## 2026-11-03: Phase 1 closed (scoped)
+
+**Delivered**
+- `manual-tester` agent; DEMO-001 (web, add to cart) run end to end: Gate 0, requirements, test plan (approved), two exploration sessions, report, traceability matrix, Data Guard post-run PASS (rescanned after the last file was added).
+- Templates `test-plan.md` and `traceability.md` (added by the user with `/btw`, scanned and consistent); `manual-tester.md`, `README.md` and `CLAUDE.md` updated to match.
+- Token record: about 24,000 plus 14,000 tokens of context for the two browser stages (`workspace/DEMO-001/05-execution/token-record.md`).
+
+**DEMO-001 findings (approver decisions)**
+- F-01 invalid quantities not rejected with a message: defect, low severity. F-02 "In stock" products without an Add to cart button: defect. F-03 cart total "Calculated during checkout" for shippable items: accepted, closed.
 
 **Moved to the backlog (not done)**
-- `test-reviewer` (BL-002), `ba-analyst` (BL-003), `/execute` (BL-008), API testing (BL-009), Playwright tooling (BL-004), new-session cart check (BL-005), Gate 0 waiver cleanup (BL-006), host hooks (BL-001).
+- `test-reviewer` (BL-002), `ba-analyst` (BL-003), Playwright tooling (BL-004), new-session cart check (BL-005), Gate 0 waiver cleanup (BL-006), `/execute` (BL-008), API testing (BL-009), host hooks (BL-001).
 
-**Open items**
-- Data Guard post-run again for DEMO-001 (07-traceability.md is newer than the last scan).
-- Account-level instructions (bilingual mode) were not visible in this session; user may start a new session to load them.
+## 2026-11-03: host hooks parked
 
-## 2026-11-03: Phase 1 completed (templates and traceability)
+- Hook scripts and 36 offline tests were written, then moved to `docs/backlog/host-guard-hooks/` at the user's request. They are not active and `.claude/settings.json` is unchanged. Nothing enforces `allowed_hosts` technically; the approval prompts do.
+- Added `docs/backlog/BACKLOG.md` and a rule in `CLAUDE.md`: propose backlog items when the user wants to improve the agents.
 
-**Done**
-- Added `templates/test-plan.md` and `templates/traceability.md`; filled `workspace/DEMO-001/07-traceability.md` from the report (17 TCs, 7 not-clearly-run or failed noted).
-- `manual-tester.md` now uses both templates; README structure updated.
+## History (condensed)
 
-**Open items**
-- Host enforcement still parked (BL-001); `test-reviewer` (BL-002) and `ba-analyst` (BL-003) not built.
-- Nothing committed.
-
-## 2026-11-03: host hooks parked in the backlog
-
-**Done**
-- At the user's request moved the hook work out of `.claude/` to `docs/backlog/host-guard-hooks/` (not active; `.claude/settings.json` unchanged). Offline tests still pass from the new folder (36/36).
-- Added `docs/backlog/BACKLOG.md` (BL-001 to BL-007) and a rule in `CLAUDE.md` to propose backlog items when the user wants to improve the agents. Docs now say no host hook is active.
-
-**Open items**
-- Nothing enforces `allowed_hosts` technically; approval prompts only. Revisit via BL-001.
-
-## 2026-11-03: Phase 0.5 hooks written (not yet enabled)
-
-**Done**
-- Verified hook facts in the official docs (stdin JSON, exit/JSON decisions, matcher regex, Windows shell, no native sandbox, trust dialog).
-- Wrote `.claude/hooks/check-host.js` (hosts outside `allowed_hosts` denied, blocked hosts denied, unknown targets of web tools ask, shell reads of `.env`/`secrets/` denied, fail closed), `.claude/hooks/limit-data-guard-writes.js`, and `.claude/hooks/tests/run.js` (36/36 pass, offline). Real-profile spot check: demo host and localhost allowed, example.com denied.
-- Wrote `.claude/hooks/settings.proposed.json` (hooks, no `sudo` rule, ask on PowerShell Remove-Item).
-
-**Blocked / open**
-- Enabling the hooks means editing `.claude/settings.json`. The auto-mode safety check refused my edit as self-modification, so I did not apply it. User must apply `settings.proposed.json` (or allow the edit).
-- After enabling: live test (curl to a non-allowed host must be denied), `/hooks` check, and confirm hooks run in the desktop app (workspace trust dialog).
-- Docs updated to say hooks are written but not yet active.
-
-## 2026-11-03: findings decided, session test inconclusive (DEMO-001)
-
-**Done**
-- Approver decisions: F-01 defect (low), F-02 defect, F-03 accepted and closed. Updated `06-report.md`.
-- Cart-per-session check: cleared visible cookies, cart stayed (cart cookie is HttpOnly): inconclusive. Cart left empty.
-
-**Open items**
-- Retry the new-session check with a clean browser profile (user clears site data) or skip.
-- Remove `data.gate0_waivers`, confirm the two Gate 0 items; review files and commit.
-- Re-run Data Guard post-run because `06-report.md` changed.
-
-## 2026-11-03: DEMO-001 execution sessions done, report written
-
-**Done**
-- Test plan approved by Boss-QA; approver decisions recorded in `03-test-plan.md`.
-- Ran exploration session 2; wrote `05-execution/session-2-notes.md` and `06-report.md` (3 findings: invalid quantity handling, In-stock products without Add to cart, cart total missing for shippable items).
-- Token record stage 2: +13,842 context tokens (browser stages total about 37,966).
-
-**Open items**
-- Data Guard post-run before sharing the report.
-- Approver answers Q10 to Q12 and decides on findings; remove Gate 0 waiver after the demo.
-- Not run: new-session persistence, shipping estimate, checkout.
-
-## 2026-11-03: approver answers round 2 (DEMO-001)
-
-**Done**
-- Recorded answers in `01-requirements.md` (max quantity: none; 3 products out of stock; qty must be >= 1, whole, not empty; header = total quantity; tax and shipping count in total; cart per session).
-
-**Open items**
-- Conflict on invalid quantity handling (current silent reset/remove vs. reject with message): waiting for the approver.
-- Test plan not approved yet; update TC-013, TC-014, TC-017 and REQ-008 expectations after the decision.
-
-## 2026-11-03: DEMO-001 exploration done (built-in browser)
-
-**Done**
-- Explored the add-to-cart flow on the demo shop (add, change quantity, edge quantities, remove). Cart left empty. Notes: `workspace/DEMO-001/05-execution/exploration-notes.md`.
-- Token cost recorded in `workspace/DEMO-001/05-execution/token-record.md`: context +24,124 tokens (242,012 to 266,136), Pro 5-hour limit 16% to 18%.
-- Added observed behavior and new questions Q7 to Q9 to `01-requirements.md`.
-
-**Open items**
-- Re-propose `03-test-plan.md` and `04-test-cases.md` from the notes, then user approves the test plan gate.
-- Not explored: qty 0, decimals, empty, same product twice, 3 products without list button, checkout and login (out of scope).
-- Playwright MCP / `playwright-cli` / skills not installed; user will refactor tooling later.
-
-## 2026-11-03: DEMO-001 Gate 0 PASS and requirements drafted
-
-**Done**
-- Data Guard pre-run: PASS with two WAIVED items (scoped to DEMO-001).
-- Read `https://demowebshop.tricentis.com/books` (page text only) and drafted `workspace/DEMO-001/01-requirements.md` (5 requirements, status draft).
-
-**Open items**
-- User (as BA) must answer Q1 to Q5 in the requirements file and approve it (gate `requirements`) before `manual-tester` runs.
-
-## 2026-11-03: Gate 0 waiver for DEMO-001
-
-**Done**
-- Added `no_secrets_in_repo_confirmed` and `allowed_hosts_confirmed_non_production` (both `false`) to `data.gate0_confirmations`, and a scoped `data.gate0_waivers` block for `DEMO-001` (user asked in chat, "make it easy, set them after the demo").
-- `data-guard.md` / `data-policy.md`: waived items are reported as WAIVED; waiver applies only to the named feature; never overrides BLOCK; `approver`, `date`, `claude_plan_approved` cannot be waived.
-
-**Open items**
-- After the demo: remove `gate0_waivers`, then user sets the two new confirmations to `true` after checking them.
-
-## 2026-11-03: blocked_hosts waived for the pilot
-
-**Done**
-- User chose option 3: added `data.no_production_hosts: true` to `qa-profile.yaml` and set `blocked_hosts: []`.
-- `.claude/agents/data-guard.md` and `docs/data-policy.md`: the flag removes the HOLD for an empty list; contradictions (flag true with a non-empty list, or flag true with non-synthetic data) still HOLD.
-
-**Open items**
-- Revisit when a production host exists: set the flag to `false` and fill `blocked_hosts`.
-- `gate0_confirmations` still to be filled in by the user.
-
-## 2026-11-03: demo run set-up (DEMO-001, https://demowebshop.tricentis.com)
-
-**Done**
-- Added `demowebshop.tricentis.com` to `data.allowed_hosts` (user-approved plan). `data_class` stays `synthetic`; use fake data only on this public shared site.
-
-**Open items (user must do; AI must not)**
-- Replace the `.invalid` placeholder in `blocked_hosts` with a real production host, or decide how to handle "no production host".
-- Fill `data.gate0_confirmations` (approver, date, `claude_plan_approved`, `test_account_confirmed`) truthfully.
-- Then run `data-guard` pre-run for `DEMO-001`; requirements for the demo are drafted only after Gate 0 is PASS (no access to the site before that).
-- `manual-tester` has no browser tool: web UI steps will run from the main session with the built-in browser, with user approval.
-
-## 2026-11-03: manual-tester agent created
-
-**Done**
-- Added `.claude/agents/manual-tester.md` (tools: Read, Grep, Glob, Write, Bash). Requires Data Guard PASS and approved requirements before it works; stops at required gates.
-
-**Open items**
-- Agent not yet tested. Expected result today: it refuses (Gate 0 is HOLD until `gate0_confirmations` and `blocked_hosts` are filled in).
-- No hook enforces `allowed_hosts` yet (Phase 0.5 skipped by user choice). Host safety relies on prompt rules and manual approval of every network command.
-- Not created yet: `test-reviewer`, `/execute`, `templates/test-plan.md`, `templates/traceability.md`, Playwright MCP, local pilot app setup.
-
-## 2026-11-03: Phase 0.1 (fix the Phase 0 draft)
-
-**Done**
-- `qa-profile.yaml` v0.2: added `masking_approval_ref`, `gate0_confirmations`, `feature_id_format`, `test_management`; Jira set to `cloud`; automation language set to `typescript`.
-- `.claude/agents/data-guard.md`: reads human confirmations from the profile; BLOCK/HOLD rules for `masked`, placeholders and empty `blocked_hosts`; screenshots opened only for `synthetic` or `masked` data.
-- `docs/data-policy.md`, `templates/*`, `README.md`, `CLAUDE.md` synced with the above.
-- `HANDOFF.md` marked as an outdated snapshot; this work log added.
-
-**Decisions**
-- Keep `qa-profile.yaml` as YAML (hook for `allowed_hosts` in Phase 0.5 needs a structured file).
-- Pilot app: restful-booker-platform on localhost, `data_class: synthetic`. Platform order: API, web, mobile.
-- Feature IDs are Jira keys; `PILOT-001` until a ticket exists.
-- Test cases stay in this repo for now; exports to Google Sheets, TestRail, Xray come later.
-
-**Open items**
-- `qa-profile.yaml` not syntax-checked (no Python on this machine).
-- `data.gate0_confirmations` still empty (human must fill in), so Gate 0 returns HOLD.
-- `blocked_hosts` still holds a placeholder; replace with the real production host.
-- Security/legal approval for the Claude plan pending (Pro personal plan: synthetic data only).
-- Phase 0.5 (host-enforcing hook) not started. Evidence retention, metrics, cost limits, CI undecided.
-- Changes are not committed yet.
+- **Phase 0.1 (fix the draft):** `qa-profile.yaml` v0.2 (`masking_approval_ref`, `gate0_confirmations`, feature ID format, Jira cloud, TypeScript); `data-guard` reads human confirmations and handles `masked`, placeholders and screenshots only for synthetic or masked data; policy, templates, README and CLAUDE.md synced; `HANDOFF.md` marked outdated. Decisions: keep YAML, pilot platform order API, web, mobile, Jira keys as feature IDs, test cases stay in the repo for now.
+- **`manual-tester` agent created:** requires Data Guard PASS and approved requirements; stops at required gates.
+- **Demo set-up:** `demowebshop.tricentis.com` added to `allowed_hosts`; `data_class` stays `synthetic`, fake data only.
+- **`blocked_hosts` waived:** `no_production_hosts: true` with `blocked_hosts: []` (user chose option 3); contradictions still HOLD.
+- **Gate 0 waiver:** two new confirmation fields and a waiver scoped to `DEMO-001`; waived items are reported as WAIVED and never override a BLOCK.
+- **DEMO-001 Gate 0 PASS (with 2 waivers) and requirements drafted** from the Books page; approver answered the questions in two rounds and approved the requirements and the test plan.
+- **Exploration and execution:** two sessions in the built-in browser covering add, quantity edge values, remove, two products, reload; cart left empty each time; no personal data entered.
