@@ -13,9 +13,31 @@ Newest entry first. Each entry: date, done, decisions, open items. Never write s
   - DEMO-001: new-session cart check inconclusive (BL-005); shipping estimate and checkout not run; F-01 and F-02 are reported defects, not fixed.
   - `qa-profile.yaml` has not been syntax-checked (no Python on this machine).
   - Security/legal approval for the Claude plan is pending (Pro personal plan: synthetic data only). Evidence retention, metrics, cost limits, CI undecided.
-  - Check `git status`; edits after the last commit may be uncommitted.
+  - Waiting for the user's web skill (BL-010); `manual-tester` has no browser tool yet.
+  - Check `git status`; edits after the last commit may be uncommitted (manual-tester gap review is not committed).
   - The user's account-level instructions (bilingual mode) were not visible in the Code session; a new session may load them.
 - **Key files to read:** `CLAUDE.md`, `qa-profile.yaml`, `docs/backlog/BACKLOG.md`, `workspace/DEMO-001/06-report.md`.
+
+## 2026-11-03: manual-tester gap review
+
+**Done**
+- Reviewed `manual-tester` as a tester. Updated `.claude/agents/manual-tester.md` (exploratory flow, run numbering, `BUG-###` defect IDs, evidence rule, request limits, API spec check, web-skill placeholder).
+- Templates: `test-case.md` (richer `api:` block, `environment`, `reviewed_by`, `review_date`), `execution-report.md` (run, tester, build, browser/OS, duration, severity scale, retest section), new `exploration-session.md`.
+- New `docs/test-environment.md` (credentials by env var name, API spec location, limits, evidence paths).
+- `.claude/settings.json`: added ask rules for `Invoke-WebRequest` and `Invoke-RestMethod` (Bash and PowerShell forms; the PowerShell rule syntax is not yet tested).
+
+**Decisions**
+- Web execution: the user will provide a skill; `tools:` of `manual-tester` unchanged until it is reviewed (BL-010).
+- Defect IDs: `BUG-###` (DEMO-001 keeps its `F-01` to `F-03` labels).
+- DEMO-001 `06-report.md` is treated as run-1.
+
+- Skills `playwright-best-practices` and `playwright-cli` installed in `.claude/skills/` by the user. Reviewed `playwright-cli`: removed its `allowed-tools` pre-approval from the copy, added `ask` rules for `playwright-cli` and `npx playwright` in `.claude/settings.json`, added `playwright-cli` rules to `manual-tester.md` Step 2.2. Not wired into the agent; the binary is not installed.
+
+- Skill update routine documented in `docs/test-environment.md` (section 5): update with `npx skills add ... --agent claude-code --copy`, not `npx skills update`. `.agents/` removed by the user; `skills-lock.json` kept (a dry-run restore confirmed it still tracks both skills).
+
+**Open items**
+- BL-006 waiver cleanup still blocks any new feature. BL-010: confirm the ask rule really prompts (a test command ran with no visible prompt), then decide on installing the binary and wiring the skill.
+- Changes are not committed.
 
 ## 2026-11-03: Phase 1 closed (scoped)
 

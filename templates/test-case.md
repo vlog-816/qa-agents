@@ -33,7 +33,10 @@ steps:
     expected: The user is taken to the home page
 expected_result: The user logs in successfully and sees the home page
 automation_candidate: yes   # yes | no
+environment: local          # a key or name from the plan; hosts only from data.allowed_hosts
 review_status: draft        # draft | in_review | approved | rejected (review state only)
+reviewed_by: ""             # human reviewer; empty until reviewed
+review_date: ""             # YYYY-MM-DD
 open_questions: []          # if not empty, stop and ask a human
 ```
 
@@ -43,7 +46,17 @@ Run results (Passed / Failed / Blocked / Not run) are **not** stored in the test
 
 ```yaml
 api:
+  spec_ref: inbox/api-spec.yaml#/paths/~1endpoint-name   # where the endpoint is defined
   method: POST
   endpoint: /endpoint-name
+  auth: none                    # none | basic | bearer | cookie (credentials only by env var name)
+  token_env: QA_TEST_TOKEN      # NAME of the environment variable; never the token itself
+  headers:
+    Content-Type: application/json
+  request_body:                 # fake data only
+    field: <fake value>
   expected_status: 200
+  expected_body:                # fields and types to check, not full real payloads
+    id: <number>
+  max_response_ms: 2000         # optional
 ```

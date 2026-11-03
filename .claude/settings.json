@@ -11,6 +11,15 @@
     ],
     "ask": [
       "Bash(curl *)",
+      "Bash(Invoke-WebRequest *)",
+      "Bash(Invoke-RestMethod *)",
+      "PowerShell(Invoke-WebRequest *)",
+      "PowerShell(Invoke-RestMethod *)",
+      "Bash(playwright-cli *)",
+      "Bash(npx playwright *)",
+      "Bash(npx --no-install playwright *)",
+      "PowerShell(playwright-cli *)",
+      "PowerShell(npx playwright *)",
       "Bash(git commit *)"
     ]
   }
