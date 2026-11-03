@@ -7,13 +7,13 @@ Newest entry first. Each entry: date, done, decisions, open items. Never write s
 - **Phase:** Phase 1 closed (scoped). Next options: test a new URL (web), test an API (BL-009), build `test-reviewer` (BL-002).
 - **Agents that exist:** `data-guard`, `manual-tester`. BA work is done by the main session. Browser steps run from the main session with the built-in browser (the `manual-tester` subagent has no browser).
 - **Active safety:** Gate 0 (Data Guard pre-run and post-run) and the user's approval prompts. **No host-enforcing hook is active**; a written, unreviewed version is parked in `docs/backlog/host-guard-hooks/` (BL-001).
-- **Profile:** `data_class: synthetic`; allowed hosts `localhost` and `demowebshop.tricentis.com`; `no_production_hosts: true`; Gate 0 waiver for `DEMO-001` only.
+- **Profile:** `data_class: synthetic`; allowed hosts `localhost` and `demowebshop.tricentis.com`; `no_production_hosts: true`; all Gate 0 confirmations true, no waiver (BL-006 done 2026-11-03).
 - **Still open:**
-  - Gate 0 waiver: remove `data.gate0_waivers`, then check and set `no_secrets_in_repo_confirmed` and `allowed_hosts_confirmed_non_production` to `true` (BL-006). Needed before any new feature.
+  - Revisit `no_production_hosts: true` as soon as a production host exists.
   - DEMO-001: new-session cart check inconclusive (BL-005); shipping estimate and checkout not run; F-01 and F-02 are reported defects, not fixed.
   - `qa-profile.yaml` has not been syntax-checked (no Python on this machine).
   - Security/legal approval for the Claude plan is pending (Pro personal plan: synthetic data only). Evidence retention, metrics, cost limits, CI undecided.
-  - Waiting for the user's web skill (BL-010); `manual-tester` has no browser tool yet.
+  - Web steps: `manual-tester` uses the `playwright-cli` skill through Bash (BL-010 done); run in Manual or Auto mode with one command per call, never Accept edits or Bypass.
   - Check `git status`; edits after the last commit may be uncommitted (manual-tester gap review is not committed).
   - The user's account-level instructions (bilingual mode) were not visible in the Code session; a new session may load them.
 - **Key files to read:** `CLAUDE.md`, `qa-profile.yaml`, `docs/backlog/BACKLOG.md`, `workspace/DEMO-001/06-report.md`.
@@ -44,7 +44,7 @@ Newest entry first. Each entry: date, done, decisions, open items. Never write s
 - BL-010 wired (user approved): `manual-tester.md` now lists `skills: playwright-cli` and Step 2.2 has the web rules (one command per call, allowed hosts, Chrome in-memory profile, no `run-code`/`eval`, Data Guard before and after, evidence in `evidence/run-<n>/`). Tested by running the `manual-tester` subagent (DEMO-001 run-3, Data Guard pre-run PASS with waivers): the `skills` field loaded the skill, and `open`, `screenshot`, `close` each prompted the user (confirmed). Evidence in `workspace/DEMO-001/evidence/run-3/` (Data Guard post-run PASS). Note: `open` writes a snapshot to `.playwright-cli/` on its own; copy it into evidence and delete the folder.
 
 **Open items**
-- BL-006 waiver cleanup still blocks any new feature. BL-010: browser download, a page test on an allowed host (needs Data Guard pre-run), then decide on wiring the skill (one command per call).
+- BL-006 done: the human set both Gate 0 confirmations to true and removed the waiver block; Data Guard pre-run gave a plain PASS (no waivers). Not scanned by this pre-run: the run-2 and run-3 evidence (both already passed post-run). Next options: test a new URL (web), test an API (BL-009), build `test-reviewer` (BL-002).
 - Changes are not committed.
 
 ## 2026-11-03: Phase 1 closed (scoped)
