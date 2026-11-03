@@ -4,8 +4,8 @@ Newest entry first. Each entry: date, done, decisions, open items. Never write s
 
 ## Current state (updated 2026-11-03)
 
-- **Phase:** Phase 1 closed (scoped). Next options: test a new URL (web), test an API (BL-009), build `test-reviewer` (BL-002).
-- **Agents that exist:** `data-guard`, `manual-tester`. BA work is done by the main session. Browser steps run from the main session with the built-in browser (the `manual-tester` subagent has no browser).
+- **Phase:** Phase 1 closed (scoped). DEMO-002 (Books page listing controls) run-2 done, all gates approved. Next options: test a new URL (web), test an API (BL-009), build `test-reviewer` (BL-002).
+- **Agents that exist:** `data-guard`, `manual-tester`. BA work is done by the main session. Web steps: `manual-tester` runs them through the `playwright-cli` skill (Bash, installed Chrome, in-memory profile); see `docs/test-environment.md`.
 - **Active safety:** Gate 0 (Data Guard pre-run and post-run) and the user's approval prompts. **No host-enforcing hook is active**; a written, unreviewed version is parked in `docs/backlog/host-guard-hooks/` (BL-001).
 - **Profile:** `data_class: synthetic`; allowed hosts `localhost` and `demowebshop.tricentis.com`; `no_production_hosts: true`; all Gate 0 confirmations true, no waiver (BL-006 done 2026-11-03).
 - **Still open:**
@@ -13,10 +13,21 @@ Newest entry first. Each entry: date, done, decisions, open items. Never write s
   - DEMO-001: new-session cart check inconclusive (BL-005); shipping estimate and checkout not run; F-01 and F-02 are reported defects, not fixed.
   - `qa-profile.yaml` has not been syntax-checked (no Python on this machine).
   - Security/legal approval for the Claude plan is pending (Pro personal plan: synthetic data only). Evidence retention, metrics, cost limits, CI undecided.
-  - Web steps: `manual-tester` uses the `playwright-cli` skill through Bash (BL-010 done); run in Manual or Auto mode with one command per call, never Accept edits or Bypass.
-  - Check `git status`; edits after the last commit may be uncommitted (manual-tester gap review is not committed).
+  - DEMO-002: Q2 (where 50.00 belongs), Q3 (order of Position and Created on), Q6 (message for an empty filter result; BUG-001, low) need the approver; reload and browser Back checks not done.
+  - Web steps: one command per call; `open`, `goto`, `tab-new`, `upload`, `drop` ask; `run-code`, `eval`, `install`, `attach` are denied; gap: a click on an external link does not ask (read the Page URL after each command).
+  - Check `git status`; edits after the last commit may be uncommitted (DEMO-002 and the permission changes are not committed).
   - The user's account-level instructions (bilingual mode) were not visible in the Code session; a new session may load them.
-- **Key files to read:** `CLAUDE.md`, `qa-profile.yaml`, `docs/backlog/BACKLOG.md`, `workspace/DEMO-001/06-report.md`.
+- **Key files to read:** `CLAUDE.md`, `qa-profile.yaml`, `docs/backlog/BACKLOG.md`, `docs/test-environment.md`, `workspace/DEMO-001/06-report.md`, `workspace/DEMO-002/06-report-run-2.md`.
+
+## 2026-11-03: DEMO-002 (Books page listing controls) started
+
+- New feature `DEMO-002` (same page as DEMO-001, `https://demowebshop.tricentis.com/books`, scope = list, sort, page size, view, price filter, which DEMO-001 left out). Data Guard pre-run: plain PASS.
+- Looked at the page with `playwright-cli` from the main session (open, screenshot, close; evidence in `workspace/DEMO-002/evidence/run-1/`). Drafted `workspace/DEMO-002/01-requirements.md` (REQ-001 to REQ-006, 5 open questions).
+- Requirements gate approved in chat ("use assumptions, approve"): Q1, Q4, Q5 by assumption; Q2, Q3 have no expectation (record actual behavior). Drafted `workspace/DEMO-002/03-test-plan.md` (5 exploratory charters, `playwright-cli`, read-only).
+- Test plan gate approved in chat ("Approve plan"). First exploration run was **stopped by the user** (too many approval prompts); partial screenshots kept in `workspace/DEMO-002/evidence/run-1-aborted/`, no notes or report.
+- Permission change (user decision "ask me when going to a URL"; then "you can input data"): `.claude/settings.json` now asks only for `open`, `goto`, `tab-new`, `upload` and `drop`; allows `click`, `select`, typing (`fill`, `type`, `press`), `snapshot`, `screenshot`, `close` (typed data must be fake; no submissions unless the plan lists them); denies `run-code`, `eval`, `install`, `attach`, `route`, `--persistent`, `--profile`. `eval` was blocked in a test. Known gap: a click on an external link would not ask (mitigation in `docs/test-environment.md`).
+- run-2 done by the `manual-tester` subagent (33 browser commands: 1 open, 2 goto, 15 select, 9 click, 5 screenshot, 1 close; page stayed on the allowed host per its report). Result: 5 charters, one low defect BUG-001 (empty result of the "25.00 - 50.00" filter has no message and hides the sort/display controls). Boundary check (Q2) not run: no product at 25.00 or 50.00. Q3 (Position, Created on order) and Q6 (message for an empty result) need the approver. Data Guard post-run: PASS. Leftover `.playwright-cli/` deleted by the main session. Files: `06-report-run-2.md`, `07-traceability.md`, `05-execution/session-1..5-notes.md`, `data-guard-report.md`.
+- Results gate approved in chat ("Approve results", 2026-11-03). Still open (not answered, kept as "needs approver decision"): Q2 (where 50.00 belongs; no boundary product exists), Q3 (order of Position and Created on), Q6 (message for an empty filter result; BUG-001 stays a recorded low defect), CH-04 counted Passed. Follow-ups not done: reload and browser Back checks, retest of BUG-001 after a decision.
 
 ## 2026-11-03: manual-tester gap review
 
