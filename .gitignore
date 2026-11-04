@@ -6,6 +6,11 @@ workspace/**/screenshots/
 inbox/*
 !inbox/.gitkeep
 
+# Playwright test output (traces and screenshots go to workspace/**/evidence/, which is ignored above)
+test-results/
+playwright-report/
+blob-report/
+
 # Local tool installs and tool scratch output
 node_modules/
 .playwright-cli/

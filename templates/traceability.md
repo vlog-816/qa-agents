@@ -4,7 +4,7 @@
 - Updated:
 - Source files: `01-requirements.md`, `04-test-cases.md`, `06-report.md`
 
-How to use: one row per test case. Every REQ must appear in at least one row. Results come from the execution report, not from the test case file. Add the `script` column only after the automation phase.
+How to use: one row per test case. Every REQ must appear in at least one row. Results come from the execution report, not from the test case file. Fill the `Script` column only after the automation phase (path of the script, or "not automated" with the reason); the `automation-tester` does this.
 
 ## Test case to requirement to result
 

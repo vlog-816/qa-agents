@@ -5,7 +5,7 @@ Newest entry first. Each entry: date, done, decisions, open items. Never write s
 ## Current state (updated 2026-11-03)
 
 - **Phase:** Phase 1 closed (scoped). DEMO-002 (Books page listing controls) run-2 done, all gates approved. Next options: test a new URL (web), test an API (BL-009), build `test-reviewer` (BL-002).
-- **Agents that exist:** `data-guard`, `manual-tester`. BA work is done by the main session. Web steps: `manual-tester` runs them through the `playwright-cli` skill (Bash, installed Chrome, in-memory profile); see `docs/test-environment.md`.
+- **Agents that exist:** `data-guard`, `manual-tester`, `automation-tester` (defined 2026-11-04, not yet used, BL-012). BA work is done by the main session. Web steps: `manual-tester` runs them through the `playwright-cli` skill (Bash, installed Chrome, in-memory profile); see `docs/test-environment.md`.
 - **Active safety:** Gate 0 (Data Guard pre-run and post-run) and the user's approval prompts. **No host-enforcing hook is active**; a written, unreviewed version is parked in `docs/backlog/host-guard-hooks/` (BL-001).
 - **Profile:** `data_class: synthetic`; allowed hosts `localhost` and `demowebshop.tricentis.com`; `no_production_hosts: true`; all Gate 0 confirmations true, no waiver (BL-006 done 2026-11-03).
 - **Still open:**
@@ -18,6 +18,13 @@ Newest entry first. Each entry: date, done, decisions, open items. Never write s
   - Check `git status`; edits after the last commit may be uncommitted (DEMO-002 and the permission changes are not committed).
   - The user's account-level instructions (bilingual mode) were not visible in the Code session; a new session may load them.
 - **Key files to read:** `CLAUDE.md`, `qa-profile.yaml`, `docs/backlog/BACKLOG.md`, `docs/test-environment.md`, `workspace/DEMO-001/06-report.md`, `workspace/DEMO-002/06-report-run-2.md`.
+
+## 2026-11-04: automation-tester agent defined
+
+- Created `.claude/agents/automation-tester.md` (Read, Grep, Glob, Write, Bash): preconditions (Data Guard PASS, results gate approved, approved Passed neutral test cases), then gates for selection and code review, then runs, then traceability and results gate. Scripts follow the standard Playwright layout (user decision: "follow the Playwright instruction", for CI/CD): `playwright.config.ts` at the root, specs in `tests/<feature-id>/`, helpers in `tests/helpers/`; reviews and results in `workspace/<feature-id>/07-automation/`; run evidence copied to `evidence/automation-run-<n>/`.
+- Added `templates/automation-review.md`, `docs/test-environment.md` section 6, git-ignore lines for Playwright output, BL-012 in the backlog, and the agent in `CLAUDE.md` status.
+- Decisions: script location = standard Playwright layout (corrected by the user; my first reading, `automation/playwright/`, was wrong); browser = Playwright's default, its own bundled Chromium (confirmed by the user 2026-11-04; the shared cache `%LOCALAPPDATA%\ms-playwright` already holds several Chromium builds); pilot input = DEMO-002 candidates; session depth = agent and docs only.
+- Not done: nothing installed, no script written or run. DEMO-002 has no neutral test cases yet (exploratory), so the first pilot step is writing them with the `manual-tester` (BL-012).
 
 ## 2026-11-03: DEMO-002 (Books page listing controls) started
 
