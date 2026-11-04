@@ -32,7 +32,7 @@ Testing agents read and operate on real applications, so they may see personal d
 
 Human-only items (Claude plan approved, test account, no secrets in repo, allowed hosts are non-production) are recorded by a person in `data.gate0_confirmations`. For a pilot, the approver may waive the last two for one named feature via `data.gate0_waivers`; waivers are reported as WAIVED and must be removed after the pilot. Data Guard reads them but never fills them in. If any is empty, the verdict is HOLD.
 
-Gate 0 is always `required` and is never relaxed.
+Since 2026-11-05 the Data Guard check of this list is optional (the user asks for it). The checklist stays as guidance, and agents still only use hosts in `allowed_hosts` and never put real data or secrets in files or chat.
 
 ## 4. Rules for agents
 
@@ -56,7 +56,7 @@ Data retention and usage terms depend on the plan type (personal or commercial) 
 
 - Screenshots and raw responses are stored in `workspace/<feature-id>/evidence/` (gitignored, never committed).
 - Reports use only masked values and reference evidence by path.
-- Before sharing (Jira, email, chat): run Data Guard in `post-run` mode. A `BLOCK` result means do not share.
+- Before sharing (Jira, email, chat): running Data Guard in `post-run` mode is optional (since 2026-11-05; the user asks for it). If it is run, a `BLOCK` result means do not share.
 - Data Guard opens screenshots only when `data_class` is `synthetic` or `masked`. For `real` or unknown data, images are not opened by the AI and need human review.
 - Evidence retention period: ______ (to be confirmed by security).
 

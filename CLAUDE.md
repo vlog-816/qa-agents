@@ -10,8 +10,8 @@ This repository is the foundation for an extensible AI testing team (BA, Manual 
 
 ## Rules for every session
 
-- Before any test run, run the `data-guard` subagent in `pre-run` mode. Do not proceed on HOLD or BLOCK.
-- Never access a host outside `data.allowed_hosts` in `qa-profile.yaml`. Never touch production.
+- Data Guard is optional (decision 2026-11-05): run the `data-guard` subagent only when the user asks. Before any test run, just check that the host is in `data.allowed_hosts`; otherwise stop and ask. Create synthetic test data freely.
+- Never access a host outside `data.allowed_hosts` in `qa-profile.yaml`. 
 - Never copy real personal data, passwords or tokens into any file, report, ticket or chat. Use masked values.
 - If anything is unclear or uncertain, stop and ask. List it under "Open questions" instead of guessing.
 - Write generated content in the language set by `language` in `qa-profile.yaml` (`vi`, `en` or `bilingual`). Keep keys, IDs and field names in English.

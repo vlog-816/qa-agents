@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli *)"
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli *)",
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli open *)",
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli goto *)"
     ],
     "deny": [
       "Read(./.env)",
@@ -33,8 +35,6 @@
       "Bash(npx playwright-cli *)",
       "PowerShell(npx playwright-cli *)",
       "Bash(npx --prefix tools/playwright-cli *)",
-      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli open *)",
-      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli goto *)",
       "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli tab-new *)",
       "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli upload *)",
       "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli drop *)",

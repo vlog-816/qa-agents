@@ -6,7 +6,7 @@ Newest entry first. Each entry: date, done, decisions, open items. Never write s
 
 - **Phase:** Phase 1 closed (scoped). DEMO-002 (Books page listing controls) run-2 done, all gates approved. Next options: test a new URL (web), test an API (BL-009), build `test-reviewer` (BL-002).
 - **Agents that exist:** `data-guard`, `manual-tester`, `automation-tester` (first used 2026-11-04: 4 Playwright specs for DEMO-002 written, reviewed, run and approved; BL-012 in progress). BA work is done by the main session. Web steps: `manual-tester` runs them through the `playwright-cli` skill (Bash, installed Chrome, in-memory profile); see `docs/test-environment.md`.
-- **Active safety:** Gate 0 (Data Guard pre-run and post-run) and the user's approval prompts. **No host-enforcing hook is active**; a written, unreviewed version is parked in `docs/backlog/host-guard-hooks/` (BL-001).
+- **Active safety:** allowed-hosts check and the user's approval prompts. Data Guard is optional since 2026-11-05 (runs only when the user asks). **No host-enforcing hook is active**; a written, unreviewed version is parked in `docs/backlog/host-guard-hooks/` (BL-001).
 - **Profile:** `data_class: synthetic`; allowed hosts `localhost` and `demowebshop.tricentis.com`; `no_production_hosts: true`; all Gate 0 confirmations true, no waiver (BL-006 done 2026-11-03).
 - **Still open:**
   - Revisit `no_production_hosts: true` as soon as a production host exists.
@@ -26,12 +26,62 @@ Newest entry first. Each entry: date, done, decisions, open items. Never write s
 - Looked at the page read-only with `playwright-cli` (open, screenshot, close); the page prints its practice credentials, so the screenshot, the snapshot and `.playwright-cli/` were **deleted** (nothing kept in `evidence/`; the structure was read with the credential lines filtered out). Drafted `workspace/DEMO-004/01-requirements.md` (REQ-001 observed, REQ-002 happy case assumed, 3 open questions). **Waiting:** requirements gate (approver).
 - Requirements gate approved ("Use assumptions, approve", 2026-11-04). Drafted `workspace/DEMO-004/03-test-plan.md` (scripted, one case, human-run credential step) and `workspace/DEMO-004/04-test-cases.md` (TC-001, credentials only as variable names, `review_status: draft`). **Waiting:** test plan gate and review of TC-001.
 
+## 2026-11-04: DEMO-004 scope extension: wrong or unknown credentials (draft)
+
+- The user asked for the manual tester to write more login test cases, then the automation tester to code them. Selected scope: **wrong or unknown credentials** only (not empty fields, secure page without login, logout, masked field). Extended `workspace/DEMO-004/01-requirements.md` with **REQ-003** (unknown username) and **REQ-004** (wrong password for the test user), draft, assumed (error messages from general knowledge, not observed), open questions Q4 to Q6; invalid values are generated at run time by the script and never stored. REQ-003 and REQ-004 were then approved with assumptions ("Use assumptions, approve"); the `manual-tester` wrote **TC-002** (unknown username) and **TC-003** (wrong password for `QA_TEST_USER`) as drafts in `04-test-cases.md` and amended `03-test-plan.md`. (The subagent used Bash once to append the file and ran one pointless `python3` command, against my instruction to use only Read/Write; neither touched the network or credentials.) **Waiting:** the approver for the plan amendment and TC-002/TC-003. Next (old note): `manual-tester` writes TC-002 and TC-003 (review), then `automation-tester` selection, code review, then the human runs the script.
+
 ## 2026-11-04: DEMO-004 automation: code approved, waiting for the human run
 
 - Test plan, TC-001 and the automation selection were approved ("Approve plan and case", "Approve selection"; accepted A1: no earlier Passed run, the human's first run is the first real execution; A2: the human runs the credential step and reports only non-secret details; per-spec host list; loose success check first).
 - `automation-tester` wrote `tests/DEMO-004/tc-001.spec.ts` (reads `QA_TEST_USER` and `QA_TEST_PASSWORD`, fail-fast, no defaults, no logging, sanitized error wrapper, trace/screenshot/video off) and changed `tests/helpers/host-guard.ts` (per-spec `allowedHosts` option, default demowebshop; DEMO-002 specs unchanged). `--list`: 5 tests load. Code review gate approved ("Approve code"). No test has been run; the AI never types the credentials.
 - **Waiting for the human:** set the two variables in their own PowerShell (`workspace/DEMO-004/07-automation/01-review.md`, "How the human runs it"), run `npx --no-install playwright test tests/DEMO-004/tc-001.spec.ts --project=chromium`, delete `test-results/` and `playwright-report/`, and report only pass/fail and the non-secret success text. Then: record the result, Data Guard post-run, results gate.
 - DEMO-003 (demo shop login) and FEAT-001 (own Vercel app, Data Guard BLOCK) stay paused.
+
+## 2026-11-05: DEMO-005 code approved, waiting for the human run
+
+- Code review approved ("Approve code"); loose checks accepted for the first run, to be tightened afterwards. **Waiting for the user:** set `no_production_hosts: false` in `qa-profile.yaml`; create the dedicated test account; set `QA_TEST_USER` and `QA_TEST_PASSWORD` in their own PowerShell; then run one spec per command in the order TC-002, TC-003, TC-001 (`npx --no-install playwright test tests/DEMO-005/<file> --project=chromium`), once each, deleting `test-results/` and `playwright-report/` after each, and report only pass/fail and non-secret text. Then: results file, traceability, optional Data Guard, results gate. Nothing committed.
+
+## 2026-11-05: DEMO-005 specs written (code review stage)
+
+- Selection approved ("Approve with recommendations"). `automation-tester` wrote `tests/helpers/email-login-page.ts`, `tests/DEMO-005/tc-001..003.spec.ts` and `workspace/DEMO-005/07-automation/01-review.md`; `--list` shows 10 tests; DEMO-004 files and `login-page.ts` unchanged; it ran nothing else. I read the code: `QA_TEST_PASSWORD` is only used in TC-001, random values stay in memory, trace/screenshot/video off, wrapper hides fill/click errors. Weak spots: the error check in TC-002/TC-003 accepts any new visible text (false pass possible, e.g. a loading text); TC-001 success check only needs the URL to leave `/login`. **Waiting:** code review approval. Still the user's before any run: `no_production_hosts: false`, the dedicated test account, the two env vars.
+
+## 2026-11-05: DEMO-005 automation selection written, waiting for approval
+
+- `automation-tester` wrote `workspace/DEMO-005/07-automation/00-selection.md` (TC-001 to TC-003 selected; TC-004 to TC-006 skipped as withdrawn; assumptions A1 to A4; risks R1 to R8; 10 questions with recommended answers; recommends a second helper `tests/helpers/email-login-page.ts` and specs in `tests/DEMO-005/`). It ran nothing. I checked: no email or password value in the file. **Waiting:** selection approval. Still the user's before any run: `no_production_hosts: false`, the test account and the two env vars. `CLAUDE.md` no longer says "Never touch production" (user edit).
+
+## 2026-11-05: DEMO-005 production smoke test approved, automation selection next
+
+- The user approved the production smoke-test amendment ("Approve amendment"). TC-004 to TC-006 are marked `withdrawn` in `04-test-cases.md`; TC-001 to TC-003 now have `automation_candidate: yes` (the human runs the script). Checked: `qa-profile.yaml` still has `no_production_hosts: true` and `CLAUDE.md` still says "Never touch production"; no test account or env vars confirmed yet. **These stay the user's to do before any run.** Next: the automation tester writes the selection only (no code, no run), then stops at the selection gate.
+
+## 2026-11-05: DEMO-005 switched to a production smoke test
+
+- The user needs to test the login on the live host (no test label) and chose "production smoke test: form shown, valid login, wrong password rejected". Explained the limits: project rules (`CLAUDE.md`, `qa-profile.yaml`) are the user's to change; the assistant still does not create accounts or type credentials on a real service, so a human creates one dedicated test account and runs the specs with their own env vars.
+- Added "Amendment 2026-11-05 (production smoke test)" to `workspace/DEMO-005/03-test-plan.md`: it replaces the registration amendment (TC-004 to TC-006 withdrawn, each could create a real account); TC-001 to TC-003 stay. **Waiting:** the user edits `qa-profile.yaml` and `CLAUDE.md` for this host (`no_production_hosts: false`, allow this one host), creates the test account, sets `QA_TEST_USER`/`QA_TEST_PASSWORD`, and approves the amendment. Then: automation selection, code, human run, report. Nothing committed.
+
+## 2026-11-05: DEMO-005 test data and registration (REQ-005, REQ-006 draft)
+
+- The user asked the manual tester to "create test data"; chosen: a test data sheet plus registration cases. The assistant still cannot sign up or type credentials on this host (no test label); the user creates the real test account on `/register` and sets `QA_TEST_USER`/`QA_TEST_PASSWORD`.
+- Read-only look at `/register` (nothing typed; evidence in `workspace/DEMO-005/evidence/run-1/`): fields Full Name, Email, Password, button "Create Account", link "Sign in". Added REQ-005 (observed) and REQ-006 (assumed) and Q5 to Q7 to `01-requirements.md`. REQ-005 and REQ-006 approved ("Use assumptions, approve"). `manual-tester` wrote `02-test-data.md` (rules only), TC-004 to TC-006 (draft; typing steps `run_by: human`) and an amendment in `03-test-plan.md`. It rewrote the two files in full (no Edit tool); I checked that TC-001 to TC-003 and the earlier approval are still approved and that no email or password value appears. New open items: Q8 (keep or delete the account TC-004 creates; assumed: keep, the human decides); empty field and long value data sets have no TC. **Waiting:** approval of the amendment, TC-004 to TC-006 and `02-test-data.md`.
+
+## 2026-11-05: DEMO-005 (login of the user's Vercel app) started
+
+- The user added `vlog-ai-powered-assistant.vercel.app` to `allowed_hosts` and chose feature ID DEMO-005. Read-only look at `/login` with `playwright-cli` (open, snapshot, screenshot, close; nothing typed); evidence in `workspace/DEMO-005/evidence/run-1/` (the page shows no credentials). Drafted `workspace/DEMO-005/01-requirements.md` (REQ-001 observed; REQ-002 to REQ-004 assumed; Q1 to Q4).
+- The host name has no test label, so the assistant does not type credentials there; the human does from their own env vars.
+- Requirements approved ("Use assumptions, approve"; REQ-004 empty fields out of scope). `manual-tester` wrote `03-test-plan.md` and `04-test-cases.md` (TC-001 valid login, TC-002 unknown email, TC-003 wrong password; typing steps `run_by: human`; credentials only as `QA_TEST_USER` / `QA_TEST_PASSWORD` names; `automation_candidate: no`). Its open question Q-A (host missing from `allowed_hosts`) is stale: the host is on line 15 of `qa-profile.yaml`. Plan and TC-001 to TC-003 approved 2026-11-05 ("Use assumptions, approve"). **Waiting:** the run: the user must set the two env vars and choose how it runs (human types in own browser, or a human-run Playwright spec).
+
+## 2026-11-05: Data Guard made optional (simpler flow)
+
+- The user found the flow too long and said the tester agents must be free to create test data. Decision: the mandatory Data Guard pre-run and post-run are removed; Data Guard runs only when the user asks. Kept: agents use only hosts in `data.allowed_hosts`, never production, never put real data or secrets in files or chat, humans type credentials on third-party sites, and the approval gates in `qa-profile.yaml` (not changed yet; the user may relax them next).
+- Edited: `CLAUDE.md`, `.claude/agents/manual-tester.md`, `.claude/agents/automation-tester.md`, `docs/data-policy.md`, `templates/execution-report.md`. `data-guard.md` is unchanged. Not committed.
+- DEMO-004: the human run of TC-002, TC-003, TC-001 is still waiting; the Data Guard post-run step is now optional.
+- Credentials rule by target (user wanted the agent to type): own app on `localhost` or a named staging/dev/test host, the manual tester may type test values; third-party sites unchanged (a human types from env vars). Edited `docs/test-environment.md` (section 1), `manual-tester.md`, `automation-tester.md`. Gates: the user chose to keep all of them (`qa-profile.yaml` unchanged).
+- Fewer prompts (user: "too many prompts"): in `.claude/settings.json`, `playwright-cli open` and `goto` moved from `ask` to `allow`; `tab-new`, `upload`, `drop`, `curl`, `Invoke-*`, `npx playwright *`, `git commit` still ask; all `deny` rules kept. Trade-off: no prompt shows the URL before it loads; the barriers are `allowed_hosts`, the agent's Page URL check and the human-run credential rule. All six gates kept `required` (user decision). Not committed.
+
+## 2026-11-04: DEMO-004 TC-002 and TC-003 coded and approved, waiting for the human run
+
+- Plan amendment and TC-002/TC-003 approved; selection amendment approved; Data Guard pre-run for the amended scope PASS (advisories: possible lockout/throttling, site terms unverified, `QA_TEST_USER` may be a shared public account, keep volume low, no retries).
+- `automation-tester` wrote `tests/helpers/login-page.ts`, `tests/DEMO-004/tc-002.spec.ts`, `tc-003.spec.ts`; `--list` shows 7 tests. I read the code: `QA_TEST_PASSWORD` is not used in TC-002/TC-003, random values stay in memory, trace/screenshot/video off. Code review gate approved ("ok").
+- **Waiting for the human:** run TC-002, TC-003, then TC-001, one spec per command, delete `test-results/` and `playwright-report/` after each, report only pass/fail and non-secret text. Then: results record, traceability, Data Guard post-run, results gate.
 
 ## 2026-11-04: FEAT-001 (login of the user's own app) BLOCKED by Data Guard
 

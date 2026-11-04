@@ -8,8 +8,8 @@
 - Browser / OS (web only):
 - Run date:
 - Duration:
-- Data Guard pre-run: PASS | HOLD | BLOCK
-- Data Guard post-run: PASS | HOLD | BLOCK
+- Data Guard pre-run (optional): PASS | HOLD | BLOCK | not run
+- Data Guard post-run (optional): PASS | HOLD | BLOCK | not run
 
 ## Summary
 
