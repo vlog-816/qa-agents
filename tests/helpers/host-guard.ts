@@ -3,21 +3,32 @@ import { test as base, expect } from '@playwright/test';
 /**
  * Host guard.
  *
- * ALLOWED_HOSTS must be a SUBSET of data.allowed_hosts in qa-profile.yaml.
- * That list holds "localhost" and "demowebshop.tricentis.com". This pilot
- * uses only "demowebshop.tricentis.com"; "localhost" is allowed in the
- * profile but is NOT used here, so it is not listed.
+ * Every allowed-host list (this default and any per-spec `allowedHosts`
+ * option) must be a SUBSET of data.allowed_hosts in qa-profile.yaml.
+ * That list holds "localhost", "demowebshop.tricentis.com" and
+ * "the-internet.herokuapp.com". "localhost" is allowed in the profile but is
+ * NOT used here, so it is not listed.
  *
- * Every http/https request to another host is aborted. Aborted requests
- * (for example third-party fonts or analytics) are recorded and attached to
- * the test; they never fail a test (approved by the user, 2026-11-04).
- * Requests without a network host (data:, blob:, about:) are not network
- * requests and are not routed by the browser context.
+ * Default list (used when a spec does not set its own): the demo shop only.
+ * A spec can narrow or switch the list with:
+ *   test.use({ baseURL: 'https://...', allowedHosts: ['...'] });
+ *
+ * Every http/https request to a host outside the list is aborted. Aborted
+ * requests (for example third-party fonts or analytics) are recorded and
+ * attached to the test; they never fail a test (approved by the user,
+ * 2026-11-04). Requests without a network host (data:, blob:, about:) are
+ * not network requests and are not routed by the browser context.
  */
-export const ALLOWED_HOSTS: readonly string[] = ['demowebshop.tricentis.com'];
+export const DEFAULT_ALLOWED_HOSTS: string[] = ['demowebshop.tricentis.com'];
 
-export function isAllowedHost(hostname: string): boolean {
-  return ALLOWED_HOSTS.includes(hostname.toLowerCase());
+/** Kept for backward compatibility: the default list. */
+export const ALLOWED_HOSTS: readonly string[] = DEFAULT_ALLOWED_HOSTS;
+
+export function isAllowedHost(
+  hostname: string,
+  hosts: readonly string[] = ALLOWED_HOSTS,
+): boolean {
+  return hosts.map((h) => h.toLowerCase()).includes(hostname.toLowerCase());
 }
 
 type Fixtures = {
@@ -26,23 +37,29 @@ type Fixtures = {
   hostGuard: void;
 };
 
-export const test = base.extend<Fixtures>({
+type Options = {
+  /** Hosts this spec may reach. Must be a subset of data.allowed_hosts. */
+  allowedHosts: string[];
+};
+
+export const test = base.extend<Fixtures & Options>({
+  allowedHosts: [DEFAULT_ALLOWED_HOSTS, { option: true }],
+
   blockedRequests: async ({}, use) => {
     await use([]);
   },
 
   hostGuard: [
-    async ({ context, blockedRequests }, use, testInfo) => {
-      // Second barrier: the configured baseURL must itself be an allowed host.
-      const baseURL = testInfo.project.use.baseURL;
-      if (!baseURL || !isAllowedHost(new URL(baseURL).hostname)) {
-        throw new Error('baseURL is missing or its host is not in ALLOWED_HOSTS');
+    async ({ context, blockedRequests, allowedHosts, baseURL }, use, testInfo) => {
+      // Second barrier: the effective baseURL must itself be an allowed host.
+      if (!baseURL || !isAllowedHost(new URL(baseURL).hostname, allowedHosts)) {
+        throw new Error('baseURL is missing or its host is not in the allowed hosts list');
       }
 
       await context.route('**/*', async (route) => {
         const url = new URL(route.request().url());
         const isNetwork = url.protocol === 'http:' || url.protocol === 'https:';
-        if (isNetwork && !isAllowedHost(url.hostname)) {
+        if (isNetwork && !isAllowedHost(url.hostname, allowedHosts)) {
           blockedRequests.push(url.hostname);
           await route.abort('blockedbyclient');
           return;

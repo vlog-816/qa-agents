@@ -19,6 +19,33 @@ Newest entry first. Each entry: date, done, decisions, open items. Never write s
   - The user's account-level instructions (bilingual mode) were not visible in the Code session; a new session may load them.
 - **Key files to read:** `CLAUDE.md`, `qa-profile.yaml`, `docs/backlog/BACKLOG.md`, `docs/test-environment.md`, `workspace/DEMO-001/06-report.md`, `workspace/DEMO-002/06-report-run-2.md`.
 
+## 2026-11-04: DEMO-004 (login on the-internet.herokuapp.com) started
+
+- User chose `https://the-internet.herokuapp.com/login` (third-party practice site) after FEAT-001 was blocked; the user edited `qa-profile.yaml` (host added to `allowed_hosts`, the Vercel host removed). Data Guard pre-run: **PASS**, no waivers (`workspace/DEMO-004/00-data-gate.md`, with credential conditions).
+- Explained again: agents cannot type a password into a third-party site's form (even a published practice password); the human runs the credential step from their own environment variables `QA_TEST_USER` and `QA_TEST_PASSWORD`.
+- Looked at the page read-only with `playwright-cli` (open, screenshot, close); the page prints its practice credentials, so the screenshot, the snapshot and `.playwright-cli/` were **deleted** (nothing kept in `evidence/`; the structure was read with the credential lines filtered out). Drafted `workspace/DEMO-004/01-requirements.md` (REQ-001 observed, REQ-002 happy case assumed, 3 open questions). **Waiting:** requirements gate (approver).
+- Requirements gate approved ("Use assumptions, approve", 2026-11-04). Drafted `workspace/DEMO-004/03-test-plan.md` (scripted, one case, human-run credential step) and `workspace/DEMO-004/04-test-cases.md` (TC-001, credentials only as variable names, `review_status: draft`). **Waiting:** test plan gate and review of TC-001.
+
+## 2026-11-04: DEMO-004 automation: code approved, waiting for the human run
+
+- Test plan, TC-001 and the automation selection were approved ("Approve plan and case", "Approve selection"; accepted A1: no earlier Passed run, the human's first run is the first real execution; A2: the human runs the credential step and reports only non-secret details; per-spec host list; loose success check first).
+- `automation-tester` wrote `tests/DEMO-004/tc-001.spec.ts` (reads `QA_TEST_USER` and `QA_TEST_PASSWORD`, fail-fast, no defaults, no logging, sanitized error wrapper, trace/screenshot/video off) and changed `tests/helpers/host-guard.ts` (per-spec `allowedHosts` option, default demowebshop; DEMO-002 specs unchanged). `--list`: 5 tests load. Code review gate approved ("Approve code"). No test has been run; the AI never types the credentials.
+- **Waiting for the human:** set the two variables in their own PowerShell (`workspace/DEMO-004/07-automation/01-review.md`, "How the human runs it"), run `npx --no-install playwright test tests/DEMO-004/tc-001.spec.ts --project=chromium`, delete `test-results/` and `playwright-report/`, and report only pass/fail and the non-secret success text. Then: record the result, Data Guard post-run, results gate.
+- DEMO-003 (demo shop login) and FEAT-001 (own Vercel app, Data Guard BLOCK) stay paused.
+
+## 2026-11-04: FEAT-001 (login of the user's own app) BLOCKED by Data Guard
+
+- The user asked for the manual tester to create fake accounts and type credentials itself, then chose their own app `https://vlog-ai-powered-assistant.vercel.app/login` ("own app, test only, no real users or data"); the user added the host to `data.allowed_hosts`. Explained: agents may type credentials only on `localhost` or a host whose name labels a test environment (staging, qa, dev, sandbox, preview); this bare `*.vercel.app` host has no label, so the human would create the account and run the login step.
+- Data Guard pre-run for FEAT-001: **BLOCK** (`workspace/FEAT-001/00-data-gate.md`): a bare `*.vercel.app` address is normally a production alias, it cannot be told apart from production from files, a chat declaration cannot override a BLOCK. No browser command was run on this host. Ways to PASS: a clearly non-production host (separate Vercel test project, a distinct preview deployment, `localhost`), or file-based proof of the environment, re-confirm Gate 0 for FEAT-001, then a new pre-run. Waiting for the user's choice.
+- DEMO-003 (demo shop login) stays paused; its requirements draft exists.
+
+## 2026-11-04: DEMO-003 (login happy case) started
+
+- Flow check requested by the user: URL `https://demowebshop.tricentis.com/login`, feature `DEMO-003`, "only the login page, happy case". Data Guard pre-run: PASS, no waivers; `00-data-gate.md` includes credential conditions C1 to C8.
+- Safety decision: I do not create the account, type or store the password. The human creates a test account and keeps the credentials only as environment variables `QA_TEST_USER` and `QA_TEST_PASSWORD`; the human runs the script in their own terminal. (The user had asked me to create and save the account; told that I cannot.)
+- Looked at the login page with `playwright-cli` (read-only: open, screenshot, close; evidence in `workspace/DEMO-003/evidence/run-1/`) and drafted `workspace/DEMO-003/01-requirements.md` (REQ-001 observed; REQ-002 happy case assumed, 4 open questions). **Waiting:** the approver for the requirements gate (answer Q1 to Q4 or accept the assumptions).
+- Slip: part of this was started while the session was in plan mode (global `defaultMode` is now `plan`); I created one empty folder before noticing; no harm.
+
 ## 2026-11-04: automation-tester agent defined
 
 - Created `.claude/agents/automation-tester.md` (Read, Grep, Glob, Write, Bash): preconditions (Data Guard PASS, results gate approved, approved Passed neutral test cases), then gates for selection and code review, then runs, then traceability and results gate. Scripts follow the standard Playwright layout (user decision: "follow the Playwright instruction", for CI/CD): `playwright.config.ts` at the root, specs in `tests/<feature-id>/`, helpers in `tests/helpers/`; reviews and results in `workspace/<feature-id>/07-automation/`; run evidence copied to `evidence/automation-run-<n>/`.

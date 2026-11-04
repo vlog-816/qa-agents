@@ -11,6 +11,7 @@ data:
   allowed_hosts:               # staging or local only
     - localhost                # pilot app: restful-booker-platform running locally
     - demowebshop.tricentis.com   # public demo shop for practice (web only). Use fake data only.
+    - the-internet.herokuapp.com
   no_production_hosts: true    # HUMAN DECLARATION: no production host exists to block (pilot with demo/local targets only). Set to false and fill blocked_hosts as soon as a production host exists.
   blocked_hosts: []            # production, never test. Must list production hosts unless no_production_hosts is true.
 
