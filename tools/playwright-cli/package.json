@@ -1,0 +1,8 @@
+{
+  "name": "playwright-cli-tools",
+  "private": true,
+  "description": "Interactive browsing tool for the manual-tester. Kept apart from the root project because it pins a pre-release Playwright, while the CI test runner uses a stable version.",
+  "devDependencies": {
+    "@playwright/cli": "0.1.23"
+  }
+}

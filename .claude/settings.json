@@ -1,7 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx --no-install playwright-cli *)"
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli *)"
     ],
     "deny": [
       "Read(./.env)",
@@ -11,13 +11,13 @@
       "Bash(git push *)",
       "Bash(rm -rf *)",
       "Bash(sudo *)",
-      "Bash(npx --no-install playwright-cli run-code *)",
-      "Bash(npx --no-install playwright-cli eval *)",
-      "Bash(npx --no-install playwright-cli install *)",
-      "Bash(npx --no-install playwright-cli attach *)",
-      "Bash(npx --no-install playwright-cli route *)",
-      "Bash(npx --no-install playwright-cli * --persistent*)",
-      "Bash(npx --no-install playwright-cli * --profile*)"
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli run-code *)",
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli eval *)",
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli install *)",
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli attach *)",
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli route *)",
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli * --persistent*)",
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli * --profile*)"
     ],
     "ask": [
       "Bash(curl *)",
@@ -32,11 +32,12 @@
       "PowerShell(npx playwright *)",
       "Bash(npx playwright-cli *)",
       "PowerShell(npx playwright-cli *)",
-      "Bash(npx --no-install playwright-cli open *)",
-      "Bash(npx --no-install playwright-cli goto *)",
-      "Bash(npx --no-install playwright-cli tab-new *)",
-      "Bash(npx --no-install playwright-cli upload *)",
-      "Bash(npx --no-install playwright-cli drop *)",
+      "Bash(npx --prefix tools/playwright-cli *)",
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli open *)",
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli goto *)",
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli tab-new *)",
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli upload *)",
+      "Bash(npx --no-install --prefix tools/playwright-cli playwright-cli drop *)",
       "Bash(git commit *)"
     ]
   }
