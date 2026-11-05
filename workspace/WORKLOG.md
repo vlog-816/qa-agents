@@ -20,6 +20,18 @@ Newest entry first: date, done, decisions, open items. No secrets or real data. 
 - The install steps in `README.md` (Getting started, step 4) were written from the docs and not run.
 - Not committed yet (the user commits): `README.md`, `workspace/WORKLOG.md`, `.claude/rules/commits.md`.
 
+## 2026-11-05: Performance and security testing allowed
+
+- New rule `.claude/rules/performance-and-security-testing.md`: allowed on the user's own hosts (`localhost`, `assistant-qa-staging.vercel.app`) under an approved plan, one run per approval, stop conditions, no destructive actions; never on the public practice sites. `docs/test-environment.md` section 3 and BL-011 updated. No tool chosen or installed yet. Not committed.
+
+## 2026-11-05: Ideas from three public testing pages
+
+- Read three public agent prompts (Evidence Collector, Reality Checker, Workflow Optimizer); no license, no tools, nothing installed or copied. Took ideas in our own words: screenshot proves looks not behavior, zero findings is valid with stated scope, three window sizes (`exploratory-testing` skill); "Covered and not tested" section in `templates/execution-report.md`; evidence cross-check idea noted in BL-002. Not taken: default NEEDS WORK and grades, their scripts, fixed targets. Not committed.
+
+## 2026-11-05: Exploratory skill
+
+- New skill `.claude/skills/exploratory-testing/SKILL.md` (tours, input and navigation ideas, what to watch, how to judge, `FIND-###` format, stop rules; no `allowed-tools` line). `.claude/rules/exploratory.md` points to it. Not committed.
+
 ## 2026-11-05: Exploratory rule
 
 - New rule `.claude/rules/exploratory.md`: exploring a URL stores everything in `workspace/exploratory/EXP-###/` (brief, session notes, report, evidence); the report lists `FIND-###` findings and the user decides what becomes a `BUG-###`. `CLAUDE.md` unchanged. Not committed.

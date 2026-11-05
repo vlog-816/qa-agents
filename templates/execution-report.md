@@ -23,7 +23,12 @@
 |---|---|---|---|---|---|
 | TC-001 | REQ-001 | web | Passed / Failed / Blocked / Not run | evidence/run-1/TC-001-1.png | |
 
-Evidence is mandatory for every Failed and Blocked result.
+Evidence is mandatory for every Failed and Blocked result. A screenshot proves how a page looks, not how it behaves; for behavior also record the steps and the result.
+
+## Covered and not tested
+
+- Covered: <areas, flows, sizes or data that were exercised>
+- Not tested: <what was left out and why; not tested is not a defect>
 
 ## Defects found
 

@@ -20,7 +20,7 @@ For testers (human or agent). Read with `docs/data-policy.md`. No real values be
 
 ## 3. Request limits and risky actions
 
-- A few requests per test case. No loops, no load or stress testing.
+- On shared or third-party sites: a few requests per test case, no loops. Performance, stress and security tests only as in `.claude/rules/performance-and-security-testing.md` (the user's own hosts, approved plan).
 - Do not submit orders, payments, emails or other irreversible actions on a shared or public site unless the approved test plan lists them.
 - Every network command goes through the approval prompt (`curl`, `Invoke-WebRequest`, `Invoke-RestMethod`).
 
