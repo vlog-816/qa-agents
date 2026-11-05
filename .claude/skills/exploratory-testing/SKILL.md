@@ -12,6 +12,7 @@ Use with `.claude/rules/exploratory.md` (folder `workspace/exploratory/EXP-###/`
 - Host is in `data.allowed_hosts`; the brief (`01-brief.md`) is approved.
 - One charter per session: "Explore <area> with <ideas> to find <kind of problem>". Time box about 30 minutes.
 - Note what you assume. Anything you cannot know goes to "Open questions".
+- A test account made during the exploration is recorded in the exploration folder: `test-data.md` (no password) and the git-ignored `test-data.local.md` (see `.claude/rules/test-accounts.md`).
 
 ## 2. Think in tours (pick the ones that fit the charter)
 
@@ -37,7 +38,7 @@ Use with `.claude/rules/exploratory.md` (folder `workspace/exploratory/EXP-###/`
 ## 4. State and navigation ideas
 
 - Back, forward, reload in the middle of a flow.
-- Double click and click fast twice on a submit button (without submitting anything not allowed by the brief).
+- Double click and click fast twice, only on a safe action such as a tab, a toggle or a link. Do it on a submit button only if the brief allows that submit.
 - Two tabs on the same page; sign out in one, act in the other.
 - Direct links to inner pages while signed out; a page address with a changed id.
 - Keyboard only: Tab order, Enter and Escape, visible focus.
@@ -48,6 +49,8 @@ Use with `.claude/rules/exploratory.md` (folder `workspace/exploratory/EXP-###/`
 - Console errors and warnings (`console`), failed or slow network calls (`requests`), calls to hosts outside `allowed_hosts` (report; do not visit them).
 - Screens that hang, flicker, jump, or give no feedback after a click.
 - Anything that shows data that looks like another person's.
+- Costs: before using a feature that may cost money or credits (AI, generate, send, pay), read the page for any cost, price or credit shown. If there is one, do not use the feature until the user says yes.
+- Form checks: the browser's own validation tooltips are not visible in a hidden browser. For form-validation checks use a visible browser (`--headed`), or record the result as unsure.
 
 ## 6. Judge (the oracles)
 
@@ -63,7 +66,7 @@ If one of these says "wrong", record it. If you are unsure, record it as a quest
 ## 7. Record each finding
 
 `FIND-###` in `03-report.md`, one block each:
-- **Where:** page address and area.
+- **Where:** the page name in plain words and its address (for example "Dashboard page, `/dashboard`"), plus the area on it. Never write only "the form" or "the button".
 - **I did:** the exact steps, short.
 - **I saw:** what happened, with the exact message text.
 - **Expected idea:** which oracle looked wrong, or "unsure".
@@ -75,11 +78,13 @@ Rules for the record:
 - Zero findings is a valid result, as long as you state what you covered and what you did not.
 - Never invent a requirement. If the spec is silent, write a question, not a defect.
 
+Start the report with a **Pages seen** table (page name, address, what it is) and give the session notes a **Page** column, so a reader always knows which page a line is about.
+
 End the report with two short lists: **Covered** and **Not tested** (with the reason). Not tested is not a defect.
 
 ## 8. Stop and ask
 
 - A click or redirect leaves the allowed hosts.
-- The page shows what looks like real personal data (note the type only).
+- The page shows what looks like real personal data: stop, report the type only, take no screenshot of that page, close the browser and delete the tool's scratch folder (`rm -r .playwright-cli`). If the user later says it is fake data, record that and continue.
 - Going on needs a submit, payment or sign-up that the brief does not list.
 - A command is denied or needs an approval you do not have.

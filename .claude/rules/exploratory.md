@@ -10,11 +10,12 @@ Applies when the user gives a URL and asks to explore.
   - `02-session-<n>.md`: notes per session (format: `templates/exploration-session.md`).
   - `03-report.md`: the findings.
   - `evidence/`: screenshots and snapshots (git-ignored by the `workspace/**/evidence/` rule).
+  - `test-data.md` (account label, name, email; no password) and `test-data.local.md` (the password; git-ignored), if a test account was created.
 
 ## Steps
 
 1. Check the host is in `data.allowed_hosts`; otherwise stop and ask.
-2. Write `01-brief.md`; stop and wait for the user's approval (the gates in `qa-profile.yaml` stay `required`).
+2. Prepare the brief with the `requirements-interview` skill (explore mode: one short round, or none if the user says "just explore"). Write `01-brief.md`; stop and wait for the user's approval (the gates in `qa-profile.yaml` stay `required`).
 3. Explore read-only with the allowed `playwright-cli` call form (see `web-steps.md`). Type only fake data. Submit no order, payment or sign-up unless the approved brief lists it. Test accounts follow `test-accounts.md`.
 4. Write `03-report.md`.
 

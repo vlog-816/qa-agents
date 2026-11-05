@@ -17,15 +17,15 @@ One sentence from the charter.
 
 ## Notes (what was done and observed)
 
-| # | Action | Observation | REQ | Evidence (path) |
-|---|---|---|---|---|
-| 1 | | | | |
+| # | Page (name and address) | Action | Observation | REQ | Evidence (path) |
+|---|---|---|---|---|---|
+| 1 | | | | | |
 
 ## Findings
 
-Use `BUG-###` IDs (per feature, never reused). Details go in the execution report.
+Use `FIND-###` IDs (per exploration, never reused). No verdict and no severity unless the user asks; only findings the user confirms become `BUG-###`. Details go in the report (`03-report.md` for an exploration, the execution report for a scripted feature).
 
-| ID | Title | Severity (critical / high / medium / low) | Evidence |
+| ID | Title | Page (name and address) | Evidence |
 |---|---|---|---|
 
 ## Follow-ups

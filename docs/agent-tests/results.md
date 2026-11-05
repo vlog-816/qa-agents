@@ -7,4 +7,5 @@ One row per file. Update after a check (`skill-check static` or `spec`) or a dry
 | `.claude/agents/manual-tester.md` | not run | 2026-11-05: PARTIAL (4 of 5 cases PASS) | not run | 3 findings fixed 2026-11-05; re-check pending; scratch-folder deletion open |
 | `.claude/agents/automation-tester.md` | not run | not run | not run | |
 | `.claude/agents/data-guard.md` | not run | not run | not run | |
-| `.claude/skills/exploratory-testing/SKILL.md` | not run | not run | not run | |
+| `.claude/skills/exploratory-testing/SKILL.md` | 2026-11-05: WARNINGS (4 small gaps) | 2026-11-05: 5 of 5 PASS (after the fixes) | 2026-11-05 (EXP-001): held, 11 findings, none a bug | 6 dry-run gaps fixed; 4 small gaps open (see the spec) |
+| `.claude/skills/requirements-interview/SKILL.md` | 2026-11-05: COMPLIANT | 2026-11-05: 5 of 5 PASS (after the fix) | 2026-11-05 (EXP-001): held | costs question added; 1 small gap open (text fallback) |
