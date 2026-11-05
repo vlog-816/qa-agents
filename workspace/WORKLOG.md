@@ -12,6 +12,10 @@ Newest entry first. Each entry: date, done, decisions, open items. Never write s
 - **Outside `workspace/`:** the old specs `tests/DEMO-002`, `tests/DEMO-004`, `tests/DEMO-005` and `test-results/` were deleted on 2026-11-05 (committed earlier, so still in git history). Kept: `tests/helpers/` (page objects and `host-guard.ts`, the allowed-hosts barrier), which new specs can reuse.
 - **Key files to read:** `CLAUDE.md`, `qa-profile.yaml`, `docs/backlog/BACKLOG.md`, `docs/test-environment.md`.
 
+## 2026-11-05: Rule: the user commits by themselves
+
+- New rule `.claude/rules/commits.md` (user request): I never run `git commit`, `git push` or `git add`; when a commit seems useful I ask first, then write the commit message in chat and list the files to stage. Nothing committed; many changes are waiting for a commit (cleared workspace, refactor, new rule files, `.gitignore`, `qa-profile.yaml`).
+
 ## 2026-11-05: Project files are English only
 
 - At the user's request I scanned all project files for Vietnamese: none found (the first search wrongly flagged arrow and box-drawing symbols). With the user's yes, `qa-profile.yaml` now has `language: en` (was `bilingual`), so new reports, plans and cases are English only; chat replies stay English then Vietnamese (global rule). I also broke my own new rule once (ran a command without the plain-words explanation); I explained afterwards and did not repeat the command. Nothing committed.
