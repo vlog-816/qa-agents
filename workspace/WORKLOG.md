@@ -20,6 +20,10 @@ Newest entry first: date, done, decisions, open items. No secrets or real data. 
 - The install steps in `README.md` (Getting started, step 4) were written from the docs and not run.
 - Not committed yet (the user commits): `README.md`, `workspace/WORKLOG.md`, `.claude/rules/commits.md`.
 
+## 2026-11-05: Exploratory rule
+
+- New rule `.claude/rules/exploratory.md`: exploring a URL stores everything in `workspace/exploratory/EXP-###/` (brief, session notes, report, evidence); the report lists `FIND-###` findings and the user decides what becomes a `BUG-###`. `CLAUDE.md` unchanged. Not committed.
+
 ## 2026-11-05: Cleanup and rules
 
 - Cleared the workspace (DEMO-001 to DEMO-006, FEAT-001) and the old specs; kept `tests/helpers/host-guard.ts`. Everything earlier is in git history.
