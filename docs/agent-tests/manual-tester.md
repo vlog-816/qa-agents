@@ -69,7 +69,7 @@ Turns approved requirements into a test plan and cases, runs them (API first, th
 1. Load testing: the file said "no load testing"; now points to `.claude/rules/performance-and-security-testing.md`.
 2. Exploratory runs: the file used the old session folder and `BUG-###`; now follows `.claude/rules/exploratory.md` (`EXP-###`, `FIND-###`, no verdicts).
 3. The `clarifications` gate is now named in Mandatory rules.
-4. Open: step 2.2 deletes `.playwright-cli/` (the tool's own scratch folder) without asking; the user has not decided.
+4. Step 2.2 deletes `.playwright-cli/` (the tool's own scratch folder) without asking: resolved 2026-11-05 by the user's decision (allowed).
 
 ## Coverage notes
 

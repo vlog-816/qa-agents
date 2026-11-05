@@ -69,6 +69,6 @@ Held in practice: host check first; a read-only first look; one short round of f
 
 Gap the run showed (fixed 2026-11-05: a costs question was added to explore mode; confirmed present by the re-check): the round did not ask about costs or credits, because nothing on the signed-out pages showed that the app calls a paid AI backend.
 
-## Remaining small gap (found by the review, not fixed)
+## Small gap found by the review
 
-The skill assumes the app's question buttons; it has no text fallback when buttons are not available.
+The skill assumed the app's question buttons; fixed 2026-11-05: if buttons are not available, ask the same questions in plain text.

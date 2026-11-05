@@ -7,18 +7,18 @@ description: Check a skill, agent or rule file of this project against a short c
 
 A static review of files in `.claude/skills/`, `.claude/agents/` and `.claude/rules/`. It reads the file and judges its text. **A pass proves the structure, not that it works when run.** To see it work, do a dry run on a real URL.
 
-Read-only: report in the chat. Write a result file only if the user asks (then under `workspace/`).
+Read-only: report in the chat. Write results only if the user says yes: spec verdicts into `docs/agent-tests/` (the spec and `results.md`), or any other result file under `workspace/`.
 
 ## Checklist
 
 Checks 1 to 6 are required; checks 7 and 8 give warnings.
 
-1. **Header:** skills have `name` and `description` (what it does and when to use it); agents have `name`, `description` and `tools`. **No `allowed-tools` line** (it pre-approves commands and skips the user's prompts).
+1. **Header:** skills have `name` and `description` (what it does and when to use it); agents have `name`, `description` and `tools`. **No `allowed-tools` line** (it pre-approves commands and skips the user's prompts). Rule files (`.claude/rules/*.md`) have no header: they need a title and a line saying what they decide.
 2. **Language:** English only; no Vietnamese text.
 3. **Stop and ask:** says to stop and ask when unsure; lists doubts under "Open questions".
 4. **Hosts and gates:** if it touches a website, it checks `data.allowed_hosts` first; it never approves a gate itself and waits for the user's approval where `qa-profile.yaml` says `required`.
 5. **No secrets:** no passwords, tokens, keys or real personal data in the text; credentials only by variable name or as set in `.claude/rules/test-accounts.md`.
-6. **Safe writes:** writes only inside the project (results under `workspace/`); asks before deleting or overwriting; never commits, pushes or installs on its own.
+6. **Safe writes:** writes only inside the project (results under `workspace/`); asks before deleting or overwriting (the one exception: the browser tool's scratch folder `.playwright-cli/`, user decision 2026-11-05); never commits, pushes or installs on its own.
 7. **Clear steps:** numbered or titled steps, where results are written, and the next step or hand-off.
 8. **Short and not duplicated:** no long copies of rules that already live in `.claude/rules/` or `CLAUDE.md`; point to them instead.
 

@@ -78,9 +78,9 @@ Gaps the run showed (all six fixed 2026-11-05 in the skill, `exploratory.md`, `t
 5. Section 4 double-clicked a submit button "without submitting"; it now says safe actions only unless the brief allows the submit.
 6. A hidden browser does not show native validation tooltips; the skill now suggests a visible browser for form checks.
 
-## Remaining small gaps (found by the re-check, not fixed)
+## Small gaps found by the re-check
 
-1. No explicit next step after the report: the user decides which findings become `BUG-###`.
-2. It does not say outright "I never approve the brief myself".
-3. Security strings: the skill says "the approved brief", the performance and security rule says "the approved plan".
-4. The skill tells the agent to delete the scratch folder `.playwright-cli/` without asking; the user has not decided (same open point as `manual-tester.md` step 2.2).
+1. No explicit next step after the report: fixed 2026-11-05 (a "Next step" line: the user decides which findings become `BUG-###`).
+2. It did not say "I never approve the brief myself": fixed 2026-11-05 (section 1).
+3. Security strings said "the approved brief"; the performance and security rule says "the approved plan": fixed 2026-11-05 ("brief or plan", with a pointer to the rule).
+4. Deleting the scratch folder `.playwright-cli/` without asking: resolved 2026-11-05 by the user's decision (allowed; written in `file-access.md` and `web-steps.md`; the checklist has this one exception).

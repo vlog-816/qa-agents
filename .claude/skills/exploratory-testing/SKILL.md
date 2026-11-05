@@ -9,7 +9,7 @@ Use with `.claude/rules/exploratory.md` (folder `workspace/exploratory/EXP-###/`
 
 ## 1. Before you start
 
-- Host is in `data.allowed_hosts`; the brief (`01-brief.md`) is approved.
+- Host is in `data.allowed_hosts`; the brief (`01-brief.md`) is approved by the user. Never approve the brief myself.
 - One charter per session: "Explore <area> with <ideas> to find <kind of problem>". Time box about 30 minutes.
 - Note what you assume. Anything you cannot know goes to "Open questions".
 - A test account made during the exploration is recorded in the exploration folder: `test-data.md` (no password) and the git-ignored `test-data.local.md` (see `.claude/rules/test-accounts.md`).
@@ -33,7 +33,7 @@ Use with `.claude/rules/exploratory.md` (folder `workspace/exploratory/EXP-###/`
 - Dates: past, far future, impossible dates.
 - Duplicates: the same value twice; the same email with different letter case.
 - Paste instead of typing; leading and trailing spaces.
-- Security-style strings (scripts, SQL fragments) only if the approved brief lists them.
+- Security-style strings (scripts, SQL fragments) only if the approved brief or plan lists them (see `.claude/rules/performance-and-security-testing.md`).
 
 ## 4. State and navigation ideas
 
@@ -81,6 +81,8 @@ Rules for the record:
 Start the report with a **Pages seen** table (page name, address, what it is) and give the session notes a **Page** column, so a reader always knows which page a line is about.
 
 End the report with two short lists: **Covered** and **Not tested** (with the reason). Not tested is not a defect.
+
+Next step: show the report to the user. The user decides which findings become `BUG-###`; until then every item stays a finding.
 
 ## 8. Stop and ask
 

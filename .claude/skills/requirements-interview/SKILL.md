@@ -10,7 +10,7 @@ Two modes. Both follow the common rules. This skill grants no permission; the ru
 ## Common rules
 
 - **Look up facts first.** Read the page read-only, files in `inbox/`, `qa-profile.yaml` and the templates. Never ask the user something I can find out myself.
-- **Ask only decisions,** in rounds of at most four questions, using the question buttons. Put my recommended answer first, so that "yes" accepts it.
+- **Ask only decisions,** in rounds of at most four questions, using the question buttons. If buttons are not available, ask the same questions in plain text. Put my recommended answer first (marked "recommended"), so that "yes" accepts it.
 - **Dependent questions wait.** If a question depends on an unanswered one, ask it in a later round.
 - **Decisions stay with the user.** I recommend; I never decide for them.
 - **Do nothing with the result until the user confirms.** Points left unanswered become assumptions (marked) or open questions.
