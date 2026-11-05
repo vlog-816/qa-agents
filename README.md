@@ -28,6 +28,7 @@ qa-agents/
 ├── docs/
 │   ├── data-policy.md            data policy and Gate 0
 │   ├── test-environment.md       credentials, runs, evidence, tooling
+│   ├── agent-tests/              spec checks for our agents and skills
 │   └── backlog/                  parked ideas (BACKLOG.md) and parked host-guard hooks
 ├── templates/                    requirement, test-plan, test-case, exploration-session,
 │                                 execution-report, traceability, automation-review

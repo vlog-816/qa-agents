@@ -20,6 +20,18 @@ Newest entry first: date, done, decisions, open items. No secrets or real data. 
 - The install steps in `README.md` (Getting started, step 4) were written from the docs and not run.
 - Not committed yet (the user commits): `README.md`, `workspace/WORKLOG.md`, `.claude/rules/commits.md`.
 
+## 2026-11-05: First spec check: manual-tester
+
+- `skill-check spec manual-tester` (by reading): cases 1, 2, 4, 5 PASS; case 3 PARTIAL (clarifications gate not named). It also found two conflicts with newer rules; fixed in `manual-tester.md`: load testing now points to `performance-and-security-testing.md`; exploratory runs now follow `exploratory.md` (EXP folder, `FIND-###`); clarifications gate named. Verdicts and findings recorded in `docs/agent-tests/manual-tester.md` and `results.md`. Open: re-check after fixes; scratch-folder deletion (step 2.2) undecided; no dry run yet. Not committed.
+
+## 2026-11-05: Agent tests (light)
+
+- Read the `skill-test` folder of a public repo: it holds only `SKILL.md`; the nested folders are in `studio-tests/` (catalog, rubric, templates, 123 specs; MIT). Took the idea at our scale, own words: `docs/agent-tests/` with `README.md`, `template.md`, 4 specs (manual-tester, automation-tester, data-guard, exploratory-testing; 5 cases each, all NOT ASSESSED) and `results.md`; `skill-check` got a `spec <name>` mode (reads only; asks before writing). Nothing run yet. Not committed.
+
+## 2026-11-05: Skill-check skill and two tester rules
+
+- Read two public skills (team-qa, skill-test); no license, ideas only. New skill `.claude/skills/skill-check/SKILL.md` (8-check static checklist, verdicts COMPLIANT / WARNINGS / NON-COMPLIANT / NOT ASSESSED; a pass proves structure, not behavior). `manual-tester.md` and the report template now say: smoke first (stop and mark the rest Blocked if the basic flow fails) and a case that was not run is never counted as Passed. First review of our 5 files done in chat (read-only). Not committed.
+
 ## 2026-11-05: Performance and security testing allowed
 
 - New rule `.claude/rules/performance-and-security-testing.md`: allowed on the user's own hosts (`localhost`, `assistant-qa-staging.vercel.app`) under an approved plan, one run per approval, stop conditions, no destructive actions; never on the public practice sites. `docs/test-environment.md` section 3 and BL-011 updated. No tool chosen or installed yet. Not committed.

@@ -1,0 +1,3 @@
+# Agent tests
+
+Light checks for our own agents and skills: `.claude/agents/*.md` and `.claude/skills/exploratory-testing/`. Each file has a spec here with five cases and checkable statements. Run `skill-check spec <name>` to have the statements judged by reading the file (PASS, PARTIAL, FAIL or NOT ASSESSED). **A pass proves the instructions say the right thing, not that the agent behaves that way when it runs.** To see real behavior, do a dry run on a staging host and note it in `results.md`. Specs are written in our own words from our rules (`CLAUDE.md`, `.claude/rules/`, `docs/test-environment.md`).

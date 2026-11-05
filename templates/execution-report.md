@@ -17,6 +17,8 @@
 |---|---|---|---|---|
 | | | | | |
 
+A case that was not run is never counted as Passed. If the smoke check failed, say so here and mark the rest Blocked.
+
 ## Results per test case
 
 | TC | REQ | Platform | Result | Evidence (path) | Notes / reason if Not run |
