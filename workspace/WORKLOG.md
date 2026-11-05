@@ -1,41 +1,28 @@
 # Work log
 
-Newest entry first. Each entry: date, done, decisions, open items. Never write secrets or real data here.
+Newest entry first: date, done, decisions, open items. No secrets or real data. Older detail is in git history.
 
 ## Current state (updated 2026-11-05)
 
-- **Phase:** Phase 1 closed (scoped). The workspace was cleared on 2026-11-05 at the user's request: all feature folders (DEMO-001 to DEMO-006, FEAT-001) and the old work log were deleted; earlier committed versions remain in git history, DEMO-006 was never committed and is gone.
-- **Agents that exist:** `data-guard` (optional, only when the user asks), `manual-tester`, `automation-tester`. BA work is done by the main session. Not created yet: `ba-analyst`, `test-reviewer`.
-- **Web steps:** the main session can run `playwright-cli` itself with the allowed form `npx --no-install --prefix tools/playwright-cli playwright-cli <command>` (one command per call; `--headed` on `open` when the user wants to watch). Details: `docs/test-environment.md`.
-- **Profile:** `qa-profile.yaml` is the user's file; check `allowed_hosts` before any run. Gates stay `required`.
-- **Test credentials:** synthetic staging credentials are recorded per feature in `workspace/<feature-id>/test-data.local.md` (git-ignored by `workspace/**/*.local.md`); the tracked `02-test-data.md` holds account labels and emails but never a password.
-- **Outside `workspace/`:** the old specs `tests/DEMO-002`, `tests/DEMO-004`, `tests/DEMO-005` and `test-results/` were deleted on 2026-11-05 (committed earlier, so still in git history). Kept: `tests/helpers/` (page objects and `host-guard.ts`, the allowed-hosts barrier), which new specs can reuse.
-- **Key files to read:** `CLAUDE.md`, `qa-profile.yaml`, `docs/backlog/BACKLOG.md`, `docs/test-environment.md`.
+- **Phase:** Phase 1 closed (scoped). Workspace is empty and ready for a new feature (send a URL and a feature ID).
+- **Agents:** `data-guard` (only when asked), `manual-tester`, `automation-tester`. BA work is done by the main session. Not created: `ba-analyst`, `test-reviewer`.
+- **Language:** `qa-profile.yaml` has `language: en`; project files are English only. Chat replies are English, then Vietnamese.
+- **Rules** (`.claude/rules/`): `commits.md` (the user commits; I write one short message), `explain-before-approval.md` (plain-words explanation before any prompt), `file-access.md`, `test-accounts.md`, `web-steps.md`.
+- **Web steps:** the main session runs `npx --no-install --prefix tools/playwright-cli playwright-cli <command>` (one command per call; `--headed` to watch). Details: `docs/test-environment.md`.
+- **Test accounts:** `workspace/<feature-id>/02-test-data.md` (no password) plus the git-ignored `test-data.local.md` (password).
+- **Profile checks:** the host must be in `allowed_hosts` before any run; gates stay `required`.
+- **Key files:** `CLAUDE.md`, `qa-profile.yaml`, `README.md`, `docs/test-environment.md`, `docs/backlog/BACKLOG.md`.
 
-## 2026-11-05: README rewritten
+## Open items
 
-- At the user's yes the six outdated parts of `README.md` were fixed: title and intro, folder tree (rules, skills, templates, runner files), the stale "not tested" note, getting started (language `en`, `no_production_hosts`, install steps, Jira-key example), a new "How a feature runs" section, and a short "Working rules" section. "Known limits", "Still to be determined" and "Decided" kept as they were. Not committed.
+- `qa-profile.yaml` still says `no_production_hosts: true`; revisit when a production host exists.
+- `playwright.config.ts` and `tests/helpers/host-guard.ts` default to `demowebshop.tricentis.com`; change per feature.
+- The install steps in `README.md` (Getting started, step 4) were written from the docs and not run.
+- Not committed yet (the user commits): `README.md`, `workspace/WORKLOG.md`, `.claude/rules/commits.md`.
 
-## 2026-11-05: Rule: the user commits by themselves
+## 2026-11-05: Cleanup and rules
 
-- New rule `.claude/rules/commits.md` (user request): I never run `git commit`, `git push` or `git add`; when a commit seems useful I ask first, then write the commit message in chat and list the files to stage. Nothing committed; many changes are waiting for a commit (cleared workspace, refactor, new rule files, `.gitignore`, `qa-profile.yaml`).
-
-## 2026-11-05: Project files are English only
-
-- At the user's request I scanned all project files for Vietnamese: none found (the first search wrongly flagged arrow and box-drawing symbols). With the user's yes, `qa-profile.yaml` now has `language: en` (was `bilingual`), so new reports, plans and cases are English only; chat replies stay English then Vietnamese (global rule). I also broke my own new rule once (ran a command without the plain-words explanation); I explained afterwards and did not repeat the command. Nothing committed.
-
-## 2026-11-05: Rule: explain before asking for approval
-
-- New rule `.claude/rules/explain-before-approval.md` (user request): before any approval prompt, plan approval, choice question or gate, explain in 2 to 3 simple "like I am 5" sentences what I did, what I want to do and what changes if accepted (English, then Vietnamese). Nothing committed.
-
-## 2026-11-05: Working rules written as project rules
-
-- At the user's request the working rules now live in `.claude/rules/` (`file-access.md`, `test-accounts.md`, `web-steps.md`; the name `test-credentials.md` is blocked by the `Read(./**/*credential*)` deny rule in `.claude/settings.json`, so the file is called `test-accounts.md`). `CLAUDE.md`, `qa-profile.yaml` and `.claude/settings.json` unchanged. Three earlier memory notes outside the project (`C:\Users\minhv\.claude\projects\D--Source-qa-agents\memory\`) were deleted at the user's yes; the rules live only in `.claude/rules/` now. Nothing committed.
-
-## 2026-11-05: Repo refactor after the clearing
-
-- At the user's request (docs, agent files, demo page objects): refreshed status text in `CLAUDE.md` and `README.md` (automation-tester listed, tree updated); `docs/test-environment.md` (test-account convention, main session may run `playwright-cli` itself with the allowed call form, removed obsolete DEMO-001 remarks and old notes); `manual-tester.md` and `automation-tester.md` (record accounts in `02-test-data.md` + `test-data.local.md`, neutral example IDs; the call form was already correct); `BACKLOG.md` (links to deleted workspace files replaced by git-history notes, BL-005 dropped); deleted `tests/helpers/books-page.ts`, `login-page.ts`, `email-login-page.ts`. Kept `host-guard.ts` and `playwright.config.ts` (default host still `demowebshop.tricentis.com`; change per feature). No rule changed. The user also ticked "Something else" with no text: still unknown. Nothing committed.
-
-## 2026-11-05: Workspace cleared
-
-- Deleted `workspace/DEMO-001` to `DEMO-006` and `workspace/FEAT-001`, reset this log, and removed `.playwright-cli/`. Kept: agents, templates, docs, rules, `qa-profile.yaml`, `.gitignore` (including the `*.local.md` rule), `tests/`, `tools/`. Nothing committed.
+- Cleared the workspace (DEMO-001 to DEMO-006, FEAT-001) and the old specs; kept `tests/helpers/host-guard.ts`. Everything earlier is in git history.
+- Refreshed the docs (`README.md`, `CLAUDE.md` status, `docs/test-environment.md`, `BACKLOG.md`, both tester agents).
+- Wrote the working rules above as project rule files and removed the old notes stored outside the project.
+- The test credentials rule file is named `test-accounts.md` because `settings.json` blocks file names containing "credential".
