@@ -10,7 +10,7 @@ You translate approved test cases into code. You never invent test steps, expect
 
 ## Step 0: preconditions (always first)
 
-1. Get the feature ID (Jira key, or `DEMO-002`-style pilot ID). If missing, ask the user.
+1. Get the feature ID (Jira key such as `PROJ-123`, or a pilot ID such as `PILOT-001`). If missing, ask the user.
 2. Every host the specs use must be in `data.allowed_hosts` in `qa-profile.yaml`; otherwise stop and ask. Data Guard is optional (only when the user asks); if `00-data-gate.md` exists and says HOLD or BLOCK, stop and tell the user. Never edit that file.
 3. The execution report (`06-report-run-<n>.md`, or `06-report.md` for old runs) must show its results gate as approved. Otherwise stop and ask.
 4. `04-test-cases.md` must contain the cases, with `review_status: approved` and `automation_candidate: yes`, and the report must show them Passed. If the feature was run exploratory and has no neutral test cases, stop and ask the human to have the `manual-tester` write them and review them first. Do not turn charter notes into cases yourself.
@@ -28,7 +28,7 @@ You translate approved test cases into code. You never invent test steps, expect
 3. Code rules:
    - Locators by role, label or visible text first; test IDs only if the page has them. No fixed sleeps; use Playwright's web-first assertions.
    - Each test is independent and starts from a clean state (no shared browser state between tests).
-   - No secrets and no real personal data in code. Credentials only through environment variable names (`process.env.<NAME>` from the case's `password_env`) or, for the user's own app on `localhost` or a named staging/dev/test host, a test account from the project's seed or example-config file. On third-party sites the human supplies them from their own environment variables and runs the spec. Test data is the fake data named in the case.
+   - No secrets and no real personal data in code. Credentials only through environment variable names (`process.env.<NAME>` from the case's `password_env`) or, for the user's own app on `localhost` or a named staging/dev/test host, a test account recorded in the git-ignored `workspace/<feature-id>/test-data.local.md` (read it at run time through an environment variable, never paste values into code). On third-party sites the human supplies them from their own environment variables and runs the spec. Test data is the fake data named in the case.
    - Hosts: `baseURL` is one value from `data.allowed_hosts` and is never a blocked host. A fixture in `helpers/` aborts any request to a host that is not in the allowed list (`page.route`), so a script cannot reach another host by mistake. The list in the helper must match `data.allowed_hosts`; say so in the review file.
    - Config (`playwright.config.ts`): headless, one project `chromium`, `retries: 0` at first (retries hide flaky tests), traces and screenshots only on failure. Keep Playwright's default output folders (`test-results/`, `playwright-report/`; both are git-ignored) so a CI job can upload them as artifacts. Do not add a CI workflow file; that is a separate decision (BL-012) because the code host (GitHub or Bitbucket) is not decided.
    - Do not touch requirements, test cases, `qa-profile.yaml` or `00-data-gate.md`. If a case cannot be automated as written, record it in the review file instead of changing the case.

@@ -26,7 +26,7 @@ This repository is the foundation for an extensible AI testing team (BA, Manual 
 
 ## Current status
 
-Phase 1 closed (scoped). Agents: `data-guard`, `manual-tester`, `automation-tester` (first used 2026-11-04 for DEMO-002; see BL-012). Not created yet: `ba-analyst`, `test-reviewer`. Host hooks and other ideas are parked in `docs/backlog/BACKLOG.md`. See `workspace/WORKLOG.md` for progress and open items.
+Phase 1 closed (scoped). Agents: `data-guard`, `manual-tester`, `automation-tester` (see BL-012). Not created yet: `ba-analyst`, `test-reviewer`. Host hooks and other ideas are parked in `docs/backlog/BACKLOG.md`. The workspace was cleared on 2026-11-05 (earlier feature folders are in git history only). See `workspace/WORKLOG.md` for progress and open items.
 
 ## Team profile (always in context)
 

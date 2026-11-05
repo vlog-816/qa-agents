@@ -175,7 +175,7 @@ Re-verify the ones that are not "official" against `code.claude.com/docs` before
 
 ## 8. Open questions for the user
 
-Ask these (in Vietnamese) before finalizing the plan. Group them in small rounds.
+Ask these before finalizing the plan. Group them in small rounds.
 
 **Data and compliance (ask first)**
 1. Has security/legal approved using Claude on company data? Which plan will be used for sensitive data (Team, Enterprise, API)?

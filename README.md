@@ -1,8 +1,8 @@
 # QA Agents Starter (Phase 0, draft 0.1)
 
-A starter kit for an extensible AI testing team: BA, Manual Tester, Automation Tester and additional roles will be added gradually. This version contains **only the standardized foundation and the data policy**. Only the Data Guard and Manual Tester agents exist. BA work is done by the main session; Test Reviewer and Automation agents do not exist yet (see `docs/backlog/BACKLOG.md`).
+A starter kit for an extensible AI testing team: BA, Manual Tester, Automation Tester and additional roles will be added gradually. This version contains **only the standardized foundation and the data policy**. The Data Guard, Manual Tester and Automation Tester agents exist. BA work is done by the main session; the Test Reviewer agent does not exist yet (see `docs/backlog/BACKLOG.md`).
 
-> **Status:** Phase 1 closed (scoped). Run once end to end on a public demo site (DEMO-001). Not reviewed by security or legal. Do not use with real data.
+> **Status:** Phase 1 closed (scoped). The workflow was run end to end on demo and staging sites; those results were cleared on 2026-11-05 and remain in git history only. Not reviewed by security or legal. Do not use with real data.
 
 ## Structure
 
@@ -13,12 +13,16 @@ qa-agents/
 ├── qa-profile.yaml            team profile (language, data_class, hosts, framework, gates)
 ├── .gitignore                 keeps evidence, inbox and secrets out of git
 ├── docs/
-│   └── data-policy.md         data policy and Gate 0
+│   ├── data-policy.md         data policy and Gate 0
+│   └── test-environment.md    credentials, runs, evidence, tooling
 ├── .claude/
-│   ├── settings.json          sample permissions (deny/ask)
+│   ├── settings.json          permissions (allow/ask/deny)
 │   └── agents/
 │       ├── data-guard.md      data gatekeeper agent
-│       └── manual-tester.md   manual tester agent (test plan, test cases, report)
+│       ├── manual-tester.md   manual tester agent (test plan, test cases, report)
+│       └── automation-tester.md  automation tester agent (Playwright scripts)
+├── tests/helpers/             shared Playwright helpers (host guard)
+├── tools/playwright-cli/      local install of playwright-cli
 ├── templates/
 │   ├── requirement.md         standard requirement template (multiple sources)
 │   ├── test-case.md           framework-neutral test case template
