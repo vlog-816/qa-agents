@@ -17,7 +17,7 @@ req: [REQ-001]
 title: Successful login with a valid account
 platform: web            # web | api | mobile
 priority: P1             # P1 | P2 | P3
-type: functional         # functional | negative | boundary | security | ...
+type: positive           # positive | negative | boundary | data validation | error handling | cross-page flow | api integration | end-to-end workflow | data integrity | security | performance
 tags: [login, smoke]
 preconditions:
   - The test account exists and is active

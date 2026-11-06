@@ -2,8 +2,8 @@
 
 - File under test: `.claude/skills/test-case-design/SKILL.md`
 - Kind: skill
-- Last static check (`skill-check`): 2026-11-06, WARNINGS (2 small gaps: hosts line, output file and hand-off); both fixed 2026-11-06
-- Last spec check: 2026-11-06, 5 of 5 cases PASS (2 small wording gaps found and fixed the same day)
+- Last static check (`skill-check`): 2026-11-06 re-check, COMPLIANT (an earlier check the same day gave WARNINGS for 2 small gaps, both fixed)
+- Last spec check: 2026-11-06 re-check, 5 of 5 cases PASS (2 small wording gaps found and fixed the same day)
 
 ## Summary
 
@@ -80,9 +80,15 @@ What helped:
 - "Unknown, record from the run" handled the malformed-email case (TC-010) cleanly, with no guessing.
 - The coverage check found two gaps in the requirements themselves: no unknown-email case (new Q6) and no field-length limits for boundary cases (new Q5).
 
-Gaps the dry run showed (not fixed yet):
+Gaps the dry run showed (all five fixed 2026-11-06 in the skill and in `templates/test-case.md`; re-check pending):
 1. The skill does not say where the coverage check goes (I put it at the end of `04-test-cases.md`).
 2. It does not mention the test plan: `manual-tester` Step 1.1 writes `03-test-plan.md` first and the plan and cases are approved together; this dry run skipped the plan.
 3. The template's `type` list (`functional | negative | boundary | security | ...`) does not match the skill's types (positive, data validation, cross-page flow, end-to-end workflow, data integrity, ...).
 4. Cases that create a permanent account on a shared host: the skill should say to mark them `automation_candidate: no` unless the user agrees (I did, by judgment).
 5. Values generated at run time (new email, wrong password) have no named convention in the skill ("generated at run time, never written in any file").
+
+## Re-check 2026-11-06 (after the five fixes)
+
+- All five fixes are present: coverage check at the end of `04-test-cases.md` (skill Step 4), the test plan comes from `manual-tester` and is approved with the cases (Step 5), the template `type` list matches the skill (`templates/test-case.md` line 20, skill Step 3), account-creating cases are `automation_candidate: no` unless the user agrees (Step 3), run-time values are named "generated at run time" (Step 3).
+- Static checklist: COMPLIANT. Spec: 5 of 5 cases PASS.
+- **One wording issue found, open:** the run-time values sentence says the value is "never written in any file". That is right for a wrong password, but too strict for a new account's values, which the test-accounts rule says to record (sheet without the password, password in the git-ignored local file). The 13 approved cases already do it correctly (TC-004 "never written", TC-007 and TC-013 "recorded only in the git-ignored local file"); only the skill's sentence is too strict. Fixed 2026-11-06 at the user's direction: every value typed in a run, including wrong ones, is recorded as evidence in the git-ignored `test-data.local.md` (skill Step 3 and `.claude/rules/test-accounts.md`); the wording in TC-004 and TC-009 was updated to match (wording only, nothing else in the approved cases changed).

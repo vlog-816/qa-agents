@@ -96,7 +96,7 @@ preconditions:
   - The browser is signed out
 test_data:
   username: the test account email (ACC-EXP-001-1)
-  password: generated at run time (random, different from the real one); never written in any file
+  password: generated at run time (random, different from the real one); recorded as evidence in the git-ignored test-data.local.md during the run
 steps:
   - n: 1
     action: Open the Login page, `/login`
@@ -238,7 +238,7 @@ preconditions:
 test_data:
   full_name: fake name
   email: the test account email (ACC-EXP-001-1)
-  password: different fake password generated at run time; never written in any file
+  password: different fake password generated at run time; recorded as evidence in the git-ignored test-data.local.md during the run
 steps:
   - n: 1
     action: Open the Sign-up page, `/register`
