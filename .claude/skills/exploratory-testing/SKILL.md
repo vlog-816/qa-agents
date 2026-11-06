@@ -7,6 +7,12 @@ description: Think deeply while exploring a web page or app. Use when the user g
 
 Use with `.claude/rules/exploratory.md` (folder `workspace/exploratory/EXP-###/`) and `.claude/rules/web-steps.md` (how to run `playwright-cli`). This skill is about what to think and try. It does not grant any permission.
 
+## Think for yourself
+
+The tours are a start, not a script. Follow surprises, skip tours that do not fit, and try ideas not listed here: up to about 3 own ideas per session, tagged "own idea". Ask: what would a confused or impatient user do? what does the page assume? what changed after my last step? what is missing? what breaks first?
+
+Fixed limits that never bend: allowed hosts, approval gates, data rules, stop rules, the scope of the approved brief. Anything beyond them (another host, a submit, a paid feature, real data) is a question to the user, never an action. The user decides what is a bug.
+
 ## 1. Before you start
 
 - Host is in `data.allowed_hosts`; the brief (`01-brief.md`) is approved by the user. Never approve the brief myself.

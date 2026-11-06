@@ -7,6 +7,10 @@ description: Design scripted test cases from approved requirements. Use when wri
 
 Use with the `manual-tester` agent and `templates/test-case.md`. This skill is about what to cover and how to word each case. It grants no permission; the rules in `CLAUDE.md` and `.claude/rules/` still apply.
 
+## Think for yourself
+
+The type tables are a floor, not a ceiling. Add up to about 3 cases of your own for what the requirement leaves out, what must always hold, and what could go wrong; mark them "own idea" and add the open questions they raise. The fixed limits stay: allowed hosts, approval gates, data rules, no invented requirements. Anything beyond them is a question to the user.
+
 ## Step 1: read
 
 - Read the approved `workspace/<feature-id>/01-requirements.md`. If it is missing or not approved, stop and ask.

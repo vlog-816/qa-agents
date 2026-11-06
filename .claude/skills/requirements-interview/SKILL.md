@@ -13,6 +13,7 @@ Two modes. Both follow the common rules. This skill grants no permission; the ru
 - **Ask only decisions,** in rounds of at most four questions, using the question buttons. If buttons are not available, ask the same questions in plain text. Put my recommended answer first (marked "recommended"), so that "yes" accepts it.
 - **Dependent questions wait.** If a question depends on an unanswered one, ask it in a later round.
 - **Decisions stay with the user.** I recommend; I never decide for them.
+- **Think for yourself.** Question what the requirement or page leaves out and what could go wrong, not only the listed questions; the limits below still apply.
 - **Do nothing with the result until the user confirms.** Points left unanswered become assumptions (marked) or open questions.
 - **Never approve a gate myself.** The brief and the requirements file wait for the user's approval.
 - **Existing files:** if a brief or requirements file already exists, ask the user with two options: a new file with the next number (recommended) or overwrite it. For a new exploration, the next number is the one after the highest `EXP-###` folder in `workspace/exploratory/`.
