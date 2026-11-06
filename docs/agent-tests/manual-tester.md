@@ -2,7 +2,7 @@
 
 - File under test: `.claude/agents/manual-tester.md`
 - Kind: agent
-- Last static check (`skill-check`): not run
+- Last static check (`skill-check`): 2026-11-06, WARNINGS (the file is long and repeats `docs/test-environment.md`; the "own idea" tag place was fixed the same day)
 - Last spec check: 2026-11-05, overall PARTIAL (before the fixes below); re-check pending
 
 ## Summary

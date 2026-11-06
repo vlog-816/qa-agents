@@ -2,7 +2,7 @@
 
 - File under test: `.claude/skills/exploratory-testing/SKILL.md` (with `.claude/rules/exploratory.md`)
 - Kind: skill
-- Last static check (`skill-check`): 2026-11-05 (re-check), WARNINGS (see "Remaining small gaps")
+- Last static check (`skill-check`): 2026-11-06 (after "Think for yourself"): WARNINGS for the unplaced "own idea" tag, fixed the same day, so COMPLIANT by reading
 - Last spec check: 2026-11-05 (re-check after the dry-run fixes), 5 of 5 cases PASS
 
 ## Summary
@@ -64,7 +64,7 @@ Guides deep exploring of a URL: tours, input and navigation ideas, what to watch
 
 ## Coverage notes
 
-The quality of ideas and the depth of exploring show only in a real session. A real session was done on 2026-11-05 (EXP-001, below).
+The quality of ideas and the depth of exploring show only in a real session. A real session was done on 2026-11-05 (EXP-001, below). A "Think for yourself" block (free inside a fence, about 3 own ideas per session, tagged "own idea") was added on 2026-11-06; it has not been tried in a session yet.
 
 ## Dry run 2026-11-05 (EXP-001, staging site; see `workspace/exploratory/EXP-001/`)
 

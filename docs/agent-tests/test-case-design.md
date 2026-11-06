@@ -2,7 +2,7 @@
 
 - File under test: `.claude/skills/test-case-design/SKILL.md`
 - Kind: skill
-- Last static check (`skill-check`): 2026-11-06 re-check, COMPLIANT (an earlier check the same day gave WARNINGS for 2 small gaps, both fixed)
+- Last static check (`skill-check`): 2026-11-06 re-check, COMPLIANT (an earlier check the same day gave WARNINGS for 2 small gaps, both fixed); 2026-11-06 after "Think for yourself": COMPLIANT (the `own-idea` tag place was added)
 - Last spec check: 2026-11-06 re-check, 5 of 5 cases PASS (2 small wording gaps found and fixed the same day)
 
 ## Summary
@@ -68,7 +68,7 @@ Designs scripted, framework-neutral test cases from approved requirements: which
 
 ## Coverage notes
 
-Reading cannot show if the cases are good; the dry run below was done on 2026-11-06.
+Reading cannot show if the cases are good; the dry run below was done on 2026-11-06. A "Think for yourself" block (about 3 own-idea cases beyond the type tables) was added later the same day; it has not been tried yet.
 
 ## Dry run 2026-11-06 (FEAT-001: sign-up, login and logout of the staging app; see `workspace/FEAT-001/`)
 

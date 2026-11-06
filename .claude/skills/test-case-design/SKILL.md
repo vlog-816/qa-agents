@@ -9,7 +9,7 @@ Use with the `manual-tester` agent and `templates/test-case.md`. This skill is a
 
 ## Think for yourself
 
-The type tables are a floor, not a ceiling. Add up to about 3 cases of your own for what the requirement leaves out, what must always hold, and what could go wrong; mark them "own idea" and add the open questions they raise. The fixed limits stay: allowed hosts, approval gates, data rules, no invented requirements. Anything beyond them is a question to the user.
+The type tables are a floor, not a ceiling. Add up to about 3 cases of your own for what the requirement leaves out, what must always hold, and what could go wrong; mark them with the tag `own-idea` and add the open questions they raise. The fixed limits stay: allowed hosts, approval gates, data rules, no invented requirements. Anything beyond them is a question to the user.
 
 ## Step 1: read
 

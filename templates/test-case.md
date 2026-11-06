@@ -18,7 +18,7 @@ title: Successful login with a valid account
 platform: web            # web | api | mobile
 priority: P1             # P1 | P2 | P3
 type: positive           # positive | negative | boundary | data validation | error handling | cross-page flow | api integration | end-to-end workflow | data integrity | security | performance
-tags: [login, smoke]
+tags: [login, smoke]     # add own-idea for a case beyond the test-type tables
 preconditions:
   - The test account exists and is active
 test_data:                         # point to test-data/ (accounts.md, inputs.md) instead of repeating values

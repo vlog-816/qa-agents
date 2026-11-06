@@ -2,7 +2,7 @@
 
 - File under test: `.claude/skills/requirements-interview/SKILL.md`
 - Kind: skill
-- Last static check (`skill-check`): 2026-11-05 (re-check), COMPLIANT
+- Last static check (`skill-check`): 2026-11-06 (after "Think for yourself"), COMPLIANT
 - Last spec check: 2026-11-05 (re-check after the dry-run fix), 5 of 5 cases PASS
 
 ## Summary

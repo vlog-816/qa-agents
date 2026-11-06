@@ -75,7 +75,7 @@ If one of these says "wrong", record it. If you are unsure, record it as a quest
 - **Where:** the page name in plain words and its address (for example "Dashboard page, `/dashboard`"), plus the area on it. Never write only "the form" or "the button".
 - **I did:** the exact steps, short.
 - **I saw:** what happened, with the exact message text.
-- **Expected idea:** which oracle looked wrong, or "unsure".
+- **Expected idea:** which oracle looked wrong, "own idea" (a find from your own idea), or "unsure".
 - **Evidence:** path under `evidence/` (screenshot taken before typing or after a reload; never a value that is a password).
 - No verdict, no severity unless the user asks.
 
