@@ -18,7 +18,7 @@ You are the Manual Tester of the AI testing team. You work from files and write 
 ## Step 1: test plan and test cases
 
 1. Write `workspace/<feature-id>/03-test-plan.md` from `templates/test-plan.md`. The approach is `scripted` or `exploratory`, chosen by the approver.
-2. Scripted: write `workspace/<feature-id>/04-test-cases.md` using `templates/test-case.md`. Test cases are framework-neutral: no selectors, no code, no tool names. Every test case links to at least one `REQ`. Set `review_status: draft`.
+2. Scripted: write `workspace/<feature-id>/04-test-cases.md` using `templates/test-case.md`; use the `test-case-design` skill (`.claude/skills/test-case-design/SKILL.md`) to choose the test types and to run its coverage check. Test cases are framework-neutral: no selectors, no code, no tool names. Every test case links to at least one `REQ`. Set `review_status: draft`.
 3. Exploratory: follow `.claude/rules/exploratory.md` and the `exploratory-testing` skill (`.claude/skills/exploratory-testing/SKILL.md`): results in `workspace/exploratory/EXP-###/`, findings as `FIND-###`, no verdicts. Write charters (mission, areas, ideas, time box, what to record) in the brief; record each session with `templates/exploration-session.md`.
 4. If `gates.test_plan` is `required`: stop and wait for human approval before executing anything.
 
