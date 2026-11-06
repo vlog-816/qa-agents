@@ -68,4 +68,21 @@ Designs scripted, framework-neutral test cases from approved requirements: which
 
 ## Coverage notes
 
-Reading cannot show if the cases are good. A dry run on a small real requirement is still pending (for example the sign-up and login pages explored in EXP-001).
+Reading cannot show if the cases are good; the dry run below was done on 2026-11-06.
+
+## Dry run 2026-11-06 (FEAT-001: sign-up, login and logout of the staging app; see `workspace/FEAT-001/`)
+
+Input: 11 approved requirements (observed in EXP-001). Output: 13 draft cases in `04-test-cases.md` plus a coverage check. Nothing was run against the site.
+
+What helped:
+- The type tables prompted cases I would likely have missed from the requirements alone: a cross-page case (TC-002), the Back-after-logout case (TC-012) and an end-to-end data-integrity case (TC-013).
+- The "case must also state" column made expected results concrete (exact messages, where the user lands).
+- "Unknown, record from the run" handled the malformed-email case (TC-010) cleanly, with no guessing.
+- The coverage check found two gaps in the requirements themselves: no unknown-email case (new Q6) and no field-length limits for boundary cases (new Q5).
+
+Gaps the dry run showed (not fixed yet):
+1. The skill does not say where the coverage check goes (I put it at the end of `04-test-cases.md`).
+2. It does not mention the test plan: `manual-tester` Step 1.1 writes `03-test-plan.md` first and the plan and cases are approved together; this dry run skipped the plan.
+3. The template's `type` list (`functional | negative | boundary | security | ...`) does not match the skill's types (positive, data validation, cross-page flow, end-to-end workflow, data integrity, ...).
+4. Cases that create a permanent account on a shared host: the skill should say to mark them `automation_candidate: no` unless the user agrees (I did, by judgment).
+5. Values generated at run time (new email, wrong password) have no named convention in the skill ("generated at run time, never written in any file").

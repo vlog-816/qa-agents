@@ -3,7 +3,7 @@
 - Feature ID: FEAT-001 (no Jira ticket)
 - Analysis date: 2026-11-06
 - By: Claude (main session); purpose: dry run of the `test-case-design` skill
-- Gate "requirements" status: draft, waiting for approval (approver, date: ______)
+- Gate "requirements" status: approved (approver: Boss-QA, the user; date: 2026-11-06; "Approve, design cases"). Q1 to Q4 stay open and are not assumed.
 
 ## Sources
 
