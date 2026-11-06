@@ -33,6 +33,7 @@ qa-agents/
 ├── templates/                    requirement, test-plan, test-case, exploration-session,
 │                                 execution-report, traceability, automation-review
 ├── tests/helpers/                shared Playwright helpers (host-guard.ts)
+├── test-data/                    shared test data: accounts, reusable fake inputs, typed values
 ├── tools/playwright-cli/         local install of playwright-cli
 ├── inbox/                        drop documents and exported tickets here (git-ignored)
 └── workspace/                    results per feature, plus WORKLOG.md

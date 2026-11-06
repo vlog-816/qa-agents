@@ -10,7 +10,7 @@ Applies when the user gives a URL and asks to explore.
   - `02-session-<n>.md`: notes per session (format: `templates/exploration-session.md`).
   - `03-report.md`: the findings.
   - `evidence/`: screenshots and snapshots (git-ignored by the `workspace/**/evidence/` rule).
-  - `test-data.md` (account label, name, email; no password) and `test-data.local.md` (the password; git-ignored), if a test account was created.
+  - Test accounts and typed values are not kept here: they go to the shared `test-data/` folder (see `test-accounts.md`). The notes say which account or values were used.
 
 ## Steps
 

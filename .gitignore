@@ -24,3 +24,6 @@ secrets/
 
 # Local test credentials for synthetic staging accounts (never commit)
 workspace/**/*.local.md
+
+# Shared test data: passwords and typed values stay local
+test-data/**/*.local.md

@@ -21,7 +21,7 @@ type: positive           # positive | negative | boundary | data validation | er
 tags: [login, smoke]
 preconditions:
   - The test account exists and is active
-test_data:
+test_data:                         # point to test-data/ (accounts.md, inputs.md) instead of repeating values
   username: <fake test account>
   password_env: QA_TEST_PASSWORD   # NAME of the environment variable; never write the password itself
 steps:

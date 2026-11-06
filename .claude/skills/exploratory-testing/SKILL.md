@@ -12,7 +12,7 @@ Use with `.claude/rules/exploratory.md` (folder `workspace/exploratory/EXP-###/`
 - Host is in `data.allowed_hosts`; the brief (`01-brief.md`) is approved by the user. Never approve the brief myself.
 - One charter per session: "Explore <area> with <ideas> to find <kind of problem>". Time box about 30 minutes.
 - Note what you assume. Anything you cannot know goes to "Open questions".
-- A test account made during the exploration is recorded in the exploration folder: `test-data.md` (no password) and the git-ignored `test-data.local.md` (see `.claude/rules/test-accounts.md`).
+- A test account made during the exploration is recorded in `test-data/accounts.md` and `test-data/accounts.local.md`. Every value typed, even a wrong one, goes to `test-data/typed-values.local.md` with the session and step (see `.claude/rules/test-accounts.md`). Reusable fake values are in `test-data/inputs.md`.
 
 ## 2. Think in tours (pick the ones that fit the charter)
 

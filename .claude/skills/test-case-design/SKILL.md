@@ -45,7 +45,7 @@ Every case states: the page (name and address), the preconditions, the numbered 
 - Framework-neutral: no selectors, code or tool names. Describe actions at the business level, naming the page ("On the Login page, `/login`, click Sign in").
 - Fake test data only. Credentials by variable name (`password_env`), never the value; test accounts follow `.claude/rules/test-accounts.md`.
 - If the expected message or value is not known, write "unknown, record from the run" and add an open question. Do not guess it.
-- Values made at run time (a new email, a wrong password, a malformed value): write "generated at run time" in `test_data`, not the value. The run records every value it actually typed, including wrong ones, as evidence in the git-ignored `test-data.local.md` (see `.claude/rules/test-accounts.md`). Never put a password in a case, a report or any tracked file.
+- Values made at run time (a new email, a wrong password, a malformed value): write "generated at run time" in `test_data`, not the value. The run records every value it actually typed, including wrong ones, as evidence in the git-ignored `test-data/typed-values.local.md` (see `.claude/rules/test-accounts.md`). Point to reusable values instead of repeating them (for example "see `test-data/inputs.md`, malformed email" or "the account ACC-... in `test-data/accounts.md`"). Never put a password in a case, a report or any tracked file.
 - A case that creates data on a shared or staging host (for example a new account): set `automation_candidate: no` unless the user agrees.
 - Use a `type` from the list in `templates/test-case.md`.
 - One idea per case, short title, a unique ID.

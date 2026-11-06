@@ -1,6 +1,6 @@
 # Test cases: FEAT-001 sign-up, login and logout (draft)
 
-Designed with the `test-case-design` skill from the approved `01-requirements.md`. Framework-neutral. All 13 cases were approved by the user on 2026-11-06 ("Approve the cases"). The test plan (`03-test-plan.md`) was not written in this dry run. Host: `assistant-qa-staging.vercel.app` (in `data.allowed_hosts`). Test data is fake; the existing test account is `ACC-EXP-001-1` (`workspace/exploratory/EXP-001/test-data.md`, password only in the git-ignored `test-data.local.md`).
+Designed with the `test-case-design` skill from the approved `01-requirements.md`. Framework-neutral. All 13 cases were approved by the user on 2026-11-06 ("Approve the cases"). The test plan (`03-test-plan.md`) was not written in this dry run. Host: `assistant-qa-staging.vercel.app` (in `data.allowed_hosts`). Test data is fake; the existing test account is `ACC-EXP-001-1` (`test-data/accounts.md`, password only in the git-ignored `test-data/accounts.local.md`).
 
 ```yaml
 id: TC-001
@@ -66,7 +66,7 @@ preconditions:
   - The browser is signed out
 test_data:
   username: the test account email (ACC-EXP-001-1)
-  password_env: QA_TEST_PASSWORD   # NAME only; the value is in the git-ignored test-data.local.md
+  password_env: QA_TEST_PASSWORD   # NAME only; the value is in the git-ignored test-data/accounts.local.md
 steps:
   - n: 1
     action: Open the Login page, `/login`
@@ -96,7 +96,7 @@ preconditions:
   - The browser is signed out
 test_data:
   username: the test account email (ACC-EXP-001-1)
-  password: generated at run time (random, different from the real one); recorded as evidence in the git-ignored test-data.local.md during the run
+  password: generated at run time (random, different from the real one); recorded as evidence in the git-ignored test-data/typed-values.local.md during the run
 steps:
   - n: 1
     action: Open the Login page, `/login`
@@ -179,7 +179,7 @@ preconditions:
 test_data:
   full_name: fake name generated at run time
   email: new unique address on example.com, generated at run time
-  password: long random password generated at run time; recorded only in the git-ignored local file
+  password: long random password generated at run time; recorded only in the git-ignored test-data/accounts.local.md
 steps:
   - n: 1
     action: Open the Sign-up page, `/register`
@@ -238,7 +238,7 @@ preconditions:
 test_data:
   full_name: fake name
   email: the test account email (ACC-EXP-001-1)
-  password: different fake password generated at run time; recorded as evidence in the git-ignored test-data.local.md during the run
+  password: different fake password generated at run time; recorded as evidence in the git-ignored test-data/typed-values.local.md during the run
 steps:
   - n: 1
     action: Open the Sign-up page, `/register`
@@ -350,7 +350,7 @@ preconditions:
 test_data:
   full_name: fake name generated at run time
   email: new unique address on example.com, generated at run time
-  password: long random password generated at run time; recorded only in the git-ignored local file
+  password: long random password generated at run time; recorded only in the git-ignored test-data/accounts.local.md
 steps:
   - n: 1
     action: On the Sign-up page, `/register`, create the account with the fake data
