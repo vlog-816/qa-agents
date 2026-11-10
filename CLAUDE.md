@@ -7,6 +7,7 @@ Foundation for an AI testing team (BA, Manual Tester, Automation Tester, more ro
 1. `docs/data-policy.md` (before any test run)
 2. `qa-profile.yaml` (language, data_class, hosts, framework, gates)
 3. `templates/` (requirements, test plans, test cases, reports, traceability)
+4. `docs/app/README.md` (what we know about the GMD|TMS app; the main project until release)
 
 ## Rules for every session
 
@@ -21,6 +22,8 @@ Foundation for an AI testing team (BA, Manual Tester, Automation Tester, more ro
 - **Worklog:** after each milestone (and when the user says to save), update the "Current state" block and add a short entry to `workspace/WORKLOG.md` (newest first; no secrets). At session start, read that block (top of the file only) and continue from its open items.
 
 ## Current status
+
+Main project (user decision, 2026-11-10): the Gemadept TMS app (GMD|TMS, dev host `btc.tms-dev.gmd.zenlabs.gg`) until it is released. Knowledge lives in `docs/app/`.
 
 Phase 1 closed (scoped). Agents: `data-guard`, `manual-tester`, `automation-tester` (see BL-012). Not created: `ba-analyst`, `test-reviewer`. Host hooks and other ideas are parked in `docs/backlog/BACKLOG.md`. The workspace was cleared on 2026-11-05 (earlier results are in git history only). Progress and open items: `workspace/WORKLOG.md`.
 
