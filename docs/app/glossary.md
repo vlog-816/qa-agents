@@ -40,6 +40,27 @@ Không có khóa API, token, mật khẩu hay dữ liệu cá nhân thật trong
 | `type` | Loại trạm; thấy `"exit"` (lối ra cao tốc) hoặc để trống | tôi đọc |
 | `lat`, `lng` | Latitude, longitude: vĩ độ, kinh độ của trạm | phản hồi |
 
+### 2b. Tuyến đã lưu (`GET /api/v1/route-setups/<id>`): segments, stops, paths
+
+Một tuyến có các **điểm dừng** (`stops`); các điểm dừng tạo nên các **chặng** (`segments`); mỗi chặng được tính từ đường đi tốt nhất trong nhiều **`paths`** của dịch vụ định tuyến. Số segment = số điểm dừng − 1 (3 điểm dừng = 2 segment; 4 điểm dừng = 3 segment).
+
+| Trường | Nghĩa | Nguồn |
+|---|---|---|
+| `segments` | Các **chặng** (legs) của cả tuyến, mỗi cặp điểm dừng liên tiếp một chặng; màn hình gọi là "chặng". Mỗi segment lưu điểm đầu `from_location_id`, `toll_cost` và `tolls`; quãng đường và thời gian có trên màn hình (tên trường chưa đọc). | phản hồi (đầu bản ghi); phần còn lại tôi đọc |
+| `stops` | Các **điểm dừng** theo thứ tự | phản hồi |
+| `stop_order` | Thứ tự của điểm dừng: 1, 2, 3 … | phản hồi |
+| `role` | Vai trò điểm dừng: `pickup` (LẤY CONT), `cargo` (ĐÓNG/RÚT HÀNG), `dropoff` (HẠ CONT) | phản hồi |
+| `pickup`, `stuffing`, `dropoff` | Ba điểm chính của tuyến: lấy cont, đóng/rút hàng, hạ cont | phản hồi |
+| `from_location_id` | Mã của địa điểm bắt đầu chặng (tham chiếu `GET /api/v1/locations/<id>`) | phản hồi |
+| `transport_type` | Loại hình vận chuyển của tuyến, ví dụ `"export"` (= Hàng Xuất, HX) | phản hồi |
+| `client` | Khách hàng của tuyến (id, tên, tên viết tắt) | phản hồi |
+| `gps_geotag` | Tọa độ "vĩ độ, kinh độ" của địa điểm | phản hồi |
+| `marker_kind`, `classification` | Kiểu điểm trên bản đồ (`location`) và phân loại (`standalone`: địa điểm lẻ) | tôi đọc |
+| `measure_location_id`, `measure_location_name` | Địa điểm dùng để đo khoảng cách (thường chính nó) | tôi đọc |
+| `paths` (trong phản hồi định tuyến trực tiếp) | **Các cách đi khác nhau cho MỘT chặng** (`alternative=true`); tôi dùng cái đầu. Không phải `segments`. | phản hồi |
+
+Phân biệt nhanh: **segments** = các chặng của cả tuyến (đã lưu); **paths** = các đường đi có thể cho một chặng (khi tính trực tiếp); **stops** = các điểm dừng theo thứ tự.
+
 ## 3. Tham số của yêu cầu định tuyến
 
 | Phần | Nghĩa | Nguồn |
