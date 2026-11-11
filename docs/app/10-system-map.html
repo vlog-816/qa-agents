@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sơ đồ hệ thống GMD|TMS</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--text:#1f2328;--muted:#656d76;--line:#d0d7de;--head:#eef2f6;--accent:#0b6bcb;--n1:#e7f0fb;--n2:#e6f4ea;--n3:#fff4d6;--n4:#fde8e8;--n5:#f1ecff;--ok:#d9f2e0;--okt:#14532d;--no:#ececec;--not:#555;--warn:#fbe0e0;--warnt:#7a1d1d}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1318;--card:#171c23;--text:#e6e9ed;--muted:#9aa4b0;--line:#2c3440;--head:#1f2630;--accent:#5aa9ff;--n1:#16304d;--n2:#173a26;--n3:#3d3210;--n4:#472024;--n5:#2a2540;--ok:#173a26;--okt:#8fe0a8;--no:#242b35;--not:#b0b8c2;--warn:#4a2020;--warnt:#ffa8a8}}
+:root[data-theme="dark"]{--bg:#0f1318;--card:#171c23;--text:#e6e9ed;--muted:#9aa4b0;--line:#2c3440;--head:#1f2630;--accent:#5aa9ff;--n1:#16304d;--n2:#173a26;--n3:#3d3210;--n4:#472024;--n5:#2a2540;--ok:#173a26;--okt:#8fe0a8;--no:#242b35;--not:#b0b8c2;--warn:#4a2020;--warnt:#ffa8a8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1150px;margin:0 auto;padding:18px 14px 50px}
+h1{font-size:24px;margin:4px 0}h2{font-size:18px;margin:30px 0 8px;border-bottom:1px solid var(--line);padding-bottom:5px}
+.sub{color:var(--muted);margin:0 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0}
+svg{width:100%;height:auto;display:block}
+svg .box{stroke:var(--line);stroke-width:1.2}svg text{fill:var(--text);font:12.5px system-ui,sans-serif}
+svg .t2{fill:var(--muted);font-size:11px}svg .b{font-weight:600}
+svg .arr{stroke:var(--accent);stroke-width:1.5;fill:none}svg .arrh{fill:var(--accent)}svg .dash{stroke-dasharray:5 4}
+.n1{fill:var(--n1)}.n2{fill:var(--n2)}.n3{fill:var(--n3)}.n4{fill:var(--n4)}.n5{fill:var(--n5)}.n0{fill:var(--head)}
+table{border-collapse:collapse;width:100%;background:var(--card)}
+th,td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top;font-size:13px}th{background:var(--head)}
+.wrap{overflow-x:auto}
+.chip{display:inline-block;border-radius:6px;padding:0 7px;font-size:12px}
+.ok{background:var(--ok);color:var(--okt)}.no{background:var(--no);color:var(--not)}.warn{background:var(--warn);color:var(--warnt)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+code{background:var(--head);padding:1px 5px;border-radius:4px;font-size:12.5px}
+ul{margin:4px 0 4px 20px;padding:0}
+button#t{float:right;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer}
+footer{color:var(--muted);font-size:12.5px;margin-top:26px}
+</style>
+</head>
+<body>
+<main>
+<button id="t" type="button" aria-label="Đổi giao diện sáng tối">Sáng/Tối</button>
+<h1>Sơ đồ hệ thống GMD|TMS (đến 2026-11-11)</h1>
+<p class="sub">Những gì mình đã thấy trên <b>dev</b> (<code>btc.tms-dev.gmd.zenlabs.gg</code>) và ứng dụng tài xế. Không phải đặc tả chính thức. Mức chắc chắn: <span class="chip ok">đã thấy/đã làm</span> <span class="chip no">suy luận</span> <span class="chip warn">chưa biết/chưa kiểm</span>. Chi tiết: <code>README.md</code> cùng thư mục.</p>
+
+<h2>1. Toàn cảnh: ai làm gì, ở đâu</h2>
+<div class="card">
+<svg viewBox="0 0 1100 330" role="img" aria-label="Toàn cảnh hệ thống">
+<defs><marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="arrh"/></marker></defs>
+<rect class="box n1" x="10" y="10" width="330" height="310" rx="10"/><text class="b" x="175" y="32" text-anchor="middle">Web điều phối (Admin, đã dùng)</text>
+<text x="25" y="58" class="b">Báo giá</text><text x="40" y="75" class="t2">Khách hàng, Địa điểm &amp; Tuyến, Đơn giá dịch vụ</text>
+<text x="25" y="98" class="b">Vận hành</text><text x="40" y="115" class="t2">Kế hoạch (đơn), Điều động Khai thác, Hành chính</text><text x="40" y="130" class="t2">Giám sát, Sự cố, Lịch sử đơn hàng, Debit Notes</text>
+<text x="25" y="153" class="b">Phương tiện &amp; Lái xe</text><text x="40" y="170" class="t2">Tài sản, nhiên liệu, bảo dưỡng, lốp, phạt nguội, tài xế, bảng lương</text>
+<text x="25" y="193" class="b">Thiết lập tài chính</text><text x="40" y="210" class="t2">Chi phí vận chuyển (4 tab), giá nội bộ, LOLO,</text><text x="40" y="225" class="t2">tham số lương, số liệu tháng</text>
+<text x="25" y="248" class="b">Dashboard, Báo cáo, Thông báo</text><text x="40" y="265" class="t2">Dashboard (DK/TT), Báo cáo vận hành</text>
+<text x="25" y="290" class="t2">Chưa vào: Nhân viên, Admin Portal, phân quyền, Audit Log</text>
+<rect class="box n3" x="380" y="10" width="330" height="150" rx="10"/><text class="b" x="545" y="32" text-anchor="middle">Ứng dụng tài xế (điện thoại)</text>
+<text x="395" y="56" class="t2">Nhận lệnh → Lấy cont → Đóng hàng → Hạ cont → Hoàn tất</text>
+<text x="395" y="76" class="t2">Tab: Giao nhận, Chứng từ &amp; Ảnh, Chi phí, Tóm tắt chi phí</text>
+<text x="395" y="96" class="t2">"Ghi nhận chi phí": 5 loại cố định (Nhiên liệu, Phí nâng cont,</text><text x="395" y="111" class="t2">Phí hạ cont, Phụ phí, Khác) + ảnh hóa đơn (không bắt buộc)</text>
+<text x="395" y="134" class="t2">Nút "Sự cố". Người dùng giữ tài khoản tài xế test.</text>
+<rect class="box n2" x="380" y="175" width="330" height="145" rx="10"/><text class="b" x="545" y="197" text-anchor="middle">Dịch vụ phía sau</text>
+<text x="395" y="221" class="t2">Định tuyến + giá trạm (km, giờ, trạm, theo cỡ cont)</text>
+<text x="395" y="241" class="t2">Bản đồ Vietmap, GPS xe (km và giờ thực tế)</text>
+<text x="395" y="261" class="t2">API /api/proxy/api/v1/... (orders, service-rates, ...)</text>
+<text x="395" y="281" class="t2">Đăng nhập Microsoft (người dùng tự đăng nhập)</text>
+<rect class="box n4" x="750" y="10" width="340" height="310" rx="10"/><text class="b" x="920" y="32" text-anchor="middle">Môi trường và quy tắc</text>
+<text x="765" y="58" class="b">dev (đã làm hết)</text><text x="780" y="74" class="t2">Dữ liệu dùng chung, tiền tố BTC, người khác cũng sửa</text>
+<text x="765" y="98" class="b">staging (chỉ đọc)</text><text x="780" y="114" class="t2">gcc.tms-staging...: 3 dòng chi phí hệ thống, 3 TS,</text><text x="780" y="128" class="t2">không có chi hộ; chưa nhập gì (người dùng dừng)</text>
+<text x="765" y="152" class="b">Vai trò (từ sơ đồ người dùng, chưa kiểm)</text><text x="780" y="168" class="t2">Sale, Manager, Dispatcher, Driver, Client, CMS</text>
+<text x="765" y="192" class="b">Cách làm việc</text><text x="780" y="208" class="t2">Người dùng commit; dữ liệu giả; hỏi trước khi đụng</text><text x="780" y="222" class="t2">đường dẫn ngoài dự án; ghi mọi giá trị đã gõ</text>
+<text x="765" y="246" class="b">Cảnh báo khi test</text><text x="780" y="262" class="t2">Dòng đã dùng không xóa được (409); cài đặt chỉ áp cho</text><text x="780" y="276" class="t2">đơn mới; Debit Note là bản ghi dùng chung</text>
+</svg>
+</div>
+
+<h2>2. Luồng nghiệp vụ từ báo giá đến Debit Note</h2>
+<div class="card">
+<svg viewBox="0 0 1100 420" role="img" aria-label="Luồng từ khách hàng đến Debit Note">
+<rect class="box n1" x="10" y="20" width="150" height="62" rx="8"/><text class="b" x="85" y="46" text-anchor="middle">Khách hàng</text><text class="t2" x="85" y="64" text-anchor="middle">/clients, chỉ cần tên</text>
+<path class="arr" d="M160,51 L190,51" marker-end="url(#a)"/>
+<rect class="box n1" x="190" y="20" width="170" height="62" rx="8"/><text class="b" x="275" y="46" text-anchor="middle">Tuyến báo giá</text><text class="t2" x="275" y="64" text-anchor="middle">3 điểm, km, giờ, phí trạm</text>
+<path class="arr" d="M360,51 L390,51" marker-end="url(#a)"/>
+<rect class="box n2" x="390" y="20" width="190" height="62" rx="8"/><text class="b" x="485" y="46" text-anchor="middle">Đơn giá dịch vụ</text><text class="t2" x="485" y="64" text-anchor="middle">khách + loại hình + trọng lượng</text>
+<path class="arr" d="M580,51 L610,51" marker-end="url(#a)"/>
+<rect class="box n2" x="610" y="20" width="200" height="62" rx="8"/><text class="b" x="710" y="46" text-anchor="middle">Phiên bản giá (BTCDG-xxxx)</text><text class="t2" x="710" y="64" text-anchor="middle">Đã báo + Đã chấp thuận = Đang sử dụng</text>
+<path class="arr" d="M810,51 L840,51" marker-end="url(#a)"/>
+<rect class="box n3" x="840" y="20" width="250" height="62" rx="8"/><text class="b" x="965" y="46" text-anchor="middle">Kế hoạch tháng → Đơn hàng</text><text class="t2" x="965" y="64" text-anchor="middle">lưu service_rate_id (đúng phiên bản)</text>
+<path class="arr" d="M965,82 L965,118 L120,118 L120,150" marker-end="url(#a)"/>
+<rect class="box n3" x="10" y="150" width="220" height="70" rx="8"/><text class="b" x="120" y="175" text-anchor="middle">Container → Lệnh điều động</text><text class="t2" x="120" y="193" text-anchor="middle">1 container = 1 lệnh, "Lưu tab" tạo Nháp</text><text class="t2" x="120" y="208" text-anchor="middle">"Điều động" → Chờ phân bổ</text>
+<path class="arr" d="M230,185 L260,185" marker-end="url(#a)"/>
+<rect class="box n3" x="260" y="150" width="220" height="70" rx="8"/><text class="b" x="370" y="175" text-anchor="middle">Phân bổ + Gửi</text><text class="t2" x="370" y="193" text-anchor="middle">Nguồn xe BTC hoặc Nhà xe (bắt buộc tài xế)</text><text class="t2" x="370" y="208" text-anchor="middle">→ Chờ xác nhận</text>
+<path class="arr" d="M480,185 L510,185" marker-end="url(#a)"/>
+<rect class="box n5" x="510" y="150" width="270" height="70" rx="8"/><text class="b" x="645" y="175" text-anchor="middle">Tài xế trên app</text><text class="t2" x="645" y="193" text-anchor="middle">Nhận lệnh → Lấy cont → Đóng hàng → Hạ cont</text><text class="t2" x="645" y="208" text-anchor="middle">→ Hoàn tất; nhập chi phí thủ công</text>
+<path class="arr" d="M780,185 L810,185" marker-end="url(#a)"/>
+<rect class="box n4" x="810" y="150" width="280" height="70" rx="8"/><text class="b" x="950" y="175" text-anchor="middle">Cần tất toán</text><text class="t2" x="950" y="193" text-anchor="middle">Chi phí thực tế (TT) từ GPS + gõ tay + app</text><text class="t2" x="950" y="208" text-anchor="middle">Lương tài xế (hệ số chặng), LOLO thực tế</text>
+<path class="arr" d="M950,220 L950,260 L840,260" marker-end="url(#a)"/>
+<rect class="box n4" x="560" y="235" width="280" height="62" rx="8"/><text class="b" x="700" y="260" text-anchor="middle">PNL: Dự kiến / Thực tế / Chênh lệch</text><text class="t2" x="700" y="278" text-anchor="middle">doanh thu vận chuyển thực tế "—" (chưa rõ vì sao)</text>
+<path class="arr" d="M560,266 L520,266" marker-end="url(#a)"/>
+<rect class="box n0" x="250" y="235" width="270" height="62" rx="8"/><text class="b" x="385" y="260" text-anchor="middle">Debit Note (theo cont hoàn thành)</text><text class="t2" x="385" y="278" text-anchor="middle">khách + Kê khai theo + khoảng ngày</text>
+<path class="arr dash" d="M250,266 L120,266 L120,330" marker-end="url(#a)"/>
+<rect class="box n0" x="10" y="330" width="380" height="70" rx="8"/><text class="b" x="200" y="355" text-anchor="middle">Chưa rõ: tạo được Debit Note không, trạng thái</text><text class="t2" x="200" y="373" text-anchor="middle">Phát hành → Chấp thuận / Bị từ chối, có tạo doanh thu thực tế?</text><text class="t2" x="200" y="388" text-anchor="middle">(bấm "Tạo Debit Note" 3 lần không tạo được; làm tiếp mai)</text>
+<rect class="box n0" x="420" y="330" width="670" height="70" rx="8"/><text class="b" x="755" y="355" text-anchor="middle">Dashboard (Tuần / Ngày): DK theo báo giá, TT = lệnh hoàn tất</text><text class="t2" x="755" y="373" text-anchor="middle">TT = Đã tất toán + Cần tất toán; Lợi nhuận = Doanh thu − Chi phí</text><text class="t2" x="755" y="388" text-anchor="middle">Lịch sử đơn hàng, Giám sát (theo ngày vận chuyển), Sự cố: xem danh sách</text>
+</svg>
+</div>
+
+<h2>3. Mô hình trạng thái: mỗi thực thể một trạng thái riêng</h2>
+<p class="sub"><b>Tài xế "Hoàn tất" không có nghĩa lệnh điều động "Hoàn tất".</b> Bảng dưới là cùng một lệnh nhìn từ nhiều chỗ, theo từng thời điểm (đã thấy trên lệnh 201497, 201500, 201501). Ô có dấu (?) là suy luận hoặc chưa kiểm.</p>
+<div class="wrap"><table>
+<tr><th>Thực thể / chỗ xem</th><th>Sau "Gửi điều động"</th><th>Tài xế nhận</th><th>Bắt đầu vận chuyển</th><th>Lấy cont xong</th><th>Đóng hàng xong</th><th>Hạ cont + Hoàn tất (tài xế)</th><th>Sau tất toán (?)</th></tr>
+<tr><td><b>Ứng dụng tài xế</b> (5 bước)</td><td>Nhận lệnh (chờ)</td><td>Nhận lệnh ✓</td><td>Nhận lệnh ✓</td><td>Lấy cont ✓</td><td>Đóng hàng ✓</td><td><b>Hạ cont ✓, Hoàn tất ✓</b></td><td>—</td></tr>
+<tr><td><b>Lệnh điều động</b> (nhãn trong hộp chi tiết)</td><td>Chờ xác nhận</td><td>Chờ vận chuyển</td><td>Chờ lấy cont</td><td>Đang đóng/rút hàng</td><td>Đang hạ cont</td><td><b>Cần tất toán</b></td><td>Hoàn tất (?)</td></tr>
+<tr><td>Lệnh trong danh sách (nhóm đếm / cột trạng thái)</td><td>Chờ xác nhận</td><td>Chờ vận chuyển</td><td>Đang vận chuyển</td><td>Đang vận chuyển</td><td>Đang vận chuyển</td><td><b>nhóm "Hoàn tất", cột "Cần tất toán"</b></td><td>nhóm "Hoàn tất", cột "Hoàn tất" (ví dụ #BTC26SHP-201460)</td></tr>
+<tr><td>Bảng container trong <b>Đơn hàng</b> (cột "Lệnh tương ứng")</td><td>Chờ xác nhận (?)</td><td>(?)</td><td>(?)</td><td>(?)</td><td>(?)</td><td><b>Hoàn tất</b></td><td>Hoàn tất</td></tr>
+<tr><td>Chặng (tab Lương tài xế)</td><td colspan="5">"Chưa hoàn thành" (từng chặng)</td><td><b>"Đã hoàn thành" + giờ (cả hai chặng cùng giờ)</b></td><td>—</td></tr>
+<tr><td>Bộ đếm Kế hoạch (đơn)</td><td>Đang điều động (?)</td><td>(?)</td><td>Đang vận chuyển (?)</td><td>(?)</td><td>(?)</td><td><b>Đang tất toán</b> (?)</td><td>(?)</td></tr>
+<tr><td>Chi phí thực tế và PNL Thực tế</td><td colspan="2">chưa có ("chưa bắt đầu vận chuyển")</td><td colspan="3">TT chạy theo GPS</td><td>TT có; <b>doanh thu vận chuyển "—"</b></td><td>doanh thu thực tế có? (Q55)</td></tr>
+<tr><td>Debit Note</td><td colspan="5">chưa có (cont chưa lập DN)</td><td>có thể lập (đếm theo cont hoàn thành, theo ngày)</td><td>Phát hành → Chấp thuận / Bị từ chối</td></tr>
+</table></div>
+<div class="card">
+<b>Mình thấy gì khác nhau ở cùng một lệnh vào cùng một lúc:</b>
+<ul>
+<li>Hộp chi tiết lệnh: <b>"Cần tất toán"</b>. Danh sách lệnh: nằm trong nhóm <b>"Hoàn tất"</b> (85 lệnh, gồm 4 lệnh của mình), cột trạng thái ghi "Cần tất toán". Trang <b>đơn hàng</b>: lệnh đó ghi <b>"Hoàn tất"</b>. Bộ đếm Kế hoạch: đơn thuộc <b>"Đang tất toán"</b>.</li>
+<li>Chỉ một số ít lệnh trong nhóm "Hoàn tất" có cột trạng thái "Hoàn tất" thật (ví dụ #BTC26SHP-201460, Chuyển rỗng, EFG, 07/11/2026). Điều gì chuyển "Cần tất toán" sang "Hoàn tất" chưa rõ (tất toán? Debit Note?): Q56.</li>
+<li>Dashboard tính TT cho lệnh "đã hoàn tất vận chuyển" = Đã tất toán + Cần tất toán, nên "Cần tất toán" nằm giữa hai khái niệm.</li>
+</ul>
+</div>
+
+<h3 style="font-size:15px;margin:16px 0 6px">Máy trạng thái từng thực thể</h3>
+<div class="card">
+<svg viewBox="0 0 1100 335" role="img" aria-label="Trạng thái các thực thể">
+<defs><marker id="a2" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="arrh"/></marker></defs>
+<text class="b" x="10" y="18">Lệnh điều động</text>
+<rect class="box n0" x="10" y="26" width="70" height="30" rx="7"/><text x="45" y="46" text-anchor="middle">Nháp</text><path class="arr" d="M80,41 L95,41" marker-end="url(#a2)"/>
+<rect class="box n1" x="95" y="26" width="95" height="30" rx="7"/><text x="142" y="46" text-anchor="middle">Chờ phân bổ</text><path class="arr" d="M190,41 L205,41" marker-end="url(#a2)"/>
+<rect class="box n1" x="205" y="26" width="100" height="30" rx="7"/><text x="255" y="46" text-anchor="middle">Chờ xác nhận</text><path class="arr" d="M305,41 L320,41" marker-end="url(#a2)"/>
+<rect class="box n3" x="320" y="26" width="110" height="30" rx="7"/><text x="375" y="46" text-anchor="middle">Chờ vận chuyển</text><path class="arr" d="M430,41 L445,41" marker-end="url(#a2)"/>
+<rect class="box n3" x="445" y="26" width="95" height="30" rx="7"/><text x="492" y="46" text-anchor="middle">Chờ lấy cont</text><path class="arr" d="M540,41 L555,41" marker-end="url(#a2)"/>
+<rect class="box n3" x="555" y="26" width="120" height="30" rx="7"/><text x="615" y="46" text-anchor="middle">Đang đóng/rút hàng</text><path class="arr" d="M675,41 L690,41" marker-end="url(#a2)"/>
+<rect class="box n3" x="690" y="26" width="95" height="30" rx="7"/><text x="737" y="46" text-anchor="middle">Đang hạ cont</text><path class="arr" d="M785,41 L800,41" marker-end="url(#a2)"/>
+<rect class="box n4" x="800" y="26" width="105" height="30" rx="7"/><text x="852" y="46" text-anchor="middle">Cần tất toán</text><path class="arr dash" d="M905,41 L920,41" marker-end="url(#a2)"/>
+<rect class="box n2" x="920" y="26" width="80" height="30" rx="7"/><text x="960" y="46" text-anchor="middle">Hoàn tất (?)</text>
+<rect class="box n0" x="1010" y="26" width="80" height="30" rx="7"/><text x="1050" y="46" text-anchor="middle">Đã hủy</text>
+<text class="b" x="10" y="85">Tài xế (ứng dụng): các bước</text>
+<rect class="box n5" x="10" y="93" width="100" height="30" rx="7"/><text x="60" y="113" text-anchor="middle">Nhận lệnh</text><path class="arr" d="M110,108 L125,108" marker-end="url(#a2)"/>
+<rect class="box n5" x="125" y="93" width="90" height="30" rx="7"/><text x="170" y="113" text-anchor="middle">Lấy cont</text><path class="arr" d="M215,108 L230,108" marker-end="url(#a2)"/>
+<rect class="box n5" x="230" y="93" width="100" height="30" rx="7"/><text x="280" y="113" text-anchor="middle">Đóng hàng</text><path class="arr" d="M330,108 L345,108" marker-end="url(#a2)"/>
+<rect class="box n5" x="345" y="93" width="90" height="30" rx="7"/><text x="390" y="113" text-anchor="middle">Hạ cont</text><path class="arr" d="M435,108 L450,108" marker-end="url(#a2)"/>
+<rect class="box n5" x="450" y="93" width="90" height="30" rx="7"/><text x="495" y="113" text-anchor="middle">Hoàn tất</text>
+<text class="t2" x="560" y="103">Mỗi bước kèm ảnh (Lấy cont 0/3, Đóng hàng 0/1, Hạ cont 0/1) và "Ghi nhận chi phí".</text><text class="t2" x="560" y="119">Cảnh báo riêng: GPLX hết hạn chỉ cảnh báo; tài xế đối tác của nhà xe.</text>
+<text class="b" x="10" y="150">Chặng (mỗi lệnh 2 chặng)</text>
+<rect class="box n0" x="10" y="158" width="130" height="30" rx="7"/><text x="75" y="178" text-anchor="middle">Chưa hoàn thành</text><path class="arr" d="M140,173 L160,173" marker-end="url(#a2)"/>
+<rect class="box n2" x="160" y="158" width="150" height="30" rx="7"/><text x="235" y="178" text-anchor="middle">Đã hoàn thành + giờ</text>
+<text class="t2" x="330" y="178">Chỉ khi chặng hoàn thành thì khoản lương mới vào kỳ lương.</text>
+<text class="b" x="10" y="215">Đơn hàng (nhóm đếm Kế hoạch)</text>
+<rect class="box n0" x="10" y="223" width="70" height="30" rx="7"/><text x="45" y="243" text-anchor="middle">Nháp</text><path class="arr" d="M80,238 L95,238" marker-end="url(#a2)"/>
+<rect class="box n1" x="95" y="223" width="120" height="30" rx="7"/><text x="155" y="243" text-anchor="middle">Đang điều động</text><path class="arr" d="M215,238 L230,238" marker-end="url(#a2)"/>
+<rect class="box n3" x="230" y="223" width="130" height="30" rx="7"/><text x="295" y="243" text-anchor="middle">Đang vận chuyển</text><path class="arr" d="M360,238 L375,238" marker-end="url(#a2)"/>
+<rect class="box n4" x="375" y="223" width="115" height="30" rx="7"/><text x="432" y="243" text-anchor="middle">Đang tất toán</text>
+<text class="t2" x="505" y="243">Cần tìm: đơn nhiều container chuyển nhóm khi nào (Q57).</text>
+<text class="b" x="10" y="280">Phiên bản giá, Debit Note, khác</text>
+<rect class="box n1" x="10" y="288" width="115" height="30" rx="7"/><text x="67" y="308" text-anchor="middle">Chờ xác nhận</text><path class="arr" d="M125,303 L140,303" marker-end="url(#a2)"/>
+<rect class="box n2" x="140" y="288" width="105" height="30" rx="7"/><text x="192" y="308" text-anchor="middle">Đang sử dụng</text><path class="arr" d="M245,303 L260,303" marker-end="url(#a2)"/>
+<rect class="box n0" x="260" y="288" width="50" height="30" rx="7"/><text x="285" y="308" text-anchor="middle">Cũ</text>
+<rect class="box n0" x="350" y="288" width="160" height="30" rx="7"/><text x="430" y="308" text-anchor="middle">Debit Note: Phát hành</text><path class="arr" d="M510,303 L525,303" marker-end="url(#a2)"/>
+<rect class="box n2" x="525" y="288" width="100" height="30" rx="7"/><text x="575" y="308" text-anchor="middle">Chấp thuận</text><text class="t2" x="635" y="308">hoặc Bị từ chối (trả cont về "chưa có DN")</text>
+<text class="t2" x="10" y="328">Còn: Sự cố (Chưa xử lý, Đang xử lý, Đã xử lý), Hóa đơn LOLO (Chưa duyệt, Đã duyệt), cờ giá báo sale (Chưa báo/Đã báo) và giá thương mại (Chưa chấp thuận/Đã chấp thuận).</text>
+</svg>
+</div>
+<h3 style="font-size:15px;margin:16px 0 6px">Thực thể khác có trạng thái hoặc cảnh báo riêng</h3>
+<div class="wrap"><table>
+<tr><th>Thực thể</th><th>Trạng thái / cờ đã thấy</th><th>Ghi chú</th></tr>
+<tr><td>Container (trong đơn)</td><td>số cont, seal, "Lệnh tương ứng"; số cont theo ISO 6346</td><td>không sửa được số cont sau khi lệnh hoàn tất (không lưu, không báo lỗi)</td></tr>
+<tr><td>Chứng từ &amp; Ảnh của lệnh</td><td>Lấy cont 0/3, Đóng hàng 0/1, Hạ cont 0/1, số tờ khai HQ; chấm đỏ trên app khi có mục cần nộp</td><td>app không bắt buộc ảnh hóa đơn khi ghi nhận chi phí</td></tr>
+<tr><td>Phí chi hộ</td><td>có cột chi và cột thu khách; chi hộ LOLO "được hoàn trả sau, không tạo doanh thu"</td><td>chưa thấy trạng thái hoàn trả</td></tr>
+<tr><td>Kỳ lương và khoản lương tài xế</td><td>kỳ 01/11 đến 30/11; nút "Chỉnh sửa khoản lương" luôn khóa</td><td>khoản lương chỉ vào kỳ khi chặng hoàn thành (chữ trên màn hình)</td></tr>
+<tr><td>Tài xế và phương tiện</td><td>cảnh báo GPLX hết hạn, đăng kiểm hết hạn; "28 tài sản đến hạn bảo dưỡng"</td><td>chỉ cảnh báo, không chặn gửi lệnh</td></tr>
+<tr><td>Nhà xe và tài xế đối tác</td><td>"Tài xế đối tác"; chi phí xe nhà xe gộp thành ô nhập tay</td><td>chưa thấy trạng thái riêng</td></tr>
+<tr><td>Lệnh kết hợp, tuyến lẻ, tách chặng</td><td>"Tuyến lẻ", "Lệnh kết hợp" (hai lệnh cùng tài xế), nút "Tách chặng"</td><td>chưa thử</td></tr>
+<tr><td>Thông báo (chuông)</td><td>bộ đếm tăng theo hoạt động</td><td>chưa đọc nội dung (có thể liên quan trạng thái)</td></tr>
+</table></div>
+
+<h2>4. Mô hình chi phí: từ cài đặt đến PNL</h2>
+<div class="card">
+<svg viewBox="0 0 1100 330" role="img" aria-label="Mô hình chi phí">
+<rect class="box n2" x="10" y="10" width="290" height="310" rx="10"/><text class="b" x="155" y="32" text-anchor="middle">Cài đặt (/settings/costs)</text>
+<text x="25" y="56" class="b">Cấu trúc chi phí</text><text x="25" y="72" class="t2">dòng Cxxx: tên, cấp 1/2, đơn vị, nguồn mặc định</text><text x="25" y="86" class="t2">DK/TT, giao diện, nhà xe, hóa đơn; 3 dòng hệ thống</text>
+<text x="25" y="110" class="b">Tham số TS</text><text x="25" y="126" class="t2">đơn giá theo Giờ / Km / Chuyến (tham chiếu theo mã)</text>
+<text x="25" y="150" class="b">Nhiên liệu</text><text x="25" y="166" class="t2">định mức (l/100km) × giá dầu, bản mặc định</text>
+<text x="25" y="190" class="b">Phí chi hộ (PCH01 đến 05)</text><text x="25" y="206" class="t2">cột chi + cột thu khách → thu dịch vụ</text>
+<text x="25" y="230" class="b">Khác</text><text x="25" y="246" class="t2">giá nội bộ (4 chỉ số %), LOLO, lương, số liệu tháng</text>
+<text x="25" y="272" class="t2">Tuyến: km, giờ, phí trạm theo cỡ cont</text>
+<path class="arr" d="M300,160 L340,160" marker-end="url(#a)"/><text class="t2" x="320" y="150" text-anchor="middle">chụp lại</text>
+<rect class="box n1" x="340" y="10" width="270" height="150" rx="10"/><text class="b" x="475" y="32" text-anchor="middle">Phiên bản giá (bản chụp)</text>
+<text x="355" y="56" class="t2">mỗi dòng: mã, tên, nhóm, đơn vị, cách tính,</text><text x="355" y="70" class="t2">số lượng, đơn giá, thành tiền</text>
+<text x="355" y="94" class="t2">+ định mức dầu, giá dầu, giờ tác vụ khác, ghi chú</text>
+<text x="355" y="118" class="t2">Giá đề xuất = chi phí + (4 chỉ số %) × chi phí</text><text x="355" y="134" class="t2">Giá báo sale, Giá thương mại → doanh thu PNL</text>
+<path class="arr" d="M610,85 L650,85" marker-end="url(#a)"/>
+<rect class="box n3" x="650" y="10" width="440" height="150" rx="10"/><text class="b" x="870" y="32" text-anchor="middle">Lệnh điều động: tab Chi phí</text>
+<text x="665" y="56" class="t2">Dự kiến (DK) = tính từ bản chụp, chia 2 chặng (km, giờ theo chặng)</text>
+<text x="665" y="74" class="t2">Ô gõ ở DK: khi nguồn Dự kiến ≠ Hệ thống</text>
+<text x="665" y="94" class="t2">Thực tế (TT): "Theo GPS" cho lương km/giờ, dầu, lốp; dòng khác giữ DK</text>
+<text x="665" y="112" class="t2">Ô gõ ở TT: Biến phí + Chuyến; mục "Phí phát sinh" luôn gõ được</text>
+<text x="665" y="130" class="t2">Xe nhà xe: dòng "Nhà xe = Có" ẩn, gộp vào "Chi phí trả cho nhà xe"</text>
+<text x="665" y="148" class="t2">Tài xế nhập ở app: FUEL_LOG, DRIVER_surcharge, Phí phát sinh, LOLO</text>
+<path class="arr" d="M870,160 L870,200" marker-end="url(#a)"/>
+<rect class="box n4" x="340" y="200" width="750" height="120" rx="10"/><text class="b" x="715" y="222" text-anchor="middle">PNL (lệnh và đơn): Dự kiến / Thực tế / Chênh lệch (= TT − DK)</text>
+<text x="355" y="246" class="t2">Chi phí vận hành = tổng DK hoặc TT của tab Chi phí (theo chặng) · Chi hộ = cột chi · Thu dịch vụ = cột thu khách</text>
+<text x="355" y="266" class="t2">Doanh thu vận chuyển DK = Giá thương mại của phiên bản giá của đơn, chia chặng theo km</text>
+<text x="355" y="286" class="t2">Doanh thu vận chuyển TT = "—" cho tới khi (chưa rõ: tất toán / Debit Note?) · Lợi nhuận = doanh thu − chi phí</text>
+<text x="355" y="306" class="t2">Phí LOLO của tài xế không thấy trong PNL; lương tài xế: hệ số chặng = giờ dự kiến ÷ 8</text>
+</svg>
+<div class="wrap"><table>
+<tr><th>Công thức</th><th>Ví dụ (lệnh thử)</th></tr>
+<tr><td>Giờ: đơn giá × (giờ tuyến + giờ "tác vụ khác"); Km: đơn giá × km; Chuyến: đơn giá × số chuyến</td><td>131.33 km, 3.75 giờ → tổng 2,452,312 ₫</td></tr>
+<tr><td>Dầu = định mức × giá dầu ÷ 100 × km</td><td>35 × 28,870 ÷ 100 = 10,104.5 ₫/km</td></tr>
+<tr><td>Phí trạm = tổng giá trạm của đường đi từng chặng, theo cỡ cont</td><td>254,000 + 176,000 = 430,000</td></tr>
+</table></div>
+</div>
+
+<h2>5. Quan hệ dữ liệu</h2>
+<div class="card">
+<svg viewBox="0 0 1100 250" role="img" aria-label="Quan hệ dữ liệu">
+<rect class="box n1" x="10" y="20" width="140" height="50" rx="8"/><text class="b" x="80" y="50" text-anchor="middle">Khách hàng</text>
+<path class="arr" d="M150,45 L190,45" marker-end="url(#a)"/><text class="t2" x="170" y="38" text-anchor="middle">1..n</text>
+<rect class="box n1" x="190" y="20" width="140" height="50" rx="8"/><text class="b" x="260" y="50" text-anchor="middle">Tuyến báo giá</text>
+<path class="arr" d="M330,45 L370,45" marker-end="url(#a)"/>
+<rect class="box n2" x="370" y="20" width="190" height="50" rx="8"/><text class="b" x="465" y="42" text-anchor="middle">Đơn giá (nhóm)</text><text class="t2" x="465" y="58" text-anchor="middle">/settings/service-rates/&lt;nhóm&gt;</text>
+<path class="arr" d="M560,45 L600,45" marker-end="url(#a)"/><text class="t2" x="580" y="38" text-anchor="middle">1..n</text>
+<rect class="box n2" x="600" y="20" width="210" height="50" rx="8"/><text class="b" x="705" y="42" text-anchor="middle">Phiên bản giá</text><text class="t2" x="705" y="58" text-anchor="middle">mã BTCDG riêng, 1 bản đang dùng</text>
+<path class="arr" d="M705,70 L705,110" marker-end="url(#a)"/><text class="t2" x="740" y="95">service_rate_id</text>
+<rect class="box n3" x="600" y="110" width="210" height="50" rx="8"/><text class="b" x="705" y="132" text-anchor="middle">Đơn hàng</text><text class="t2" x="705" y="148" text-anchor="middle">n container, số cont (ISO 6346)</text>
+<path class="arr" d="M600,135 L560,135" marker-end="url(#a)"/>
+<rect class="box n3" x="370" y="110" width="190" height="50" rx="8"/><text class="b" x="465" y="132" text-anchor="middle">Lệnh điều động</text><text class="t2" x="465" y="148" text-anchor="middle">1 container, 2 chặng (3 điểm)</text>
+<path class="arr" d="M370,135 L330,135" marker-end="url(#a)"/>
+<rect class="box n5" x="190" y="110" width="140" height="50" rx="8"/><text class="b" x="260" y="132" text-anchor="middle">Tài xế + xe</text><text class="t2" x="260" y="148" text-anchor="middle">BTC hoặc nhà xe</text>
+<path class="arr" d="M465,160 L465,195" marker-end="url(#a)"/>
+<rect class="box n4" x="330" y="195" width="270" height="45" rx="8"/><text class="b" x="465" y="215" text-anchor="middle">Dòng chi phí DK/TT, LOLO, lương, chứng từ</text><text class="t2" x="465" y="231" text-anchor="middle">theo chặng; PNL</text>
+<path class="arr dash" d="M600,215 L690,215" marker-end="url(#a)"/>
+<rect class="box n0" x="690" y="195" width="200" height="45" rx="8"/><text class="b" x="790" y="215" text-anchor="middle">Debit Note</text><text class="t2" x="790" y="231" text-anchor="middle">gom các cont hoàn thành</text>
+<text class="t2" x="10" y="100">Khách mới chưa có tuyến → không tạo được đơn giá.</text>
+<text class="t2" x="10" y="215">Không tạo được đơn nếu chưa có đơn giá "Đang sử dụng" cho khách + loại hình + trọng lượng.</text>
+</svg>
+</div>
+
+<h2>6. Cài đặt cấu trúc chi phí → giao diện (đã thử)</h2>
+<div class="wrap"><table>
+<tr><th>Cài đặt</th><th>Báo giá</th><th>Lệnh: Dự kiến</th><th>Lệnh: Thực tế</th><th>Xe nhà xe / App</th></tr>
+<tr><td>Mặc định = Hệ thống</td><td>tự tính</td><td>chỉ đọc</td><td>gõ được nếu Biến phí + Chuyến</td><td>—</td></tr>
+<tr><td>Mặc định = ĐPV nhập tay</td><td>tính tiền (hoặc số mặc định)</td><td>gõ được; ép Thực tế cũng ĐPV</td><td>gõ được</td><td>—</td></tr>
+<tr><td>Mặc định = Tài xế nhập tay / Mặc định = 0</td><td>vẫn tính tiền</td><td>gõ được</td><td>như Hệ thống</td><td>app chỉ có 5 loại cố định</td></tr>
+<tr><td>Dòng nhóm Phí phát sinh (Hàng hoá, Nhân công ngoài, Thuê mooc ngoài, Bãi đậu ngoài, Khác)</td><td>có nhưng số 0</td><td>ẩn khi số 0</td><td>nút "Thêm khoản chi phí" (6 lựa chọn)</td><td>—</td></tr>
+<tr><td>Nhà xe = Có</td><td>vẫn tính</td><td>ẩn khi xe nhà xe</td><td>ẩn khi xe nhà xe</td><td>gộp "Chi phí trả cho nhà xe"</td></tr>
+<tr><td>Cấu hình giao diện = Có thể thêm tay</td><td colspan="4"><span class="chip warn">người dùng: có dòng "Thêm" trong phần đó; mình chưa tách được tác dụng riêng. Ma trận 2 (<code>09-cost-matrix-2.html</code>) để kiểm</span></td></tr>
+<tr><td>Yêu cầu hóa đơn = Bắt buộc</td><td colspan="4"><span class="chip warn">chưa thấy dấu hiệu trên web; app cho lưu khi chưa có ảnh hóa đơn</span></td></tr>
+</table></div>
+
+<h2>7. Bài học về cách dùng hệ thống</h2>
+<div class="card two">
+<ul>
+<li>Cài đặt chi phí chỉ áp cho đơn mới; đơn, lệnh, phiên bản đã tạo giữ bản chụp.</li>
+<li>Đổi phiên bản giá "Đang sử dụng": đơn cũ giữ giá, đơn mới lấy giá mới; không hỏi xác nhận.</li>
+<li>Mã dòng chi phí và tham số là bộ đếm tạo, không dùng lại sau khi xóa.</li>
+<li>Dòng đã dùng trong báo giá hoặc lệnh chưa xong không xóa được (409).</li>
+<li>Số cont chuẩn ISO 6346 (chữ cái thứ 4 là U, J hoặc Z); không nhập được số cont sau khi lệnh hoàn tất.</li>
+</ul>
+<ul>
+<li>Debit Note: đếm cont hoàn thành theo khoảng ngày; mặc định là tháng trước (đổi sang tháng này).</li>
+<li>Gửi lệnh cho tài xế có bằng lái hay đăng kiểm hết hạn chỉ cảnh báo, không chặn.</li>
+<li>Giám sát hiện theo ngày vận chuyển, không xem ngày tương lai.</li>
+<li>Trang đã lưu đọc dữ liệu đã lưu, không tính lại (ví dụ phí trạm).</li>
+<li>Khi chạy script nhiều lệnh trình duyệt: chạy từng cái một, không chồng nhau.</li>
+</ul>
+</div>
+
+<h2>8. Mức hiểu biết và việc còn mở</h2>
+<div class="wrap"><table>
+<tr><th>Khu vực</th><th>Mức</th><th>Còn mở</th></tr>
+<tr><td>Báo giá, đơn giá, phiên bản</td><td><span class="chip ok">đã làm</span></td><td>ai chấp thuận phiên bản (Q21); chấp thuận có quy trình riêng?</td></tr>
+<tr><td>Đơn, lệnh, điều động, app tài xế</td><td><span class="chip ok">đã làm trọn vòng</span></td><td>gửi điều động có thông báo ai (Q2); hủy lệnh (Q3); lệnh kết hợp; Điều động nhanh</td></tr>
+<tr><td>Chi phí DK/TT, PNL, lương</td><td><span class="chip ok">hiểu công thức</span></td><td>nút sửa khoản lương luôn khóa (Q50); hóa đơn bắt buộc (Q51); "Cấu hình giao diện" (Q54)</td></tr>
+<tr><td>Doanh thu thực tế, tất toán, Debit Note</td><td><span class="chip warn">chưa biết</span></td><td>điều kiện doanh thu TT (Q55); Debit Note không tạo được (Q49); trạng thái Phát hành, Chấp thuận, Bị từ chối</td></tr>
+<tr><td>Phân quyền, Admin Portal, Nhân viên, Booking, Audit Log</td><td><span class="chip warn">chưa vào</span></td><td>cần tài khoản vai trò khác</td></tr>
+<tr><td>Sự cố, báo cáo, thông báo, Hành chính</td><td><span class="chip no">mới đọc</span></td><td>chưa tạo sự cố, báo cáo</td></tr>
+<tr><td>Staging</td><td><span class="chip no">chỉ đọc</span></td><td>ma trận cấu hình nhập sau (người dùng dừng)</td></tr>
+</table></div>
+<footer>Tạo 2026-11-11 từ <code>docs/app/</code> và <code>workspace/exploratory/EXP-002/02-session-*.md</code>. Các sơ đồ trước: <code>09-cost-model-2.html</code> (chi phí), <code>09-cost-matrix.html</code>, <code>09-cost-matrix-2.html</code> (ma trận).</footer>
+</main>
+<script>
+try{var b=document.getElementById('t');b.onclick=function(){var r=document.documentElement,d=r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);r.setAttribute('data-theme',d?'light':'dark')}}catch(e){}
+</script>
+</body>
+</html>

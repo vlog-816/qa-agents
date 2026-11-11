@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sơ đồ chi phí GMD|TMS</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--text:#1f2328;--muted:#656d76;--line:#d0d7de;--accent:#0b6bcb;--accent2:#1a7f37;--warn:#9a6700;--head:#eef2f6;--n1:#e7f0fb;--n2:#e6f4ea;--n3:#fff4d6;--n4:#fde8e8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1318;--card:#171c23;--text:#e6e9ed;--muted:#9aa4b0;--line:#2c3440;--accent:#5aa9ff;--accent2:#56d364;--warn:#e3b341;--head:#1f2630;--n1:#16304d;--n2:#173a26;--n3:#3d3210;--n4:#472024}}
+:root[data-theme="dark"]{--bg:#0f1318;--card:#171c23;--text:#e6e9ed;--muted:#9aa4b0;--line:#2c3440;--accent:#5aa9ff;--accent2:#56d364;--warn:#e3b341;--head:#1f2630;--n1:#16304d;--n2:#173a26;--n3:#3d3210;--n4:#472024}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:24px;margin:6px 0 2px}h2{font-size:18px;margin:28px 0 8px}
+.sub{color:var(--muted);margin:0 0 10px;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0}
+svg{width:100%;height:auto;display:block}
+svg .box{stroke:var(--line);stroke-width:1.2}
+svg text{fill:var(--text);font:13px system-ui,sans-serif}
+svg .t2{fill:var(--muted);font-size:11.5px}
+svg .b{font-weight:600}
+svg .arr{stroke:var(--accent);stroke-width:1.6;fill:none}
+svg .arrh{fill:var(--accent)}
+.n1{fill:var(--n1)}.n2{fill:var(--n2)}.n3{fill:var(--n3)}.n4{fill:var(--n4)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--head)}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.wrap{overflow-x:auto}
+code{background:var(--head);padding:1px 5px;border-radius:4px;font-size:13px}
+/* tree */
+.tree,.tree ul{list-style:none;margin:0;padding-left:20px;border-left:2px solid var(--line)}
+.tree{border-left:0;padding-left:0}
+.tree li{margin:4px 0;padding-left:10px;position:relative}
+.tree li::before{content:"";position:absolute;left:-20px;top:13px;width:18px;border-top:2px solid var(--line)}
+.tree>li::before{display:none}
+.l1{font-weight:700;color:var(--accent)}.l2{font-weight:600}
+.line{display:inline-block;background:var(--head);border:1px solid var(--line);border-radius:6px;padding:0 6px;margin:1px 3px 1px 0;font-size:13px}
+.line i{font-style:normal;color:var(--muted);font-size:12px}
+.hand{border-color:var(--warn)}.sys{border-style:dashed}
+.legend{font-size:13px;color:var(--muted);margin-top:6px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.two{grid-template-columns:1fr}}
+button#t{float:right;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer}
+.ok{color:var(--accent2)}
+footer{color:var(--muted);font-size:13px;margin-top:26px}
+</style>
+</head>
+<body>
+<main>
+<button id="t" type="button" aria-label="Đổi giao diện sáng tối">Sáng/Tối</button>
+<h1>Sơ đồ chi phí GMD|TMS</h1>
+<p class="sub">Bản gọn, chỉ có sơ đồ và bảng dễ hiểu. Số liệu lấy từ dev (2026-11-11), khách TQA001, tuyến BTCR-0009. Bản chi tiết: <code>09-cost-model.html</code> và <code>09-cost-model.md</code>.</p>
+
+<h2>1. Dữ liệu nối với nhau thế nào</h2>
+<div class="card">
+<svg viewBox="0 0 940 300" role="img" aria-label="Sơ đồ khách hàng, tuyến, đơn giá, phiên bản, đơn hàng, lệnh, chi phí, PNL">
+<defs><marker id="ah" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="arrh"/></marker></defs>
+<!-- row 1 -->
+<rect class="box n1" x="10" y="20" width="190" height="70" rx="10"/><text class="b" x="105" y="48" text-anchor="middle">Khách hàng</text><text class="t2" x="105" y="68" text-anchor="middle">TQA001</text>
+<rect class="box n1" x="265" y="20" width="190" height="70" rx="10"/><text class="b" x="360" y="48" text-anchor="middle">Tuyến</text><text class="t2" x="360" y="68" text-anchor="middle">BTCR-0009 (3 điểm)</text>
+<rect class="box n2" x="520" y="20" width="190" height="70" rx="10"/><text class="b" x="615" y="48" text-anchor="middle">Đơn giá dịch vụ</text><text class="t2" x="615" y="68" text-anchor="middle">Hàng Xuất, Hàng nặng</text>
+<rect class="box n2" x="745" y="20" width="185" height="70" rx="10"/><text class="b" x="837" y="48" text-anchor="middle">Phiên bản giá</text><text class="t2" x="837" y="68" text-anchor="middle">mã BTCDG-xxxx, 1 bản "Đang sử dụng"</text>
+<path class="arr" d="M200,55 L262,55" marker-end="url(#ah)"/><path class="arr" d="M455,55 L517,55" marker-end="url(#ah)"/><path class="arr" d="M710,55 L742,55" marker-end="url(#ah)"/>
+<!-- down arrow -->
+<path class="arr" d="M837,90 L837,150 L615,150 L615,172" marker-end="url(#ah)"/>
+<text class="t2" x="725" y="142" text-anchor="middle">đơn mới lấy bản "Đang sử dụng"</text>
+<!-- row 2 -->
+<rect class="box n3" x="520" y="175" width="190" height="75" rx="10"/><text class="b" x="615" y="203" text-anchor="middle">Đơn hàng</text><text class="t2" x="615" y="222" text-anchor="middle">lưu service_rate_id</text><text class="t2" x="615" y="238" text-anchor="middle">= đúng phiên bản đã dùng</text>
+<rect class="box n3" x="265" y="175" width="190" height="75" rx="10"/><text class="b" x="360" y="203" text-anchor="middle">Lệnh điều động</text><text class="t2" x="360" y="222" text-anchor="middle">1 lệnh = 1 container</text><text class="t2" x="360" y="238" text-anchor="middle">chia 2 chặng</text>
+<rect class="box n4" x="10" y="175" width="190" height="75" rx="10"/><text class="b" x="105" y="203" text-anchor="middle">Chi phí DK / TT</text><text class="t2" x="105" y="222" text-anchor="middle">dự kiến, thực tế</text><text class="t2" x="105" y="238" text-anchor="middle">→ PNL (lợi nhuận)</text>
+<path class="arr" d="M520,212 L458,212" marker-end="url(#ah)"/><path class="arr" d="M265,212 L203,212" marker-end="url(#ah)"/>
+</svg>
+<div class="legend">Giá của đơn bị "đóng băng" lúc tạo: đổi phiên bản đang dùng không làm đổi đơn cũ (đã thử).</div>
+</div>
+
+<h2>2. Từ cài đặt đến số tiền</h2>
+<div class="card">
+<svg viewBox="0 0 940 220" role="img" aria-label="Đơn giá nhân số lượng ra tiền từng chặng">
+<rect class="box n2" x="10" y="20" width="250" height="90" rx="10"/><text class="b" x="135" y="46" text-anchor="middle">Đơn giá (cài đặt)</text><text class="t2" x="135" y="66" text-anchor="middle">Tham số TS: giờ, km, chuyến</text><text class="t2" x="135" y="84" text-anchor="middle">Nhiên liệu: định mức, giá dầu</text><text class="t2" x="135" y="100" text-anchor="middle">Cấu trúc chi phí: dòng Cxxx</text>
+<text class="b" x="285" y="70" text-anchor="middle" style="font-size:26px">×</text>
+<rect class="box n1" x="310" y="20" width="250" height="90" rx="10"/><text class="b" x="435" y="46" text-anchor="middle">Số lượng (từ đơn)</text><text class="t2" x="435" y="66" text-anchor="middle">giờ = thời gian tuyến + giờ khác</text><text class="t2" x="435" y="84" text-anchor="middle">km của chặng</text><text class="t2" x="435" y="100" text-anchor="middle">số chuyến</text>
+<text class="b" x="585" y="70" text-anchor="middle" style="font-size:26px">=</text>
+<rect class="box n3" x="610" y="20" width="150" height="90" rx="10"/><text class="b" x="685" y="46" text-anchor="middle">Tiền từng chặng</text><text class="t2" x="685" y="70" text-anchor="middle">chặng 1 + chặng 2</text>
+<path class="arr" d="M760,65 L790,65" marker-end="url(#ah)"/>
+<rect class="box n4" x="793" y="20" width="137" height="90" rx="10"/><text class="b" x="861" y="46" text-anchor="middle">Tổng lệnh</text><text class="t2" x="861" y="70" text-anchor="middle">2,452,312 ₫</text>
+<text class="t2" x="10" y="150">Ví dụ: Lương km 1,800 ₫/km × 131.33 km = 236,399 ₫. Lương hệ số 20,000 ₫/giờ × 3.75 giờ = 75,000 ₫.</text>
+<text class="t2" x="10" y="170">Dầu = 35 l/100km × 28,870 ₫ ÷ 100 = 10,104.5 ₫/km × 131.33 km = 1,327,054 ₫. Phí trạm lấy từ tuyến (430,000 ₫).</text>
+</svg>
+</div>
+
+<h2>3. Cây phân cấp cấu trúc chi phí (cấp 1 → cấp 2 → dòng)</h2>
+<div class="card">
+<ul class="tree">
+<li><span class="l1">Nhân công</span>
+ <ul>
+  <li><span class="l2">Chi phí nhân công trực tiếp</span><br><span class="line">Lương km <i>Km</i></span><span class="line">Lương hệ số <i>Giờ</i></span><span class="line hand">Phụ cấp đường ngắn <i>Chuyến, gõ tay</i></span><span class="line hand">Phụ phí đi đường <i>Chuyến, gõ tay</i></span></li>
+  <li><span class="l2">Chi phí nhân công phân bổ</span><br><span class="line">Lương tháng <i>Giờ</i></span></li>
+ </ul></li>
+<li><span class="l1">Nhiên liệu</span> <span class="line sys">Dầu <i>Km, từ định mức × giá dầu</i></span></li>
+<li><span class="l1">Phí xe qua trạm</span> → <span class="l2">Chi phí hạ tầng</span> <span class="line sys">Phí xe qua trạm <i>Chuyến, từ tuyến</i></span></li>
+<li><span class="l1">Xe</span>
+ <ul>
+  <li><span class="l2">Khấu hao &amp; phí cố định</span><br><span class="line">Giá trị xe <i>Giờ</i></span><span class="line">Bảo hiểm, đăng kiểm <i>Giờ</i></span><span class="line">Định vị <i>Giờ</i></span></li>
+  <li><span class="l2">Hao mòn – vật tư tiêu hao</span><br><span class="line sys">Lốp xe <i>Km</i></span><span class="line">Bảo dưỡng, sửa chữa <i>Giờ</i></span><span class="line">Nước Ure <i>Km</i></span></li>
+ </ul></li>
+<li><span class="l1">Romooc</span>
+ <ul>
+  <li><span class="l2">Khấu hao &amp; phí cố định</span><br><span class="line">Khấu hao giá trị romooc <i>Giờ</i></span></li>
+  <li><span class="l2">Hao mòn – vật tư tiêu hao</span><br><span class="line sys">Lốp romooc <i>Km</i></span></li>
+ </ul></li>
+<li><span class="l1">Quản lý</span> <span class="line">Chi phí gián tiếp <i>Giờ</i></span></li>
+<li><span class="l1">Khác</span> <span class="line">Chi phí khác <i>Chuyến, mặc định 0</i></span></li>
+</ul>
+<div class="legend">Ô nét đứt = dòng hệ thống (không xóa được). Ô viền vàng = dòng điều phối viên gõ tay. Tổng 16 dòng trong bảng cấu trúc + dòng Dầu ở tab nhiên liệu.</div>
+</div>
+
+<h2>4. Dự kiến (DK) và thực tế (TT)</h2>
+<div class="card two">
+<div>
+<table>
+<tr><th>Nhóm dòng</th><th>DK</th><th>TT khi chạy</th></tr>
+<tr><td>Lương km, lương hệ số, lương tháng, dầu, lốp xe, lốp romooc</td><td>theo công thức</td><td><b>Theo GPS</b> (km và giờ thật)</td></tr>
+<tr><td>Giá trị xe, bảo hiểm, định vị, bảo dưỡng, Ure, khấu hao romooc, gián tiếp, phí trạm</td><td>theo công thức</td><td>giữ bằng DK</td></tr>
+<tr><td>Phụ cấp, phụ phí, thuê theo giờ</td><td>0, gõ tay được</td><td>0, gõ tay được</td></tr>
+<tr><td>Chi hộ</td><td>chi 1,450,000 / thu 1,550,000</td><td>giữ bằng DK</td></tr>
+</table>
+</div>
+<div>
+<table>
+<tr><th>Lệnh 201486</th><th class="n">Chi phí vận hành</th></tr>
+<tr><td>Dự kiến</td><td class="n">2,452,312</td></tr>
+<tr><td>Thực tế lúc hoàn thành (GPS km 0)</td><td class="n">754,045</td></tr>
+<tr><td>Sau khi gõ thêm 550,000 (C004, C012, C030)</td><td class="n">1,304,045</td></tr>
+<tr><td>Xe nhà xe (ẩn dòng "Nhà xe xử lý")</td><td class="n">1,479,057</td></tr>
+<tr><td>Xe nhà xe + gõ "trả nhà xe" 800,000</td><td class="n">2,279,057</td></tr>
+</table>
+</div>
+</div>
+
+<h2>5. Phiên bản giá và truy ngược từ đơn</h2>
+<div class="card">
+<svg viewBox="0 0 940 230" role="img" aria-label="Các phiên bản giá, mỗi phiên bản có mã BTCDG, đơn trỏ về phiên bản">
+<defs><marker id="ah2" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="arrh"/></marker></defs>
+<rect class="box n2" x="10" y="15" width="920" height="40" rx="8"/><text class="b" x="470" y="41" text-anchor="middle">Đơn giá: TQA001 — Hàng Xuất — Hàng nặng (tuyến BTCR-0009)</text>
+<rect class="box n1" x="10" y="85" width="170" height="62" rx="8"/><text class="b" x="95" y="108" text-anchor="middle">v3 · 02:50</text><text class="t2" x="95" y="126" text-anchor="middle">BTCDG-0029 · 3,200,000</text><text class="t2" x="95" y="140" text-anchor="middle">Đang sử dụng</text>
+<rect class="box n1" x="200" y="85" width="170" height="62" rx="8"/><text class="b" x="285" y="108" text-anchor="middle">v4 · 11:07</text><text class="t2" x="285" y="126" text-anchor="middle">BTCDG-0033 · 3,300,000</text><text class="t2" x="285" y="140" text-anchor="middle">Cũ</text>
+<rect class="box n1" x="390" y="85" width="170" height="62" rx="8"/><text class="b" x="475" y="108" text-anchor="middle">v5 · 11:22</text><text class="t2" x="475" y="126" text-anchor="middle">BTCDG-0037 · 3,400,000</text><text class="t2" x="475" y="140" text-anchor="middle">Cũ</text>
+<path class="arr" d="M95,55 L95,85" marker-end="url(#ah2)"/><path class="arr" d="M285,55 L285,85" marker-end="url(#ah2)"/><path class="arr" d="M475,55 L475,85" marker-end="url(#ah2)"/>
+<rect class="box n3" x="10" y="180" width="170" height="40" rx="8"/><text x="95" y="204" text-anchor="middle">Đơn 001004, 001005</text>
+<rect class="box n3" x="200" y="180" width="170" height="40" rx="8"/><text x="285" y="204" text-anchor="middle">Đơn 001008</text>
+<rect class="box n3" x="390" y="180" width="170" height="40" rx="8"/><text x="475" y="204" text-anchor="middle">Đơn 001009</text>
+<path class="arr" d="M95,180 L95,150" marker-end="url(#ah2)"/><path class="arr" d="M285,180 L285,150" marker-end="url(#ah2)"/><path class="arr" d="M475,180 L475,150" marker-end="url(#ah2)"/>
+<text class="t2" x="600" y="110">Mũi tên đơn → phiên bản: đơn lưu service_rate_id.</text>
+<text class="t2" x="600" y="128">Giao diện chỉ hiện mã BTCDG ở đơn:</text>
+<text class="t2" x="600" y="146">Đơn → Đơn hàng → Chỉnh sửa → "Lộ trình báo giá".</text>
+<text class="t2" x="600" y="170">Nối bằng giá bán, ghi chú hoặc giờ tạo.</text>
+</svg>
+</div>
+
+<h2>5b. "Chi tiết chi phí": tên và giá lấy từ đâu</h2>
+<div class="card">
+<svg viewBox="0 0 940 250" role="img" aria-label="Cài đặt chi phí được chụp lại vào phiên bản giá, rồi hiện ở hộp Chi tiết chi phí">
+<defs><marker id="ah3" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="arrh"/></marker></defs>
+<rect class="box n2" x="10" y="15" width="290" height="105" rx="10"/><text class="b" x="155" y="38" text-anchor="middle">Cài đặt chi phí (/settings/costs)</text>
+<text class="t2" x="155" y="60" text-anchor="middle">Cấu trúc chi phí: mã Cxxx, tên, cấp 1, đơn vị</text><text class="t2" x="155" y="78" text-anchor="middle">Tham số TS: đơn giá giờ / km / chuyến</text><text class="t2" x="155" y="96" text-anchor="middle">Nhiên liệu: định mức, giá dầu</text><text class="t2" x="155" y="112" text-anchor="middle">Tuyến: km, giờ, phí trạm</text>
+<path class="arr" d="M300,68 L350,68" marker-end="url(#ah3)"/><text class="t2" x="325" y="58" text-anchor="middle">chụp lại</text>
+<rect class="box n1" x="350" y="15" width="290" height="105" rx="10"/><text class="b" x="495" y="38" text-anchor="middle">Phiên bản giá (bản chụp lúc tạo)</text>
+<text class="t2" x="495" y="60" text-anchor="middle">mỗi dòng: cost_item_code, name, cấp 1, cấp 2,</text><text class="t2" x="495" y="78" text-anchor="middle">đơn vị, cách tính, số lượng, đơn giá, thành tiền</text><text class="t2" x="495" y="96" text-anchor="middle">+ định mức dầu, giá dầu, giờ khác, ghi chú</text>
+<path class="arr" d="M640,68 L690,68" marker-end="url(#ah3)"/>
+<rect class="box n3" x="690" y="15" width="240" height="105" rx="10"/><text class="b" x="810" y="38" text-anchor="middle">Hộp "Chi tiết chi phí"</text><text class="t2" x="810" y="60" text-anchor="middle">Khoản mục | Nhóm | Đơn giá</text><text class="t2" x="810" y="78" text-anchor="middle">| Số lượng | Thành tiền</text>
+<text class="t2" x="10" y="150">Đổi cài đặt sau này không làm đổi phiên bản cũ: phiên bản 10/11 17:58 vẫn ghi dòng C012 là "Dầu thắng xe" (tính theo km),</text>
+<text class="t2" x="10" y="168">còn phiên bản mới ghi C012 là "Phụ phí đi đường" (tính theo chuyến, gõ tay). Cùng mã, khác tên vì chụp ở hai thời điểm.</text>
+</svg>
+<div class="wrap"><table>
+<tr><th>Cột trong hộp</th><th>Lấy từ</th><th>Ví dụ</th></tr>
+<tr><td>Khoản mục</td><td>Cột "Chi phí" của Cấu trúc chi phí (nối bằng mã Cxxx)</td><td>C001 → Lương km</td></tr>
+<tr><td>Nhóm chi phí</td><td>Cột "Phân loại cấp 1"</td><td>Nhân công, Xe, Romooc, Quản lý, Khác...</td></tr>
+<tr><td>Đơn giá</td><td>Đơn giá của <b>tham số TS</b> mà dòng đó chọn; dầu = định mức × giá dầu ÷ 100; phí trạm lấy từ tuyến</td><td>Lương km → "Lương km phân bổ" 1,800 ₫/km</td></tr>
+<tr><td>Số lượng</td><td>Cột "Đơn vị tính" của dòng: Km → km tuyến, Giờ → giờ tuyến + giờ khác, Chuyến → số chuyến (dòng Chuyến để trống, gõ tay)</td><td>131.33 km, 3.75 giờ, 0 chuyến</td></tr>
+<tr><td>Thành tiền</td><td>Đơn giá × Số lượng</td><td>1,800 × 131.33 = 236,399</td></tr>
+</table></div>
+<div class="legend">Hộp liệt kê cả dòng bằng 0 (30 dòng): kể cả 5 dòng "có thể thêm tay" như Chi COM, Chi làm hàng đặc thù, Thuê mướn thêm mooc. Dòng hệ thống (Dầu, Phí xe qua trạm, lốp xe, lốp romooc) nằm đầu danh sách.</div>
+</div>
+
+<h2>5c. Ma trận: cài đặt cấu trúc chi phí ảnh hưởng UI thế nào (đã thử trên dev)</h2>
+<div class="card">
+<svg viewBox="0 0 940 330" role="img" aria-label="Cây quyết định: ai gõ được và gõ ở đâu">
+<defs><marker id="ah4" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="arrh"/></marker></defs>
+<rect class="box n2" x="10" y="10" width="200" height="50" rx="8"/><text class="b" x="110" y="33" text-anchor="middle">Dòng chi phí Cxxx</text><text class="t2" x="110" y="50" text-anchor="middle">1 dòng trong cấu trúc</text>
+<path class="arr" d="M210,35 L260,35" marker-end="url(#ah4)"/>
+<rect class="box n1" x="260" y="10" width="220" height="50" rx="8"/><text class="b" x="370" y="33" text-anchor="middle">Báo giá / phiên bản</text><text class="t2" x="370" y="50" text-anchor="middle">tính ra tiền (đơn giá TS)</text>
+<path class="arr" d="M480,35 L530,35" marker-end="url(#ah4)"/>
+<rect class="box n3" x="530" y="10" width="190" height="50" rx="8"/><text class="b" x="625" y="33" text-anchor="middle">Lệnh: Dự kiến (DK)</text><text class="t2" x="625" y="50" text-anchor="middle">ô gõ nếu nguồn ≠ Hệ thống</text>
+<path class="arr" d="M720,35 L760,35" marker-end="url(#ah4)"/>
+<rect class="box n3" x="760" y="10" width="170" height="50" rx="8"/><text class="b" x="845" y="33" text-anchor="middle">Lệnh: Thực tế (TT)</text><text class="t2" x="845" y="50" text-anchor="middle">xem bên dưới</text>
+<text class="b" x="10" y="100">Ở Thực tế, ô gõ được khi:</text>
+<rect class="box n4" x="10" y="115" width="290" height="70" rx="8"/><text class="b" x="155" y="140" text-anchor="middle">Biến phí + đơn vị Chuyến</text><text class="t2" x="155" y="160" text-anchor="middle">C004, C012, C013, C020, C021, C022, phí trạm</text><text class="t2" x="155" y="175" text-anchor="middle">(kể cả nguồn "Hệ thống")</text>
+<rect class="box n4" x="320" y="115" width="290" height="70" rx="8"/><text class="b" x="465" y="140" text-anchor="middle">Mục "Phí phát sinh"</text><text class="t2" x="465" y="160" text-anchor="middle">C023 đến C027, C029 (cấp 1 Hàng hoá,</text><text class="t2" x="465" y="175" text-anchor="middle">Nhân công ngoài, Khác...): luôn gõ được</text>
+<rect class="box" x="630" y="115" width="300" height="70" rx="8" style="fill:var(--head)"/><text class="b" x="780" y="140" text-anchor="middle">Không gõ được</text><text class="t2" x="780" y="160" text-anchor="middle">Định phí (C014, C017, C018), dòng giờ/km</text><text class="t2" x="780" y="175" text-anchor="middle">(Theo GPS hoặc theo DK)</text>
+<text class="b" x="10" y="225">Tài xế nhập ở ứng dụng (5 loại cố định, không dùng dòng Cxxx):</text>
+<rect class="box n2" x="10" y="240" width="180" height="70" rx="8"/><text class="b" x="100" y="265" text-anchor="middle">Nhiên liệu</text><text class="t2" x="100" y="285" text-anchor="middle">→ dòng FUEL_LOG</text><text class="t2" x="100" y="300" text-anchor="middle">(Chi phí, vào TT)</text>
+<rect class="box n2" x="200" y="240" width="180" height="70" rx="8"/><text class="b" x="290" y="265" text-anchor="middle">Phụ phí</text><text class="t2" x="290" y="285" text-anchor="middle">→ DRIVER_surcharge</text><text class="t2" x="290" y="300" text-anchor="middle">(Chi phí, vào TT)</text>
+<rect class="box n2" x="390" y="240" width="180" height="70" rx="8"/><text class="b" x="480" y="265" text-anchor="middle">Khác</text><text class="t2" x="480" y="285" text-anchor="middle">→ Phí phát sinh</text><text class="t2" x="480" y="300" text-anchor="middle">"Tài xế ghi nhận" (vào TT)</text>
+<rect class="box n3" x="580" y="240" width="170" height="70" rx="8"/><text class="b" x="665" y="265" text-anchor="middle">Phí nâng cont</text><text class="t2" x="665" y="285" text-anchor="middle">→ tab LOLO thực tế</text><text class="t2" x="665" y="300" text-anchor="middle">(chi hộ, riêng)</text>
+<rect class="box n3" x="760" y="240" width="170" height="70" rx="8"/><text class="b" x="845" y="265" text-anchor="middle">Phí hạ cont</text><text class="t2" x="845" y="285" text-anchor="middle">→ tab LOLO thực tế</text><text class="t2" x="845" y="300" text-anchor="middle">(chi hộ, riêng)</text>
+</svg>
+<div class="wrap"><table>
+<tr><th>Cài đặt</th><th>Kết quả đã thấy</th></tr>
+<tr><td>Giá trị mặc định = Hệ thống / ĐPV nhập tay / Tài xế nhập tay / Mặc định = 0</td><td>Mọi dòng có đơn giá TS đều tính ra tiền ở báo giá (kể cả "Mặc định = 0"). Dự kiến: <b>gõ được khi nguồn khác Hệ thống</b>. Dòng chỉ ra 0 + "Chưa nhập chi phí" khi đơn giá TS là 0 hoặc trống.</td></tr>
+<tr><td>"ĐPV nhập tay" (có ô số mặc định)</td><td>Chọn ở Dự kiến thì Thực tế tự theo (và ngược lại). Số mặc định (ví dụ 5,000) thay đơn giá TS.</td></tr>
+<tr><td>Cấu hình giao diện: Mặc định / Có thể thêm tay</td><td>Chưa thấy tác dụng ở web hay app (Q54). Không mở ô gõ, không đổi danh sách "Thêm khoản chi phí".</td></tr>
+<tr><td>Nhà xe xử lý = Có</td><td>Dòng bị ẩn khi lệnh gán xe nhà xe; gộp vào ô "Chi phí trả cho nhà xe".</td></tr>
+<tr><td>Yêu cầu hóa đơn = Bắt buộc</td><td>Không thấy dấu hiệu trên web; app tài xế cho lưu khoản chi mà không cần ảnh hóa đơn.</td></tr>
+<tr><td>Loại phí: Biến phí / Định phí</td><td>Không khác ở Dự kiến; ở Thực tế, <b>Biến phí + Chuyến gõ được, Định phí không</b>.</td></tr>
+<tr><td>Nút "Thêm khoản chi phí" (Thực tế)</td><td>6 lựa chọn cố định theo nhóm "Phí phát sinh", không đổi theo nguồn mặc định.</td></tr>
+</table></div>
+<div class="legend">Đã trả cấu hình dev về cũ sau khi thử, trừ cột "Tham số" của C023 đến C027: ban đầu để trống, giờ là "Chi phí khác" (ô bắt buộc). Chi tiết: <code>02-session-8.md</code> mục 10.</div>
+</div>
+
+<h2>5d. Tab PNL của lệnh: số liệu lấy từ đâu</h2>
+<div class="card">
+<svg viewBox="0 0 940 330" role="img" aria-label="Nguồn số liệu của PNL: chi phí, chi hộ, doanh thu, lợi nhuận">
+<defs><marker id="ah5" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="arrh"/></marker></defs>
+<text class="b" x="10" y="20">Nguồn</text><text class="b" x="560" y="20">Dòng trong tab PNL</text>
+<rect class="box n1" x="10" y="30" width="330" height="60" rx="8"/><text class="b" x="175" y="55" text-anchor="middle">Tab Chi phí (cột DK, cột TT)</text><text class="t2" x="175" y="74" text-anchor="middle">tổng theo từng chặng</text>
+<rect class="box n2" x="10" y="105" width="330" height="60" rx="8"/><text class="b" x="175" y="130" text-anchor="middle">Bảng chi hộ</text><text class="t2" x="175" y="149" text-anchor="middle">cột "Chi phí" và cột "Phí dịch vụ thu khách"</text>
+<rect class="box n3" x="10" y="180" width="330" height="60" rx="8"/><text class="b" x="175" y="205" text-anchor="middle">Phiên bản giá của đơn</text><text class="t2" x="175" y="224" text-anchor="middle">"Giá bán thương mại" (ví dụ 3,500,000)</text>
+<rect class="box" x="10" y="255" width="330" height="60" rx="8" style="fill:var(--head)"/><text class="b" x="175" y="280" text-anchor="middle">Tất toán / Debit Note (chưa kiểm)</text><text class="t2" x="175" y="299" text-anchor="middle">điều kiện có doanh thu vận chuyển thực tế</text>
+<path class="arr" d="M340,60 L555,50" marker-end="url(#ah5)"/><path class="arr" d="M340,135 L555,98" marker-end="url(#ah5)"/><path class="arr" d="M340,135 L555,160" marker-end="url(#ah5)"/><path class="arr" d="M340,210 L555,135" marker-end="url(#ah5)"/><path class="arr" d="M340,285 L555,135" marker-end="url(#ah5)" style="stroke-dasharray:5 4"/>
+<rect class="box n1" x="560" y="30" width="370" height="40" rx="8"/><text x="575" y="55">Chi phí vận hành (chặng 1, chặng 2)</text>
+<rect class="box n2" x="560" y="78" width="370" height="40" rx="8"/><text x="575" y="103">Phí chi hộ (cột "Chung")</text>
+<rect class="box n3" x="560" y="126" width="370" height="40" rx="8"/><text x="575" y="151">Doanh thu vận chuyển (chia chặng theo km)</text>
+<rect class="box n2" x="560" y="174" width="370" height="40" rx="8"/><text x="575" y="199">Thu dịch vụ (cột "Chung")</text>
+<rect class="box" x="560" y="222" width="370" height="60" rx="8" style="fill:var(--head)"/><text class="b" x="575" y="246">Lợi nhuận = doanh thu − chi phí</text><text class="t2" x="575" y="266">Công tắc: Dự kiến / Thực tế / Chênh lệch (= Thực tế − Dự kiến)</text>
+</svg>
+<div class="wrap"><table>
+<tr><th class="l">Lệnh 201497 (giá thương mại 3,500,000)</th><th>Dự kiến</th><th>Thực tế</th><th>Chênh lệch</th></tr>
+<tr><td class="l">Chi phí vận hành</td><td>2,470,000</td><td>999,233</td><td>−1,470,767</td></tr>
+<tr><td class="l">Phí chi hộ</td><td>1,450,000</td><td>1,455,000</td><td>+5,000</td></tr>
+<tr><td class="l">Doanh thu vận chuyển</td><td>3,500,000 (1,816,427 + 1,683,573 theo km)</td><td><span class="chip warn">— (chưa có)</span></td><td>—</td></tr>
+<tr><td class="l">Thu dịch vụ</td><td>1,550,000</td><td>1,560,000</td><td>+10,000</td></tr>
+<tr><td class="l"><b>Lợi nhuận</b></td><td><b>1,130,000</b></td><td><b>−894,233</b></td><td><b>−2,024,233</b></td></tr>
+</table></div>
+<ul>
+<li><b>Doanh thu vận chuyển thực tế chưa có</b> dù lệnh đã "Cần tất toán", nên lợi nhuận thực tế âm. Điều này giải thích một phần vì sao Dashboard có chi phí thực tế nhưng doanh thu thực tế bằng 0. Chưa kiểm cái gì làm số này xuất hiện (tất toán hoặc Debit Note).</li>
+<li>Các khoản tài xế nhập ở app (Nhiên liệu, Phụ phí, Khác) vào chi phí vận hành thực tế. <b>Phí LOLO của tài xế (22,222 + 33,333) không thấy trong PNL.</b></li>
+<li>Mình từng ghi nhầm "tab PNL không có số thực tế": thực ra có công tắc Dự kiến / Thực tế / Chênh lệch, mặc định mở ở Dự kiến. Đã sửa trong các ghi chú.</li>
+</ul>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px">
+<figure style="margin:0"><a href="../../workspace/exploratory/EXP-002/evidence/pnl-201497.png"><img loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:6px" src="../../workspace/exploratory/EXP-002/evidence/pnl-201497.png" alt="PNL Dự kiến"></a><figcaption class="sub">PNL: Dự kiến</figcaption></figure>
+<figure style="margin:0"><a href="../../workspace/exploratory/EXP-002/evidence/pnl-201497-tt.png"><img loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:6px" src="../../workspace/exploratory/EXP-002/evidence/pnl-201497-tt.png" alt="PNL Thực tế"></a><figcaption class="sub">PNL: Thực tế (doanh thu vận chuyển "—")</figcaption></figure>
+<figure style="margin:0"><a href="../../workspace/exploratory/EXP-002/evidence/pnl-201497-diff.png"><img loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:6px" src="../../workspace/exploratory/EXP-002/evidence/pnl-201497-diff.png" alt="PNL Chênh lệch"></a><figcaption class="sub">PNL: Chênh lệch</figcaption></figure>
+</div>
+</div>
+
+<h2>6. Mở xem ở đâu (dev, cần đăng nhập Microsoft)</h2>
+<div class="wrap"><table>
+<tr><th>Muốn xem</th><th>Đường đi</th></tr>
+<tr><td>Cài đặt chi phí (4 tab)</td><td><code>/settings/costs</code></td></tr>
+<tr><td>"Chi tiết chi phí" của báo giá</td><td>Báo giá → Đơn giá dịch vụ → bấm dòng giá → bấm một phiên bản → "Chi phí dự kiến" → "Xem chi tiết"</td></tr>
+<tr><td>Trang giá TQA001</td><td><code>/settings/service-rates/1cd0d1cb-082b-4303-9c70-e593080bdbbb</code></td></tr>
+<tr><td>Mã BTCDG của một đơn</td><td>mở đơn → tab Đơn hàng → Chỉnh sửa → "Lộ trình báo giá"</td></tr>
+<tr><td>Chi phí DK/TT của lệnh</td><td><code>/dispatch</code>, gõ <code>201486</code>, bấm hàng, tab Chi phí</td></tr>
+<tr><td>Đơn 001004</td><td><code>/order-plans/e47fec95-9578-4c87-8b17-dc895412c03f?month=2026-11</code></td></tr>
+<tr><td>Đơn 001005</td><td><code>/order-plans/4cf9a9e6-384a-40ca-800c-a9c652c0cab8?month=2026-11</code></td></tr>
+</table></div>
+
+<h2>7. Chưa rõ</h2>
+<div class="card">
+<ul style="margin:4px 0 4px 20px;padding:0">
+<li>Tất toán và Debit Note: form đếm cont hoàn thành chuyến theo khoảng ngày (mặc định tháng trước); với "Tháng này" TQA001 có 4 cont. Bấm "Tạo Debit Note" chưa tạo được (xem WORKLOG). Doanh thu thực tế ở PNL chưa có.</li>
+<li>Nút "Chỉnh sửa khoản lương" luôn bị khóa; quy tắc "yêu cầu hóa đơn" chưa thấy áp ở đâu. Doanh thu vận chuyển thực tế (PNL) chưa có: cần tìm điều kiện (tất toán hoặc Debit Note).</li>
+<li>Đơn 001007 (TQA001) không rõ nguồn gốc.</li>
+<li>Staging: chưa nhập gì (bạn đã yêu cầu dừng).</li>
+</ul>
+</div>
+<footer>Tạo 2026-11-11. Số liệu từ <code>workspace/exploratory/EXP-002/02-session-8.md</code>.</footer>
+</main>
+<script>
+try{var b=document.getElementById('t');b.onclick=function(){var r=document.documentElement,d=r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);r.setAttribute('data-theme',d?'light':'dark')}}catch(e){}
+</script>
+</body>
+</html>

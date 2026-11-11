@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mô hình chi phí GMD|TMS</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--text:#1f2328;--muted:#656d76;--line:#d8dee4;--accent:#0b6bcb;--ok:#1a7f37;--warn:#9a6700;--head:#eef2f6;--note:#fff8e1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1318;--card:#171c23;--text:#e6e9ed;--muted:#9aa4b0;--line:#2c3440;--accent:#5aa9ff;--ok:#56d364;--warn:#e3b341;--head:#1f2630;--note:#2a2410}}
+:root[data-theme="dark"]{--bg:#0f1318;--card:#171c23;--text:#e6e9ed;--muted:#9aa4b0;--line:#2c3440;--accent:#5aa9ff;--ok:#56d364;--warn:#e3b341;--head:#1f2630;--note:#2a2410}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:26px;margin:8px 0 4px}h2{font-size:19px;margin:30px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+p.sub{color:var(--muted);margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.flow div{flex:1 1 200px;background:var(--head);border:1px solid var(--line);border-radius:8px;padding:10px}
+.flow b{display:block;color:var(--accent)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--head)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.wrap{overflow-x:auto}
+code{background:var(--head);padding:1px 5px;border-radius:4px;font-size:13px}
+.tag{display:inline-block;font-size:12px;padding:1px 7px;border-radius:10px;border:1px solid var(--line);color:var(--muted)}
+.ok{color:var(--ok)}.warn{color:var(--warn)}
+.note{background:var(--note);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:10px 0}
+.total td{font-weight:700;background:var(--head)}
+ul{margin:6px 0 6px 20px;padding:0}
+button#t{float:right;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer}
+footer{color:var(--muted);font-size:13px;margin-top:30px}
+</style>
+</head>
+<body>
+<main>
+<button id="t" type="button" aria-label="Đổi giao diện sáng tối">Sáng/Tối</button>
+<h1>Mô hình chi phí GMD|TMS</h1>
+<p class="sub">Từ cài đặt đến số tiền. Nguồn: phiên 8 trên dev (2026-11-11), đơn <code>#BTC26ORD-001004</code>, lệnh <code>#BTC26SHP-201486</code>, khách TQA001, tuyến BTCR-0009. Là số trên dev với cấu hình mẫu đã dựng, không phải số hệ thống thật. File gốc dạng văn bản: <code>09-cost-model.md</code>.</p>
+
+<h2>0. Mã để mở xem trên dev</h2>
+<p class="sub">Host: <code>https://btc.tms-dev.gmd.zenlabs.gg</code>. Đường dẫn dưới đây nối vào host. Dữ liệu giả, do phiên 8 tạo.</p>
+<div class="wrap"><table>
+<tr><th>Đối tượng</th><th>Mã</th><th>Cách mở</th></tr>
+<tr><td>Khách hàng</td><td>TQA001 (<code>#BTCCLI-0002</code>)</td><td>menu Báo giá → Khách hàng</td></tr>
+<tr><td>Tuyến</td><td><code>#BTCR-0009</code> Ben Nghe Port → Cai Mep Port → Cat Lai Port (Hàng Xuất)</td><td>menu Báo giá → Địa điểm &amp; Tuyến báo giá</td></tr>
+<tr><td>Đơn giá dịch vụ</td><td><code>BTCDG-0029</code> Hàng nặng, 3,200,000 ₫</td><td>hiện khi tạo đơn hàng</td></tr>
+<tr><td>Phiên bản giá 3 (giá bán giả 3,200,000)</td><td>—</td><td><code>/settings/service-rates/1cd0d1cb-082b-4303-9c70-e593080bdbbb</code></td></tr>
+<tr><td>Phiên bản giá 10/11 17:58 (5,710,444)</td><td>—</td><td><code>/settings/service-rates/9c9a1539-c62e-428a-80ad-d42d0f1a342b</code></td></tr>
+<tr><td>Đơn hàng (lệnh đã hoàn thành, Cần tất toán)</td><td><code>#BTC26ORD-001004</code> → lệnh <code>#BTC26SHP-201486</code></td><td><code>/order-plans/e47fec95-9578-4c87-8b17-dc895412c03f?month=2026-11</code>; lệnh: <code>/dispatch</code>, gõ <code>201486</code>, bấm hàng, tab Chi phí (công tắc Dự kiến / Thực tế)</td></tr>
+<tr><td>Đơn hàng (thử nhà xe, Chờ xác nhận)</td><td><code>#BTC26ORD-001005</code> → lệnh <code>#BTC26SHP-201487</code></td><td><code>/order-plans/4cf9a9e6-384a-40ca-800c-a9c652c0cab8?month=2026-11</code>; lệnh: <code>/dispatch</code>, gõ <code>201487</code></td></tr>
+<tr><td>Cài đặt chi phí (4 tab)</td><td>Cấu trúc chi phí, Đơn giá vận chuyển dự kiến (TS), Phí chi hộ, Chi phí nhiên liệu</td><td><code>/settings/costs</code></td></tr>
+<tr><td>Debit Note</td><td>Tạo Debit Note (theo cont)</td><td><code>/debit-notes</code></td></tr>
+</table></div>
+<p class="sub">Đơn 001004 không còn hiện trong danh sách Kế hoạch tháng 11; mở bằng đường dẫn trực tiếp. Mọi mục trên cần đăng nhập Microsoft bằng tay.</p>
+
+<h2>0b. "Chi tiết chi phí" của báo giá, và đơn liên kết với báo giá thế nào</h2>
+<div class="card">
+<b>Mở hộp "Chi tiết chi phí" (đã kiểm trên dev):</b>
+<ol>
+<li>Menu <b>Báo giá → Đơn giá dịch vụ</b> (<code>/settings/service-rates</code>).</li>
+<li>Bấm dòng đơn giá <b>TQA001 — Hàng Xuất (HX) — Hàng nặng</b>: <a href="https://btc.tms-dev.gmd.zenlabs.gg/settings/service-rates/1cd0d1cb-082b-4303-9c70-e593080bdbbb"><code>/settings/service-rates/1cd0d1cb-082b-4303-9c70-e593080bdbbb</code></a>.</li>
+<li>Ở mục <b>"Danh sách phiên bản giá"</b>, bấm <b>một dòng phiên bản</b> (ví dụ 11/11/2026 • 02:50). Bảng "Phiên bản giá" mở bên phải.</li>
+<li>Kéo xuống mục <b>"Chi phí dự kiến"</b>, bấm nút <b>"Xem chi tiết"</b>. Hộp <b>"Chi tiết chi phí"</b> mở ra.</li>
+</ol>
+Hộp này nằm ở trang giá của khách hàng, <b>không phải</b> trong <code>/settings/costs</code>. Nó hiện "Diễn giải chi phí dự kiến": từng khoản với <b>đơn giá, số lượng, thành tiền</b> (ví dụ Dầu 10,105 ₫ × 131.33 km = 1,327,054; Phí xe qua trạm 430,000 × 1 chuyến; Lương hệ số 20,000 × 3.75 giờ = 75,000), kèm 3 khối giá: giá bán nội bộ đề xuất 2,452,312; giá báo sale 3,200,000 (+747,688, +30.5% so với đề xuất, Đã báo); giá bán thương mại 3,200,000 (Đã chấp thuận). Chú thích: "Chỉ phiên bản Chờ xác nhận mới có thể cập nhật". Đây là cách tính của báo giá, chưa có cột Dự kiến / Thực tế theo chặng như tab Chi phí của lệnh.
+</div>
+<div class="card">
+<b>Từ báo giá, có biết đơn nào đang dùng không?</b> Không. Trang đơn giá và bảng phiên bản không có danh sách đơn hàng.<br>
+<b>Từ đơn, có biết báo giá nào không?</b> Một phần. Tab <b>Đơn hàng</b> có ô <b>"Lộ trình báo giá"</b> (chỉ đọc) ghi tên tuyến; ở chế độ sửa, ô "Chọn tuyến đường..." ghi mã đơn giá <code>BTCDG-0029 · Hàng nặng · tuyến · 3,200,000 ₫</code>. Đơn gắn với <b>dòng đơn giá</b>. Đơn lưu <code>service_rate_id</code> trỏ đúng bản ghi của <b>phiên bản</b> đã dùng lúc tạo (Q52 đã trả lời, xem mục 0d).
+</div>
+<div class="card">
+<b>Thử đổi phiên bản đang sử dụng (dev, đã trả lại như cũ):</b>
+<ul>
+<li>Nút <b>"Đánh dấu đang sử dụng"</b> ở dòng phiên bản <b>đổi ngay, không có hộp xác nhận</b>.</li>
+<li>Đổi sang phiên bản cũ 11/11 00:05 (4,310,313): đơn <b>001004 và 001005 vẫn 3,200,000</b>. <span class="ok">Đơn đã tạo giữ giá lúc tạo.</span></li>
+<li>Form <b>"Thêm đơn hàng"</b> (TQA001, Hàng Xuất, Hàng nặng) lúc đó hiện đơn giá khả dụng <b>4,310,313 ₫</b> (ảnh <code>s8-new-order-price-after-switch.png</code>), nên <b>đơn mới lấy giá của phiên bản đang sử dụng</b>. Mình mở form rồi đóng, không tạo đơn.</li>
+<li>Đã đặt lại phiên bản 11/11 02:50 (3,200,000) là "Đang sử dụng".</li>
+</ul>
+Ảnh: <code>workspace/exploratory/EXP-002/evidence/s8-pricever-panel.png</code>, <code>s8-pricever-cost-detail.png</code>, <code>s8-version-switch.png</code> (thư mục evidence không commit). Ghi chú gốc: <code>02-session-8.md</code> mục 9 và 9b.
+</div>
+
+<h2>0d. Truy ngược từ đơn về phiên bản giá (đã thử trên dev)</h2>
+<div class="card">
+<b>Kết luận: có truy ngược được.</b> Mỗi phiên bản giá là một bản ghi đơn giá có <b>mã BTCDG riêng</b>. Đơn lưu <code>service_rate_id</code> trỏ đúng bản ghi của phiên bản đã dùng lúc tạo (mình đọc từ phản hồi API <code>GET /api/v1/orders/&lt;id&gt;</code> rồi <code>GET /api/v1/service-rates/&lt;service_rate_id&gt;</code>, chỉ lọc các khóa liên quan).
+</div>
+<div class="wrap"><table>
+<tr><th>Phiên bản</th><th>Tạo lúc</th><th class="n">Giờ khác</th><th>Ghi chú</th><th class="n">Tổng chi phí</th><th class="n">Giá báo sale / thương mại</th><th>Mã trên đơn</th><th>Đơn (lệnh)</th></tr>
+<tr><td>v3</td><td>11/11 02:50</td><td class="n">1.5</td><td>—</td><td class="n">2,452,312</td><td class="n">3,200,000</td><td><code>BTCDG-0029</code></td><td>001004 (201486), 001005 (201487)</td></tr>
+<tr><td>v4</td><td>11/11 11:07</td><td class="n">2.5</td><td>TEST-V4 truy vet phien ban</td><td class="n">2,563,817</td><td class="n">3,300,000</td><td><code>BTCDG-0033</code></td><td>001008 (201492)</td></tr>
+<tr><td>v5</td><td>11/11 11:22</td><td class="n">3.5</td><td>TEST-V5 truy vet phien ban</td><td class="n">2,675,322</td><td class="n">3,400,000</td><td><code>BTCDG-0037</code></td><td>001009 (201494)</td></tr>
+</table></div>
+<div class="card">
+<ul>
+<li><b>Trên giao diện, mã BTCDG chỉ hiện một chỗ:</b> đơn hàng → tab <b>Đơn hàng</b> → <b>Chỉnh sửa</b> → mục Giao nhận → ô <b>"Lộ trình báo giá"</b> (kèm giá). Danh sách phiên bản và bảng "Phiên bản giá" <b>không hiện mã BTCDG</b>.</li>
+<li><b>Cách nối lại bằng mắt:</b> lấy giá (hoặc mã) ở ô "Lộ trình báo giá" của đơn, rồi tìm phiên bản có cùng giá bán, ghi chú hoặc giờ tạo ở danh sách phiên bản. Chi phí dự kiến của lệnh cũng khớp phiên bản: lệnh 201492 là 2,563,817, lệnh 201494 là 2,675,322; mỗi giờ "tác vụ khác" thêm +111,505.</li>
+<li><b>Lưu phiên bản và tạo đơn:</b> trạng thái "Đang sử dụng" chỉ có khi bật cả <i>Đã báo sale</i> và <i>Đã chấp thuận</i>. Nút <b>"Lưu &amp; Tạo đơn hàng"</b> chuyển sang <code>/order-plans?createOrder=1&amp;clientId=...&amp;transportType=export&amp;cargoWeightClass=heavy</code>: chỉ truyền khách hàng, loại hình và trọng lượng, <b>không truyền phiên bản</b>; đơn lấy phiên bản đang sử dụng.</li>
+<li>Đã trả phiên bản 11/11 02:50 (3,200,000) về "Đang sử dụng"; v4 và v5 còn lại ở trạng thái Cũ.</li>
+<li><b>Điểm chưa rõ (Q53):</b> đơn <code>#BTC26ORD-001007</code> (TQA001, 12/11/2026) có trong danh sách nhưng mình không nhớ đã tạo; chưa mở xem nó thuộc phiên bản nào.</li>
+</ul>
+Ghi chú gốc: <code>02-session-8.md</code> mục 9d. Ảnh: <code>evidence/s8-v4-form.png</code>, <code>s8-save-and-create-order.png</code>, <code>s8-orderA-cost.png</code>, <code>s8-orderB-cost.png</code>.
+</div>
+
+<h2>0c. Staging (đã dừng, không tạo dữ liệu)</h2>
+<div class="card">
+<ul>
+<li>Staging <code>gcc.tms-staging.gemadept.com.vn</code> hiện chỉ có: 3 dòng chi phí hệ thống (C002 phí trạm, C003 lốp xe, C004 lốp romooc), 3 tham số TS (TS01 Phí xe qua trạm 0, TS02 lốp romooc trống, TS03 lốp xe 4,313), không có phí chi hộ, 1 định mức DM01 = 32, 1 giá dầu GD01 = 27,230. Sao lưu: <code>workspace/exploratory/EXP-002/config-before-staging.md</code>.</li>
+<li>Xóa không được hết: xóa TS01 bị lỗi 409 (đang dùng bởi C002); TS02, TS03 và C002 đến C004 không có nút xóa.</li>
+<li>Theo ảnh mẫu: 16 dòng chi phí, 20 tham số TS (dòng thứ 20 là "Trạm vé phụ"), 3 định mức (35 mặc định, 25, 36), 4 giá dầu (29,100; 20,000; 30,000; 28,870 mặc định).</li>
+<li><b>Không lưu gì lên staging</b>; bạn đã yêu cầu dừng. Trình duyệt staging đã đóng.</li>
+</ul>
+</div>
+
+<h2>1. Bốn lớp: cài đặt → số tiền</h2>
+<div class="flow">
+<div><b>1. Tham số TS</b>Tên, đơn vị (Giờ, Km, Chuyến), đơn giá. Dòng chi phí tham chiếu TS theo mã: đổi tên TS đổi cách tính (FIND-075).</div>
+<div><b>2. Cấu trúc chi phí</b>Mỗi dòng Cxxx gắn một TS, nhóm, loại phí, nguồn giá trị, giao diện.</div>
+<div><b>3. Số lượng</b>km và thời gian của tuyến theo từng chặng, giờ "tác vụ khác" gõ ở form giá, số chuyến.</div>
+<div><b>4. Tiền</b>Đơn giá × số lượng, tính từng chặng; tổng lệnh = cộng các chặng.</div>
+</div>
+<div class="note">Cài đặt chỉ áp cho đơn mới. Đơn, lệnh, báo giá đã tạo giữ cài đặt lúc tạo (người dùng quyết định; kiểm bằng GD08 ở phiên 7).</div>
+
+<h2>2. Công thức</h2>
+<div class="wrap"><table>
+<tr><th>Loại</th><th>Công thức</th><th>Ví dụ</th></tr>
+<tr><td>Theo <b>Giờ</b></td><td>đơn giá × (thời gian tuyến của chặng + giờ "tác vụ khác" chia cho chặng)</td><td>C002 20,000 × 3.75 giờ = 75,000</td></tr>
+<tr><td>Theo <b>Km</b></td><td>đơn giá × km chặng (tham số tên "/100km" cũng nhân km, không chia 100, FIND-069)</td><td>C001 1,800 × 131.33 = 236,399</td></tr>
+<tr><td>Theo <b>Chuyến</b></td><td>đơn giá × số chuyến</td><td>C004, C012, C030 (gõ tay)</td></tr>
+<tr><td><b>Dầu</b></td><td>định mức (l/100km) × giá dầu ÷ 100 × km</td><td>35 × 28,870 ÷ 100 = 10,104.5 ₫/km</td></tr>
+<tr><td><b>Phí trạm</b> C015 (khóa)</td><td>tổng giá trạm của đường đi từng chặng; phụ thuộc cỡ container</td><td>254,000 + 176,000 = 430,000</td></tr>
+</table></div>
+<p class="sub">Số hiển thị làm tròn: 2 giờ × 20,000 hiện 39,966 vì giờ thật của chặng lẻ; tổng theo lệnh 3.75 × 20,000 = 75,000.</p>
+
+<h2>3. Từ điển cột Cấu trúc chi phí</h2>
+<div class="wrap"><table>
+<tr><th>Cột</th><th>Ý nghĩa</th><th>Trạng thái kiểm</th></tr>
+<tr><td>Loại phí</td><td>Biến phí (theo km, chuyến) hoặc Định phí (chia theo giờ)</td><td>màn hình</td></tr>
+<tr><td>Phân loại cấp 1 / 2</td><td>Nhân công, Xe, Romooc, Quản lý, Khác; hiện ở 4 khối trên form báo giá</td><td>tôi đọc</td></tr>
+<tr><td>Đối tượng được chi trả</td><td>Xe, Rơ mooc, Tài xế, Hàng hóa, Dịch vụ ngoài</td><td>chưa thấy ảnh hưởng đến số</td></tr>
+<tr><td>Tham số TS + Đơn vị</td><td>Chọn đơn giá và cách nhân</td><td>màn hình</td></tr>
+<tr><td>Yêu cầu hóa đơn</td><td>Bắt buộc / Tùy chọn</td><td id="inv">chưa kiểm</td></tr>
+<tr><td>Giá trị mặc định DK / TT</td><td>Nguồn: Hệ thống, ĐPV nhập tay, Tài xế nhập tay, "Mặc định = 0"</td><td>màn hình</td></tr>
+<tr><td>Cấu hình giao diện DK / TT</td><td>"Mặc định" hoặc "Có thể thêm tay"</td><td>màn hình</td></tr>
+<tr><td>Nhà xe xử lý</td><td>Với xe nhà xe, khoản này ẩn và gộp vào "Chi phí xử lý bởi nhà xe" nhập tay</td><td id="carrier">tooltip; chưa kiểm</td></tr>
+</table></div>
+
+<h2>4. Bảng từng dòng (lệnh 201486)</h2>
+<p class="sub">Chặng 1: 68.16 km, 2 giờ. Chặng 2: 63.17 km, 1.75 giờ. Tổng 131.33 km, 3.75 giờ. ₫.</p>
+<div class="wrap"><table>
+<tr><th>Dòng</th><th>TS, đơn giá</th><th>Đơn vị</th><th class="n">Dự kiến (DK)</th><th>Thực tế (TT) khi hoàn thành</th></tr>
+<tr><td>C001 Lương km</td><td>TS11 1,800 ₫/km</td><td>Km</td><td class="n">236,399</td><td>Theo GPS: km 0 → 0</td></tr>
+<tr><td>C002 Lương hệ số</td><td>TS10 20,000 ₫/giờ</td><td>Giờ</td><td class="n">75,000</td><td>Theo GPS: 0.07 + 0.03 giờ → 2,000</td></tr>
+<tr><td>C003 Lương tháng</td><td>TS12 11,538 ₫/giờ</td><td>Giờ</td><td class="n">43,268</td><td>Theo GPS → 1,154</td></tr>
+<tr><td>C004 Phụ cấp đường ngắn</td><td>ĐPV nhập tay</td><td>Chuyến</td><td class="n">0 (gõ được)</td><td>0 (gõ được)</td></tr>
+<tr><td>C012 Phụ phí đi đường</td><td>ĐPV nhập tay</td><td>Chuyến</td><td class="n">0 (gõ được)</td><td>0 (gõ được)</td></tr>
+<tr><td>C030 Thuê theo giờ</td><td>ĐPV nhập tay</td><td>Chuyến</td><td class="n">0 (gõ được)</td><td>0 (gõ được)</td></tr>
+<tr><td>C005 Dầu</td><td>10,104.5 ₫/km</td><td>Km</td><td class="n">1,327,054</td><td>Theo GPS → 0</td></tr>
+<tr><td>C006 Giá trị xe</td><td>TS09 40,534 ₫/giờ</td><td>Giờ</td><td class="n">152,003</td><td>giữ DK</td></tr>
+<tr><td>C007 Bảo hiểm, đăng kiểm</td><td>TS01 10,972 ₫/giờ</td><td>Giờ</td><td class="n">41,145</td><td>giữ DK</td></tr>
+<tr><td>C008 Định vị</td><td>TS02 984 ₫/giờ</td><td>Giờ</td><td class="n">3,690</td><td>giữ DK</td></tr>
+<tr><td>C009 Lốp xe (khóa)</td><td>TS08 75 ₫/km</td><td>Km</td><td class="n">9,850</td><td>Theo GPS → 0</td></tr>
+<tr><td>C010 Sửa chữa, bảo dưỡng</td><td>TS05 3,205 ₫/giờ</td><td>Giờ</td><td class="n">12,019</td><td>giữ DK</td></tr>
+<tr><td>C011 Nước Ure</td><td>TS13 160 ₫/km</td><td>Km</td><td class="n">21,013</td><td>giữ DK</td></tr>
+<tr><td>C016 Khấu hao romooc</td><td>TS20 13,502 ₫/giờ</td><td>Giờ</td><td class="n">50,633</td><td>giữ DK</td></tr>
+<tr><td>C019 Lốp romooc (khóa)</td><td>TS17 75 ₫/km</td><td>Km</td><td class="n">9,850</td><td>Theo GPS → 0</td></tr>
+<tr><td>C028 Gián tiếp</td><td>TS03 10,770 ₫/giờ</td><td>Giờ</td><td class="n">40,388</td><td>giữ DK</td></tr>
+<tr><td>C015 Phí trạm (khóa)</td><td>theo tuyến</td><td>Chuyến</td><td class="n">430,000</td><td>giữ 430,000</td></tr>
+<tr><td>C013, C014, C017, C018, C020 đến C022</td><td>vô hiệu (0 ₫)</td><td></td><td class="n">0</td><td>0 (C013, C020 đến C022 là ô gõ tay ở TT)</td></tr>
+<tr class="total"><td colspan="3">Tổng chi phí vận hành</td><td class="n">2,452,312</td><td>754,045</td></tr>
+</table></div>
+<div class="card">
+<b>Kiểm tay:</b>
+<ul>
+<li>DK: 236,399 + 75,000 + 43,268 + 1,327,054 + 239,720 (xe) + 60,483 (romooc) + 430,000 + 40,388 = <b>2,452,312</b> <span class="ok">khớp màn hình</span>.</li>
+<li>TT khi hoàn thành: 2,000 + 1,154 + 152,003 + 41,145 + 3,690 + 12,019 + 21,013 + 50,633 + 40,388 + 430,000 = <b>754,045</b> <span class="ok">khớp</span>.</li>
+<li>Sau khi gõ thực tế C004 150,000 + C012 50,000 + C030 350,000 (= 550,000): <b>1,304,045</b> <span class="ok">khớp</span>.</li>
+</ul></div>
+
+<h2>5. Dự kiến, thực tế, ô gõ tay</h2>
+<ul>
+<li><b>DK</b> có từ lúc điều động. <b>TT</b> hiện "—" cho đến khi bắt đầu vận chuyển.</li>
+<li>Dòng gắn "Theo GPS" (C001, C002, C003, C005, C009, C019) lấy km và giờ GPS của tài xế từng chặng; các dòng giờ khác, C011, phí trạm và chi hộ giữ số dự kiến.</li>
+<li>Giờ GPS đổi khi lệnh chạy (đã thấy 18.23 giờ tạm thời, biến mất khi hoàn thành, Q48). Xe không di chuyển thật nên km = 0.</li>
+<li>Ô gõ tay: ở <b>Dự kiến</b> 8 ô (C004, C012, C030 và phí trạm C015 mỗi chặng); ở <b>Thực tế</b> thêm C013, C020, C021, C022 và bảng chi hộ. Lưu không có hộp xác nhận; xem trước đổi tổng ngay; gõ 0 để xóa.</li>
+<li>Báo giá lấy giá TS cho dòng "ĐPV nhập tay"; lệnh hiện 0 "Chưa nhập chi phí" (FIND-076, FIND-079; chưa phân biệt được).</li>
+</ul>
+
+<h2>6. Chi hộ</h2>
+<div class="wrap"><table>
+<tr><th>Khoản</th><th>Chi bởi</th><th class="n">Chi</th><th class="n">Thu khách</th></tr>
+<tr><td>Phí chứng từ / lệnh giao nhận</td><td>Công ty</td><td class="n">300,000</td><td class="n">400,000</td></tr>
+<tr><td>Phí cân container</td><td>Tài xế</td><td class="n">150,000</td><td class="n">150,000</td></tr>
+<tr><td>Phí seal container</td><td>Tài xế</td><td class="n">200,000</td><td class="n">200,000</td></tr>
+<tr><td>Phí vệ sinh container</td><td>Công ty</td><td class="n">300,000</td><td class="n">300,000</td></tr>
+<tr><td>Phí lưu bãi container</td><td>Công ty</td><td class="n">500,000</td><td class="n">500,000</td></tr>
+<tr class="total"><td colspan="2">Tổng</td><td class="n">1,450,000</td><td class="n">1,550,000</td></tr>
+</table></div>
+<p class="sub">Chênh 100,000 là lợi nhuận ở dòng chi hộ của PNL (suy ra từ số). Chi hộ không nằm trong tổng chi phí vận hành nhưng nằm trong PNL.</p>
+
+<h2>7. PNL, doanh thu, lương tài xế</h2>
+<div class="wrap"><table>
+<tr><th></th><th class="n">Chặng 1</th><th class="n">Chặng 2</th><th class="n">Chi hộ / dịch vụ</th><th class="n">Tổng</th></tr>
+<tr><td>Chi phí</td><td class="n">1,309,349</td><td class="n">1,142,963</td><td class="n">1,450,000</td><td class="n">3,902,312</td></tr>
+<tr><td>Doanh thu</td><td class="n">1,660,734</td><td class="n">1,539,266</td><td class="n">1,550,000</td><td class="n">4,750,000</td></tr>
+<tr class="total"><td>Lợi nhuận</td><td class="n">351,385</td><td class="n">396,303</td><td class="n">100,000</td><td class="n">847,688</td></tr>
+</table></div>
+<ul>
+<li>PNL = doanh thu (vận chuyển 3,200,000 chia theo km + thu dịch vụ) − (chi phí vận hành + chi hộ). Tab PNL có công tắc <b>Dự kiến / Thực tế / Chênh lệch</b> (xem <code>09-cost-model-2.html</code> mục 5d).</li>
+<li>Lương tài xế: hệ số chặng = thời gian dự kiến ÷ 8 giờ (0.25 và 0.22; chuyến 0.47). Khoản lương do điều phối viên thêm, chỉ vào kỳ lương khi chặng hoàn thành.</li>
+<li>Giá bán đề xuất = chi phí + (4 chỉ số %) × chi phí; trên dev 4 chỉ số = 0%.</li>
+</ul>
+
+<h2>8. Chưa kiểm hoặc chưa rõ</h2>
+<ul id="open">
+<li><b>Q45</b> dòng TS thứ 20 của mẫu và tham số của "Phụ phí đi đường"; TS12 mẫu 11,538.46 (dev 11,538, ô giá bỏ dấu thập phân, FIND-074).</li>
+<li><b>Q46</b> 13 dòng cũ chưa xóa được (đang dùng); đã vô hiệu bằng 0.</li>
+<li><b>Q47</b> giá trị mặc định gõ tay: báo giá và lệnh khác nhau.</li>
+<li><b>Q48</b> giờ GPS 18.23 tạm thời.</li>
+<li><b>Q49</b> tất toán: lệnh không có nút tất toán; Debit Notes có "Tạo Debit Note".</li>
+<li><b>Đã kiểm (2026-11-11):</b> đổi TS10 20,000 → 25,000, lệnh 201486 vẫn 2 × 20,000 (đã trả về). Tab Chi phí không có ô hóa đơn (Q51). "Chỉnh sửa khoản lương" bị khóa khi lệnh đã hoàn thành (Q50). "Thêm khoản chi phí" ở Thực tế có 6 lựa chọn.</li><li><b>Nhà xe xử lý (đã kiểm):</b> với Nguồn xe "Nhà xe", chỉ còn các dòng không tick (C005 Dầu, C006 Giá trị xe, các dòng 0) và có dòng nhập tay "Chi phí trả cho nhà xe". DK 1,479,057; gõ 800,000 ra 2,279,057; lợi nhuận PNL 1,020,943.</li><li><b>Debit Note:</b> lập theo cont hoàn thành chuyến; hiện 0 cont cho mọi khách hàng vì lệnh chưa có số cont (Q49). <b>Lương tài xế:</b> nút sửa luôn khóa ở mọi trạng thái đã thử (Q50).</li>
+</ul>
+<footer>Tạo 2026-11-11 từ <code>09-cost-model.md</code> và <code>workspace/exploratory/EXP-002/02-session-8.md</code>. Mọi số trace được về ghi chú phiên và ảnh trong <code>evidence/</code>.</footer>
+</main>
+<script>
+try{var b=document.getElementById('t');b.onclick=function(){var r=document.documentElement,d=r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);r.setAttribute('data-theme',d?'light':'dark')}}catch(e){}
+</script>
+</body>
+</html>

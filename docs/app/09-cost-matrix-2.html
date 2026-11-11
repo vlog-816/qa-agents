@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ma trận 2: mặc định và giao diện</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--text:#1f2328;--muted:#656d76;--line:#d0d7de;--head:#eef2f6;--accent:#0b6bcb;--ok:#d9f2e0;--okt:#14532d;--no:#ececec;--not:#555;--calc:#dbe9fb;--calct:#0b3f7a;--warn:#fbe0e0;--warnt:#7a1d1d;--sys:#f1ecff;--n1:#e7f0fb;--n2:#e6f4ea;--n3:#fff4d6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1318;--card:#171c23;--text:#e6e9ed;--muted:#9aa4b0;--line:#2c3440;--head:#1f2630;--accent:#5aa9ff;--ok:#173a26;--okt:#8fe0a8;--no:#242b35;--not:#b0b8c2;--calc:#16304d;--calct:#9fc9ff;--warn:#4a2020;--warnt:#ffa8a8;--sys:#2a2540;--n1:#16304d;--n2:#173a26;--n3:#3d3210}}
+:root[data-theme="dark"]{--bg:#0f1318;--card:#171c23;--text:#e6e9ed;--muted:#9aa4b0;--line:#2c3440;--head:#1f2630;--accent:#5aa9ff;--ok:#173a26;--okt:#8fe0a8;--no:#242b35;--not:#b0b8c2;--calc:#16304d;--calct:#9fc9ff;--warn:#4a2020;--warnt:#ffa8a8;--sys:#2a2540;--n1:#16304d;--n2:#173a26;--n3:#3d3210}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1250px;margin:0 auto;padding:18px 14px 50px}
+h1{font-size:22px;margin:4px 0}h2{font-size:17px;margin:26px 0 8px}
+.sub{color:var(--muted);margin:0 0 8px}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;background:var(--card)}
+th,td{border:1px solid var(--line);padding:4px 7px;text-align:left;vertical-align:middle}
+th{background:var(--head);font-weight:600;font-size:12.5px}
+td{font-size:13px}
+td.c,th.c{text-align:center}
+tr.sys td{background:var(--sys);color:var(--muted)}
+tr.ga td:first-child{border-left:4px solid #3b82f6}
+tr.gb td:first-child{border-left:4px solid #16a34a}
+tr.gc td:first-child{border-left:4px solid #d97706}
+.chip{display:inline-block;border-radius:6px;padding:0 7px;font-size:12px}
+.ok{background:var(--ok);color:var(--okt)}.no{background:var(--no);color:var(--not)}.calc{background:var(--calc);color:var(--calct)}.warn{background:var(--warn);color:var(--warnt)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0}
+.key{display:flex;flex-wrap:wrap;gap:8px;align-items:center;color:var(--muted);margin:8px 0}
+code{background:var(--head);padding:1px 5px;border-radius:4px;font-size:12.5px}
+svg{width:100%;height:auto;display:block}
+svg .box{stroke:var(--line);stroke-width:1.2}svg text{fill:var(--text);font:13px system-ui,sans-serif}
+svg .t2{fill:var(--muted);font-size:11.5px}svg .b{font-weight:600}
+svg .arr{stroke:var(--accent);stroke-width:1.6;fill:none}svg .arrh{fill:var(--accent)}
+.n1{fill:var(--n1)}.n2{fill:var(--n2)}.n3{fill:var(--n3)}
+.obs td{text-align:center;font-size:15px;color:var(--muted)}
+.obs th{font-size:11.5px}
+ul{margin:4px 0 4px 20px;padding:0}
+button#t{float:right;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer}
+footer{color:var(--muted);font-size:12.5px;margin-top:22px}
+</style>
+</head>
+<body>
+<main>
+<button id="t" type="button" aria-label="Đổi giao diện sáng tối">Sáng/Tối</button>
+<h1>Ma trận 2: "Giá trị mặc định" và "Cấu hình giao diện"</h1>
+<p class="sub">Dữ liệu mẫu để bạn tạo trên dev (mình không tạo). 3 dòng đầu là dòng hệ thống nên bỏ qua; <b>CASE-01 là dòng thứ 4</b>. Sau khi bạn tạo xong, mình quan sát hành vi trên web theo bảng quan sát ở phần 4. Theo bạn: <b>Cấu hình giao diện = "Có thể thêm tay"</b> nghĩa là có dòng <b>"Thêm"</b> trong phần chi phí đó; <b>"Mặc định"</b> thì hiện hết các dòng. Mình dùng đây làm giả thuyết để kiểm (H4), vẫn ghi mọi khác biệt khác.</p>
+
+<h2>1. Sơ đồ: cài đặt nào, xem ở đâu</h2>
+<div class="card">
+<svg viewBox="0 0 940 250" role="img" aria-label="Cột cài đặt, nơi quan sát, kết quả cần ghi">
+<defs><marker id="ah" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="arrh"/></marker></defs>
+<rect class="box n2" x="10" y="10" width="280" height="230" rx="10"/><text class="b" x="150" y="34" text-anchor="middle">Cài đặt thử (cấu trúc chi phí)</text>
+<text x="25" y="62">• Giá trị mặc định Dự kiến</text><text class="t2" x="40" y="78">Hệ thống / ĐPV / Tài xế / Mặc định = 0</text>
+<text x="25" y="104">• Giá trị mặc định Thực tế</text><text class="t2" x="40" y="120">4 lựa chọn như trên (ĐPV có thể ép cặp)</text>
+<text x="25" y="146">• Cấu hình giao diện Dự kiến</text><text class="t2" x="40" y="162">Mặc định / Có thể thêm tay</text>
+<text x="25" y="188">• Cấu hình giao diện Thực tế</text><text class="t2" x="40" y="204">Mặc định / Có thể thêm tay</text>
+<text class="t2" x="25" y="228">+ đơn vị Giờ / Km / Chuyến</text>
+<path class="arr" d="M290,125 L340,125" marker-end="url(#ah)"/>
+<rect class="box n1" x="340" y="10" width="300" height="230" rx="10"/><text class="b" x="490" y="34" text-anchor="middle">Nơi quan sát (web)</text>
+<text x="355" y="62">P0 Trang cài đặt (chọn được không?)</text>
+<text x="355" y="84">P1 Phiên bản giá: dữ liệu từng dòng</text>
+<text x="355" y="106">P2 Form báo giá: "Xem chi tiết"</text>
+<text x="355" y="128">P3 Lệnh, tab Chi phí, Dự kiến</text><text class="t2" x="370" y="144">Chờ phân bổ, Chờ xác nhận, Chờ vận chuyển</text>
+<text x="355" y="166">P4 Lệnh, tab Chi phí, Thực tế</text><text class="t2" x="370" y="182">Đang vận chuyển, Cần tất toán</text>
+<text x="355" y="204">P5 "Thêm khoản chi phí"  P6 Đơn, PNL</text>
+<text x="355" y="226">P7 Ứng dụng tài xế (bạn báo lại)</text>
+<path class="arr" d="M640,125 L690,125" marker-end="url(#ah)"/>
+<rect class="box n3" x="690" y="10" width="240" height="230" rx="10"/><text class="b" x="810" y="34" text-anchor="middle">Ghi lại cho mỗi case</text>
+<text x="705" y="66">• gõ được / chỉ đọc / ẩn</text><text x="705" y="92">• số tiền và cách tính</text>
+<text x="705" y="118">• "Chưa nhập chi phí"?</text><text x="705" y="144">• nút "Dùng mức giá cài đặt"?</text>
+<text x="705" y="170">• thêm dòng được không</text><text x="705" y="196">• khác nhau theo trạng thái?</text>
+</svg>
+<div class="key"><span class="chip ok">gõ được</span><span class="chip no">chỉ đọc</span><span class="chip calc">tự tính</span><span class="chip warn">chưa thấy tác dụng</span></div>
+</div>
+
+<h2>1b. Giả thuyết về "Cấu hình giao diện" (theo bạn)</h2>
+<div class="wrap"><table style="max-width:900px">
+<tr><th>Giá trị</th><th>Theo bạn</th><th>Mình sẽ nhìn gì</th></tr>
+<tr><td><b>Mặc định</b></td><td>Hiện hết các dòng của phần chi phí đó.</td><td>Dòng có hiện ngay trong nhóm không; có dòng "Thêm" không (kỳ vọng: không).</td></tr>
+<tr><td><b>Có thể thêm tay</b></td><td>Có dòng <b>"Thêm"</b> trong phần chi phí đó.</td><td>Dòng "Thêm" nằm ở đâu (cuối nhóm, hay nút "Thêm khoản chi phí"); bấm vào thì thêm được dòng của case nào; dòng gốc có còn hiện sẵn không.</td></tr>
+<tr><td><b>UI Dự kiến / UI Thực tế</b></td><td>Áp cho tab Dự kiến hoặc tab Thực tế tương ứng.</td><td>CASE-12 và 15 chỉ Dự kiến; CASE-13 và 16 chỉ Thực tế; CASE-14 và 17 cả hai.</td></tr>
+</table></div>
+<p class="sub">Vì dòng "Thêm" nằm theo phần (nhóm) chi phí, mỗi case có một nhóm cấp 2 riêng ("Nhóm CASE-xx") để thấy rõ case nào gây ra dòng "Thêm". Lần trước mình thấy 6 lựa chọn của "Thêm khoản chi phí" thuộc mục Phí phát sinh, nên có thể "thêm" ở đó là kiểu nhóm khác.</p>
+
+<h2>2. Việc cần tạo trước: 3 tham số TS</h2>
+<div class="wrap"><table style="max-width:560px">
+<tr><th>Tên tham số</th><th>Đơn vị</th><th>Đơn giá</th><th>Dùng cho</th></tr>
+<tr><td>TEST chuyến</td><td>Chuyến</td><td>1,000</td><td>CASE-01 đến CASE-17</td></tr>
+<tr><td>TEST giờ</td><td>Giờ</td><td>100</td><td>CASE-18</td></tr>
+<tr><td>TEST km</td><td>Km</td><td>10</td><td>CASE-19, CASE-20</td></tr>
+</table></div>
+<p class="sub">Giá trị không đổi giữa các case: Loại phí = Biến phí, Cấp 1 = Xe, Đối tượng = Xe, Hóa đơn = Tùy chọn, Nhà xe = Không. Cấp 2 là <b>"Nhóm CASE-xx", mỗi case một nhóm riêng</b> để thấy rõ dòng "Thêm" nếu có (xem phần 1b). Chỉ đổi các cột in đậm theo từng case.</p>
+
+<h2>3. Bảng mẫu để nhập (cùng thứ tự cột với /settings/costs)</h2>
+<div class="wrap"><table>
+<tr><th>#</th><th>Mã</th><th>Loại phí</th><th>Cấp 1</th><th>Cấp 2</th><th>Chi phí (tên dòng)</th><th>Đối tượng</th><th>Tham số</th><th>Đơn vị</th><th>Hóa đơn</th><th>Mặc định DK</th><th>Mặc định TT</th><th>UI DK</th><th>UI TT</th><th>Nhà xe</th><th>Dự đoán (để so, có thể sai)</th></tr>
+<tr class="sys"><td>1</td><td>C015</td><td>Biến phí</td><td>Phí xe qua trạm</td><td>Chi phí hạ tầng</td><td>Phí xe qua trạm</td><td>Xe</td><td>Phí trạm theo tuyến</td><td>Chuyến</td><td>Bắt buộc</td><td>ĐPV nhập tay</td><td>Tài xế nhập tay</td><td>Mặc định</td><td>Mặc định</td><td>Có</td><td>dòng hệ thống, bỏ qua</td></tr>
+<tr class="sys"><td>2</td><td>C009</td><td>Biến phí</td><td>Xe</td><td>Chi phí hao mòn – vật tư tiêu hao</td><td>Chi phí lốp xe</td><td>Xe</td><td>Tiêu hao lốp xe (VNĐ/km)</td><td>Km</td><td>Tùy chọn</td><td>Hệ thống</td><td>Hệ thống</td><td>Mặc định</td><td>Mặc định</td><td>Có</td><td>dòng hệ thống, bỏ qua</td></tr>
+<tr class="sys"><td>3</td><td>C019</td><td>Biến phí</td><td>Romooc</td><td>Chi phí hao mòn – vật tư tiêu hao</td><td>Chi phí lốp romooc</td><td>Rơ mooc</td><td>Tiêu hao lốp romooc (VNĐ/km)</td><td>Km</td><td>Tùy chọn</td><td>Hệ thống</td><td>Hệ thống</td><td>Mặc định</td><td>Mặc định</td><td>Có</td><td>dòng hệ thống, bỏ qua</td></tr>
+
+<tr class="ga"><td>4</td><td><b>CASE-01</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-01</td><td>CASE-01 DK=Hệ TT=Hệ UI=MĐ/MĐ Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td><b>Hệ thống</b></td><td><b>Hệ thống</b></td><td>Mặc định</td><td>Mặc định</td><td>Không</td><td>DK chỉ đọc 1,000; TT gõ được (Biến phí + Chuyến)</td></tr>
+<tr class="ga"><td>5</td><td><b>CASE-02</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-02</td><td>CASE-02 DK=Hệ TT=Tài xế UI=MĐ/MĐ Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td><b>Hệ thống</b></td><td><b>Tài xế nhập tay</b></td><td>Mặc định</td><td>Mặc định</td><td>Không</td><td>DK chỉ đọc; TT gõ được</td></tr>
+<tr class="ga"><td>6</td><td><b>CASE-03</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-03</td><td>CASE-03 DK=Hệ TT=Zero UI=MĐ/MĐ Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td><b>Hệ thống</b></td><td><b>Mặc định = 0</b></td><td>Mặc định</td><td>Mặc định</td><td>Không</td><td>DK chỉ đọc; TT gõ được</td></tr>
+<tr class="ga"><td>7</td><td><b>CASE-04</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-04</td><td>CASE-04 DK=Tài xế TT=Hệ UI=MĐ/MĐ Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td><b>Tài xế nhập tay</b></td><td><b>Hệ thống</b></td><td>Mặc định</td><td>Mặc định</td><td>Không</td><td>DK gõ được; TT gõ được</td></tr>
+<tr class="ga"><td>8</td><td><b>CASE-05</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-05</td><td>CASE-05 DK=Tài xế TT=Tài xế UI=MĐ/MĐ Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td><b>Tài xế nhập tay</b></td><td><b>Tài xế nhập tay</b></td><td>Mặc định</td><td>Mặc định</td><td>Không</td><td>DK gõ được; TT gõ được</td></tr>
+<tr class="ga"><td>9</td><td><b>CASE-06</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-06</td><td>CASE-06 DK=Tài xế TT=Zero UI=MĐ/MĐ Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td><b>Tài xế nhập tay</b></td><td><b>Mặc định = 0</b></td><td>Mặc định</td><td>Mặc định</td><td>Không</td><td>DK gõ được; TT gõ được</td></tr>
+<tr class="ga"><td>10</td><td><b>CASE-07</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-07</td><td>CASE-07 DK=Zero TT=Hệ UI=MĐ/MĐ Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td><b>Mặc định = 0</b></td><td><b>Hệ thống</b></td><td>Mặc định</td><td>Mặc định</td><td>Không</td><td>DK gõ được, vẫn ra 1,000; TT gõ được</td></tr>
+<tr class="ga"><td>11</td><td><b>CASE-08</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-08</td><td>CASE-08 DK=Zero TT=Tài xế UI=MĐ/MĐ Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td><b>Mặc định = 0</b></td><td><b>Tài xế nhập tay</b></td><td>Mặc định</td><td>Mặc định</td><td>Không</td><td>DK gõ được; TT gõ được</td></tr>
+<tr class="ga"><td>12</td><td><b>CASE-09</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-09</td><td>CASE-09 DK=Zero TT=Zero UI=MĐ/MĐ Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td><b>Mặc định = 0</b></td><td><b>Mặc định = 0</b></td><td>Mặc định</td><td>Mặc định</td><td>Không</td><td>DK gõ được; TT gõ được</td></tr>
+<tr class="ga"><td>13</td><td><b>CASE-10</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-10</td><td>CASE-10 DK=ĐPV TT=ĐPV UI=MĐ/MĐ Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td><b>ĐPV nhập tay</b></td><td><b>ĐPV nhập tay</b></td><td>Mặc định</td><td>Mặc định</td><td>Không</td><td>DK gõ được; hiện ô số mặc định (để trống)</td></tr>
+<tr class="ga"><td>14</td><td><b>CASE-11</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-11</td><td>CASE-11 DK=ĐPV5000 TT=ĐPV5000 UI=MĐ/MĐ Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td><b>ĐPV nhập tay, số 5,000</b></td><td><b>ĐPV nhập tay, số 5,000</b></td><td>Mặc định</td><td>Mặc định</td><td>Không</td><td>số 5,000 thay giá 1,000; DK gõ được</td></tr>
+
+<tr class="gb"><td>15</td><td><b>CASE-12</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-12</td><td>CASE-12 DK=Hệ TT=Hệ UI=Có/MĐ Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td>Hệ thống</td><td>Hệ thống</td><td><b>Có thể thêm tay</b></td><td>Mặc định</td><td>Không</td><td>theo bạn: tab Dự kiến có dòng "Thêm" ở Nhóm CASE-12; Thực tế không</td></tr>
+<tr class="gb"><td>16</td><td><b>CASE-13</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-13</td><td>CASE-13 DK=Hệ TT=Hệ UI=MĐ/Có Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td>Hệ thống</td><td>Hệ thống</td><td>Mặc định</td><td><b>Có thể thêm tay</b></td><td>Không</td><td>theo bạn: tab Thực tế có dòng "Thêm" ở Nhóm CASE-13; Dự kiến không</td></tr>
+<tr class="gb"><td>17</td><td><b>CASE-14</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-14</td><td>CASE-14 DK=Hệ TT=Hệ UI=Có/Có Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td>Hệ thống</td><td>Hệ thống</td><td><b>Có thể thêm tay</b></td><td><b>Có thể thêm tay</b></td><td>Không</td><td>theo bạn: có dòng "Thêm" ở cả Dự kiến và Thực tế</td></tr>
+<tr class="gb"><td>18</td><td><b>CASE-15</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-15</td><td>CASE-15 DK=ĐPV TT=ĐPV UI=Có/MĐ Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td>ĐPV nhập tay</td><td>ĐPV nhập tay</td><td><b>Có thể thêm tay</b></td><td>Mặc định</td><td>Không</td><td>như CASE-10, thêm dòng "Thêm" ở Dự kiến (theo bạn)</td></tr>
+<tr class="gb"><td>19</td><td><b>CASE-16</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-16</td><td>CASE-16 DK=ĐPV TT=ĐPV UI=MĐ/Có Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td>ĐPV nhập tay</td><td>ĐPV nhập tay</td><td>Mặc định</td><td><b>Có thể thêm tay</b></td><td>Không</td><td>như CASE-10, thêm dòng "Thêm" ở Thực tế (theo bạn)</td></tr>
+<tr class="gb"><td>20</td><td><b>CASE-17</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-17</td><td>CASE-17 DK=ĐPV TT=ĐPV UI=Có/Có Chuyến</td><td>Xe</td><td>TEST chuyến</td><td>Chuyến</td><td>Tùy chọn</td><td>ĐPV nhập tay</td><td>ĐPV nhập tay</td><td><b>Có thể thêm tay</b></td><td><b>Có thể thêm tay</b></td><td>Không</td><td>như CASE-10, dòng "Thêm" ở cả hai tab (theo bạn)</td></tr>
+
+<tr class="gc"><td>21</td><td><b>CASE-18</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-18</td><td>CASE-18 DK=Hệ TT=Hệ UI=MĐ/MĐ Giờ</td><td>Xe</td><td><b>TEST giờ</b></td><td><b>Giờ</b></td><td>Tùy chọn</td><td>Hệ thống</td><td>Hệ thống</td><td>Mặc định</td><td>Mặc định</td><td>Không</td><td>3.75 giờ × 100 = 375; TT chỉ đọc?</td></tr>
+<tr class="gc"><td>22</td><td><b>CASE-19</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-19</td><td>CASE-19 DK=Hệ TT=Hệ UI=MĐ/MĐ Km</td><td>Xe</td><td><b>TEST km</b></td><td><b>Km</b></td><td>Tùy chọn</td><td>Hệ thống</td><td>Hệ thống</td><td>Mặc định</td><td>Mặc định</td><td>Không</td><td>131.33 km × 10 = 1,313; TT "Theo GPS"?</td></tr>
+<tr class="gc"><td>23</td><td><b>CASE-20</b></td><td>Biến phí</td><td>Xe</td><td>Nhóm CASE-20</td><td>CASE-20 DK=ĐPV TT=ĐPV UI=Có/Có Km</td><td>Xe</td><td><b>TEST km</b></td><td><b>Km</b></td><td>Tùy chọn</td><td><b>ĐPV nhập tay</b></td><td><b>ĐPV nhập tay</b></td><td><b>Có thể thêm tay</b></td><td><b>Có thể thêm tay</b></td><td>Không</td><td>DK gõ được; dòng "Thêm" ở cả hai tab; TT?</td></tr>
+</table></div>
+<div class="key"><span class="chip" style="border-left:4px solid #3b82f6;background:var(--head)">A: 11 case nguồn mặc định</span><span class="chip" style="border-left:4px solid #16a34a;background:var(--head)">B: 6 case cấu hình giao diện</span><span class="chip" style="border-left:4px solid #d97706;background:var(--head)">C: 3 case đơn vị</span><span>MĐ = Mặc định, Có = Có thể thêm tay, Zero = Mặc định = 0</span></div>
+<div class="card">
+<b>Lưu ý khi tạo trên trang cài đặt:</b>
+<ul>
+<li>Chọn "ĐPV nhập tay" ở Dự kiến thì Thực tế có thể tự đổi theo (đã thấy ở lần trước). Với CASE-02, 03, 04, 06, 07, 08 và 09, nếu trang không cho chọn hoặc tự sửa cặp, bạn ghi lại cặp nào được nhận: đó chính là kết quả P0.</li>
+<li>CASE-11: gõ số 5,000 vào ô "Giá trị mặc định" hiện ra sau khi chọn ĐPV nhập tay.</li>
+<li>Tên dòng đã mang sẵn cấu hình, để nhìn vào là biết case nào khi xem lệnh và báo giá.</li>
+</ul>
+</div>
+
+<h2>4. Bảng quan sát (điền hoặc bảo mình điền khi bạn đã tạo dữ liệu)</h2>
+<div class="wrap"><table class="obs">
+<tr><th class="c">Case</th><th>P0 trang cài đặt</th><th>P1 API: formula, giá, is_manual</th><th>P2 form báo giá</th><th>P3a Dự kiến Chờ phân bổ</th><th>P3b Chờ xác nhận</th><th>P3c Chờ vận chuyển</th><th>P4a Thực tế Đang vận chuyển</th><th>P4b Thực tế Cần tất toán</th><th>P5 Thêm khoản</th><th>P6 Đơn, PNL</th><th>P7 App tài xế</th></tr>
+<tr><td class="c">01</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">02</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">03</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">04</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">05</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">06</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">07</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">08</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">09</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">10</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">11</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">12</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">13</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">14</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">15</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">16</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">17</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">18</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">19</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td class="c">20</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+</table></div>
+
+<h2>5. Cách chạy (sau khi bạn tạo dữ liệu)</h2>
+<div class="card">
+<svg viewBox="0 0 940 110" role="img" aria-label="Các bước chạy">
+<rect class="box n2" x="10" y="20" width="160" height="70" rx="8"/><text class="b" x="90" y="48" text-anchor="middle">1. Bạn tạo 3 TS</text><text class="t2" x="90" y="68" text-anchor="middle">+ 20 dòng CASE</text>
+<path class="arr" d="M170,55 L200,55" marker-end="url(#ah)"/>
+<rect class="box n1" x="200" y="20" width="160" height="70" rx="8"/><text class="b" x="280" y="48" text-anchor="middle">2. Mình xem P0, P1</text><text class="t2" x="280" y="68" text-anchor="middle">tạo phiên bản giá v7</text>
+<path class="arr" d="M360,55 L390,55" marker-end="url(#ah)"/>
+<rect class="box n1" x="390" y="20" width="160" height="70" rx="8"/><text class="b" x="470" y="48" text-anchor="middle">3. Form báo giá P2</text><text class="t2" x="470" y="68" text-anchor="middle">đơn + lệnh, P3a</text>
+<path class="arr" d="M550,55 L580,55" marker-end="url(#ah)"/>
+<rect class="box n3" x="580" y="20" width="160" height="70" rx="8"/><text class="b" x="660" y="48" text-anchor="middle">4. Bạn chạy app</text><text class="t2" x="660" y="68" text-anchor="middle">từng trạng thái (P3b đến P4b)</text>
+<path class="arr" d="M740,55 L770,55" marker-end="url(#ah)"/>
+<rect class="box n3" x="770" y="20" width="160" height="70" rx="8"/><text class="b" x="850" y="48" text-anchor="middle">5. Mình điền bảng</text><text class="t2" x="850" y="68" text-anchor="middle">+ vẽ ma trận kết quả</text>
+</svg>
+<p class="sub">Dòng đã dùng trong báo giá hoặc lệnh sẽ không xóa được (lỗi 409). Khi dọn, đặt đơn giá tham số về 0 cho đỡ nhiễu số liệu. Bạn quyết định dọn hay giữ.</p>
+</div>
+<h2>6. Kết quả kiểm trên cấu hình hiện tại (2026-11-11, đang cập nhật)</h2>
+<p class="sub">Không đổi cấu hình. Cấu hình hiện tại là cấu hình mình đã trả lại sau ma trận 1 (29 dòng; không thấy ai đổi). Lệnh thử: <code>#BTC26SHP-201500</code> (đơn <code>#BTC26ORD-001012</code>, giá 3,200,000, phiên bản BTCDG-0029). Ảnh nằm ở <code>workspace/exploratory/EXP-002/evidence/</code> (không commit); bấm ảnh để mở to.</p>
+<div class="wrap"><table>
+<tr><th class="l">Chỗ xem</th><th class="l">Điều thấy (cấu hình hiện tại)</th><th>Theo giả thuyết "Có thể thêm tay = có dòng Thêm"</th></tr>
+<tr><td class="l">Form báo giá, "Chi tiết chi phí" (chế độ sửa)</td><td class="l">Liệt kê cả 29 dòng + Dầu + Phí trạm. Mọi dòng (trừ Dầu, Phí trạm) có ô sửa Đơn giá và Số lượng. Nút "+ Thêm chi phí" thêm <b>dòng tự do</b>: tên, nhóm cấp 1 (11 nhóm), giá, số lượng.</td><td><span class="chip warn">thêm dòng có ở mọi nhóm, không theo cấu hình giao diện</span></td></tr>
+<tr><td class="l">Lệnh, tab Chi phí, Dự kiến (Chờ phân bổ, Chờ xác nhận, sau xác nhận)</td><td class="l">24 dòng hiển thị. <b>Không có C023 đến C027 và C029</b> (nhóm Hàng hoá, Nhân công ngoài, Thuê mooc ngoài, Bãi đậu ngoài, Khác). Không có chữ "Thêm" ở chế độ xem hay sửa. Ô gõ: C004, C012, C015, C030.</td><td><span class="chip warn">chưa thấy dòng "Thêm" ở Dự kiến</span></td></tr>
+<tr><td class="l">Lệnh, tab Chi phí, Thực tế (sau khi bắt đầu vận chuyển)</td><td class="l">24 dòng như Dự kiến. Ô gõ ở chế độ sửa: C004, C012, C013, C015, C020, C021, C022, C030 (Biến phí + Chuyến). Có nút <b>"Thêm khoản chi phí"</b> với đúng 6 lựa chọn: Chi COM, Chi làm hàng đặc thù, Bồi dưỡng công nhân..., Thuê mướn thêm mooc, Bãi đậu / bãi trung chuyển, Chi phí khác (chính là 6 dòng bị ẩn).</td><td><span class="chip ok">có dòng "Thêm" ở Thực tế</span> <span class="chip warn">nhưng 6 dòng gồm cả C029 (UI Mặc định)</span></td></tr>
+</table></div>
+<p class="sub"><b>Đọc kết quả:</b> 6 dòng bị ẩn mặc định (C023 đến C027, C029) đều có nguồn Dự kiến "Mặc định = 0" và nguồn Thực tế "Tài xế nhập tay"; chúng chỉ được thêm bằng nút "Thêm khoản chi phí" ở Thực tế. C029 có UI Mặc định/Mặc định nhưng vẫn nằm trong danh sách, nên chưa tách được vai trò riêng của cột "Cấu hình giao diện": cần chạy CASE-01 đến CASE-20 để tách.</p>
+
+<h3 style="font-size:15px;margin:16px 0 6px">Ảnh</h3>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px">
+<figure style="margin:0"><a href="../../workspace/exploratory/EXP-002/evidence/m2-structure-now.png"><img loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:6px" src="../../workspace/exploratory/EXP-002/evidence/m2-structure-now.png" alt="Cấu trúc chi phí hiện tại"></a><figcaption class="sub">Cấu trúc chi phí hiện tại (29 dòng)</figcaption></figure>
+<figure style="margin:0"><a href="../../workspace/exploratory/EXP-002/evidence/m2-form-detail.png"><img loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:6px" src="../../workspace/exploratory/EXP-002/evidence/m2-form-detail.png" alt="Form báo giá, Chi tiết chi phí"></a><figcaption class="sub">Form báo giá: Chi tiết chi phí (sửa đơn giá, số lượng)</figcaption></figure>
+<figure style="margin:0"><a href="../../workspace/exploratory/EXP-002/evidence/m2-form-add-group.png"><img loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:6px" src="../../workspace/exploratory/EXP-002/evidence/m2-form-add-group.png" alt="Form báo giá, thêm chi phí"></a><figcaption class="sub">Form báo giá: "+ Thêm chi phí" (dòng tự do, chọn nhóm)</figcaption></figure>
+<figure style="margin:0"><a href="../../workspace/exploratory/EXP-002/evidence/m2-D-dk-view.png"><img loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:6px" src="../../workspace/exploratory/EXP-002/evidence/m2-D-dk-view.png" alt="Lệnh Dự kiến"></a><figcaption class="sub">Lệnh 201500, Dự kiến (Chờ phân bổ): 24 dòng</figcaption></figure>
+<figure style="margin:0"><a href="../../workspace/exploratory/EXP-002/evidence/m2-D-dk-edit.png"><img loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:6px" src="../../workspace/exploratory/EXP-002/evidence/m2-D-dk-edit.png" alt="Lệnh Dự kiến chế độ sửa"></a><figcaption class="sub">Dự kiến, chế độ sửa: chỉ C004, C012, C015, C030 gõ được, không có "Thêm"</figcaption></figure>
+<figure style="margin:0"><a href="../../workspace/exploratory/EXP-002/evidence/m2-D-cho-van-chuyen-tt.png"><img loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:6px" src="../../workspace/exploratory/EXP-002/evidence/m2-D-cho-van-chuyen-tt.png" alt="Lệnh Thực tế"></a><figcaption class="sub">Lệnh 201500, Thực tế (sau khi bắt đầu)</figcaption></figure>
+<figure style="margin:0"><a href="../../workspace/exploratory/EXP-002/evidence/m2-D-cho-van-chuyen-tt-edit.png"><img loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:6px" src="../../workspace/exploratory/EXP-002/evidence/m2-D-cho-van-chuyen-tt-edit.png" alt="Lệnh Thực tế chế độ sửa"></a><figcaption class="sub">Thực tế, chế độ sửa: ô gõ và nút "Thêm khoản chi phí"</figcaption></figure>
+<figure style="margin:0"><a href="../../workspace/exploratory/EXP-002/evidence/m2-D-tt-add-options.png"><img loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:6px" src="../../workspace/exploratory/EXP-002/evidence/m2-D-tt-add-options.png" alt="Danh sách Thêm khoản chi phí"></a><figcaption class="sub">"Thêm khoản chi phí" ở Thực tế: 6 lựa chọn</figcaption></figure>
+</div>
+<h3 style="font-size:15px;margin:16px 0 6px">Khi lệnh đã hoàn tất (Cần tất toán)</h3>
+<div class="wrap"><table>
+<tr><th class="l">Chỗ xem</th><th class="l">Điều thấy</th><th>So với "Chờ lấy cont"</th></tr>
+<tr><td class="l">Thực tế, chế độ xem</td><td class="l">24 dòng; TT vận hành 751,418; không có C023 đến C027, C029.</td><td><span class="chip no">không khác</span></td></tr>
+<tr><td class="l">Thực tế, chế độ sửa</td><td class="l">Ô gõ: C004, C012, C013, C015, C020, C021, C022, C030. Nút "Thêm khoản chi phí" vẫn có.</td><td><span class="chip no">không khác</span></td></tr>
+</table></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-top:8px">
+<figure style="margin:0"><a href="../../workspace/exploratory/EXP-002/evidence/m2-D-can-tat-toan-tt.png"><img loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:6px" src="../../workspace/exploratory/EXP-002/evidence/m2-D-can-tat-toan-tt.png" alt="Lệnh 201500 Cần tất toán, Thực tế"></a><figcaption class="sub">Lệnh 201500, Cần tất toán, Thực tế (xem)</figcaption></figure>
+<figure style="margin:0"><a href="../../workspace/exploratory/EXP-002/evidence/m2-D-can-tat-toan-tt-edit.png"><img loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:6px" src="../../workspace/exploratory/EXP-002/evidence/m2-D-can-tat-toan-tt-edit.png" alt="Lệnh 201500 Cần tất toán, Thực tế sửa"></a><figcaption class="sub">Cần tất toán, Thực tế (sửa): ô gõ và nút Thêm</figcaption></figure>
+</div>
+<p class="sub">Không thấy khác biệt theo trạng thái giữa "Chờ lấy cont" và "Cần tất toán". Bạn báo "Pickup done" nhưng lệnh đã hoàn tất, nên mình không chụp riêng "Đang đóng/rút hàng". Kết luận hiện có: danh sách dòng và ô gõ ở Thực tế do <b>nguồn mặc định và loại phí</b> quyết định, còn tác dụng riêng của "Cấu hình giao diện" vẫn cần ma trận CASE-01 đến CASE-20 để tách (khi bạn tạo dữ liệu).</p>
+
+<footer>Tạo 2026-11-11. Chỉ là dữ liệu mẫu và bảng quan sát; mình không tạo gì trên dev. Kết quả lần trước: <code>09-cost-matrix.html</code>.</footer>
+</main>
+<script>
+try{var b=document.getElementById('t');b.onclick=function(){var r=document.documentElement,d=r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);r.setAttribute('data-theme',d?'light':'dark')}}catch(e){}
+</script>
+</body>
+</html>

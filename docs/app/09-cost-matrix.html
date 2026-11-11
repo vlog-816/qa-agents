@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ma trận cấu hình chi phí</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--text:#1f2328;--muted:#656d76;--line:#d0d7de;--head:#eef2f6;--ok:#d9f2e0;--okt:#14532d;--no:#ececec;--not:#555;--hide:#fde7c4;--hidet:#7a4b00;--calc:#dbe9fb;--calct:#0b3f7a;--warn:#fbe0e0;--warnt:#7a1d1d}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1318;--card:#171c23;--text:#e6e9ed;--muted:#9aa4b0;--line:#2c3440;--head:#1f2630;--ok:#173a26;--okt:#8fe0a8;--no:#242b35;--not:#b0b8c2;--hide:#4a3510;--hidet:#f1c36a;--calc:#16304d;--calct:#9fc9ff;--warn:#4a2020;--warnt:#ffa8a8}}
+:root[data-theme="dark"]{--bg:#0f1318;--card:#171c23;--text:#e6e9ed;--muted:#9aa4b0;--line:#2c3440;--head:#1f2630;--ok:#173a26;--okt:#8fe0a8;--no:#242b35;--not:#b0b8c2;--hide:#4a3510;--hidet:#f1c36a;--calc:#16304d;--calct:#9fc9ff;--warn:#4a2020;--warnt:#ffa8a8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1200px;margin:0 auto;padding:18px 14px 50px}
+h1{font-size:22px;margin:4px 0}h2{font-size:17px;margin:26px 0 8px}
+.sub{color:var(--muted);margin:0 0 8px}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;background:var(--card)}
+th,td{border:1px solid var(--line);padding:5px 7px;text-align:center;vertical-align:middle;white-space:nowrap}
+th{background:var(--head);font-weight:600}
+td.l,th.l{text-align:left;white-space:normal}
+.grp th{background:var(--head);color:var(--muted);font-size:12px}
+.c{display:inline-block;border-radius:6px;padding:1px 8px;font-size:12.5px}
+.ok{background:var(--ok);color:var(--okt)}.no{background:var(--no);color:var(--not)}.hide{background:var(--hide);color:var(--hidet)}.calc{background:var(--calc);color:var(--calct)}.warn{background:var(--warn);color:var(--warnt)}
+.set{font-size:12.5px}
+.key{margin:8px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0}
+code{background:var(--head);padding:1px 5px;border-radius:4px;font-size:12.5px}
+button#t{float:right;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer}
+footer{color:var(--muted);font-size:12.5px;margin-top:22px}
+</style>
+</head>
+<body>
+<main>
+<button id="t" type="button" aria-label="Đổi giao diện sáng tối">Sáng/Tối</button>
+<h1>Ma trận: cấu hình cấu trúc chi phí → UI</h1>
+<p class="sub">Đã thử trên dev (2026-11-11) với 15 dòng thử. Mỗi hàng là một dòng chi phí, cột trái là cài đặt đã đặt, cột phải là điều thấy trên giao diện. Cài đặt đã trả lại như cũ sau khi thử.</p>
+<div class="key">
+<span class="c ok">gõ được</span><span class="c no">không gõ (chỉ đọc)</span><span class="c calc">tự tính</span><span class="c hide">bị ẩn</span><span class="c warn">chưa thấy tác dụng</span>
+</div>
+
+<h2>A. Ma trận từng dòng thử</h2>
+<div class="wrap"><table>
+<tr class="grp"><th rowspan="2" class="l">Thử</th><th rowspan="2">Dòng</th><th colspan="8">Cài đặt đã đặt</th><th colspan="5">Điều thấy trên UI</th></tr>
+<tr>
+<th>Loại phí</th><th>Đơn vị</th><th>Mặc định Dự kiến</th><th>Mặc định Thực tế</th><th>UI Dự kiến</th><th>UI Thực tế</th><th>Nhà xe</th><th>Hóa đơn</th>
+<th>Báo giá (phiên bản)</th><th>Lệnh: Dự kiến</th><th>Lệnh: Thực tế</th><th>Lệnh xe nhà xe</th><th>Ghi chú</th></tr>
+
+<tr><td class="l">T01 gốc</td><td>C013</td><td class="set">Biến</td><td class="set">Chuyến</td><td class="set">Hệ thống</td><td class="set">Hệ thống</td><td class="set">Mặc định</td><td class="set">Mặc định</td><td class="set">Không</td><td class="set">Tùy chọn</td>
+<td><span class="c calc">1,000</span></td><td><span class="c no">500 + 500</span></td><td><span class="c ok">gõ được</span></td><td><span class="c calc">hiện</span></td><td class="l">dòng chuẩn so sánh</td></tr>
+
+<tr><td class="l">T02 nguồn ĐPV</td><td>C020</td><td class="set">Biến</td><td class="set">Chuyến</td><td class="set"><b>ĐPV nhập tay</b></td><td class="set">ĐPV nhập tay (tự theo)</td><td class="set">Mặc định</td><td class="set">Mặc định</td><td class="set">Không</td><td class="set">Tùy chọn</td>
+<td><span class="c calc">1,000</span></td><td><span class="c ok">gõ được</span></td><td><span class="c ok">gõ được</span></td><td><span class="c calc">hiện</span></td><td class="l">gõ xong hiện nút "Dùng mức giá cài đặt"</td></tr>
+
+<tr><td class="l">T03 nguồn Tài xế</td><td>C021</td><td class="set">Biến</td><td class="set">Chuyến</td><td class="set"><b>Tài xế nhập tay</b></td><td class="set">Hệ thống</td><td class="set">Mặc định</td><td class="set">Mặc định</td><td class="set">Không</td><td class="set">Tùy chọn</td>
+<td><span class="c calc">1,000</span></td><td><span class="c ok">gõ được</span></td><td><span class="c ok">gõ được</span></td><td><span class="c calc">hiện</span></td><td class="l">Dự kiến "Tài xế" vẫn cho điều phối gõ</td></tr>
+
+<tr><td class="l">T04 nguồn =0</td><td>C022</td><td class="set">Biến</td><td class="set">Chuyến</td><td class="set"><b>Mặc định = 0</b></td><td class="set">Hệ thống</td><td class="set">Mặc định</td><td class="set">Mặc định</td><td class="set">Không</td><td class="set">Tùy chọn</td>
+<td><span class="c calc">1,000 (không ra 0)</span></td><td><span class="c ok">gõ được</span></td><td><span class="c ok">gõ được</span></td><td><span class="c calc">hiện</span></td><td class="l">"Mặc định = 0" không làm số về 0</td></tr>
+
+<tr><td class="l">T05 số mặc định</td><td>C023</td><td class="set">Biến</td><td class="set">Chuyến</td><td class="set"><b>ĐPV 5,000</b></td><td class="set">ĐPV 5,000 (tự theo)</td><td class="set">Mặc định</td><td class="set">Mặc định</td><td class="set">Không</td><td class="set">Tùy chọn</td>
+<td><span class="c calc">5,000</span></td><td><span class="c ok">gõ được</span></td><td><span class="c ok">gõ được</span><br><small>(mục Phí phát sinh)</small></td><td><span class="c calc">hiện</span></td><td class="l">số mặc định thay đơn giá tham số</td></tr>
+
+<tr><td class="l">T06 TT = Tài xế</td><td>C024</td><td class="set">Biến</td><td class="set">Chuyến</td><td class="set">Hệ thống</td><td class="set"><b>Tài xế nhập tay</b></td><td class="set">Mặc định</td><td class="set">Mặc định</td><td class="set">Không</td><td class="set">Tùy chọn</td>
+<td><span class="c calc">1,000</span></td><td><span class="c no">chỉ đọc</span></td><td><span class="c ok">gõ được</span><br><small>(Phí phát sinh)</small></td><td><span class="c calc">hiện</span></td><td class="l">nguồn TT không khóa ô web</td></tr>
+
+<tr><td class="l">T07 TT = 0</td><td>C025</td><td class="set">Biến</td><td class="set">Chuyến</td><td class="set">Hệ thống</td><td class="set"><b>Mặc định = 0</b></td><td class="set">Mặc định</td><td class="set">Mặc định</td><td class="set">Không</td><td class="set">Tùy chọn</td>
+<td><span class="c calc">1,000</span></td><td><span class="c no">chỉ đọc</span></td><td><span class="c ok">gõ được</span><br><small>(Phí phát sinh)</small></td><td><span class="c calc">hiện</span></td><td class="l"></td></tr>
+
+<tr><td class="l">T08 UI Dự kiến</td><td>C026</td><td class="set">Biến</td><td class="set">Chuyến</td><td class="set">Hệ thống</td><td class="set">Hệ thống</td><td class="set"><b>Có thể thêm tay</b></td><td class="set">Mặc định</td><td class="set">Không</td><td class="set">Tùy chọn</td>
+<td><span class="c calc">1,000</span></td><td><span class="c no">chỉ đọc</span></td><td><span class="c ok">gõ được</span><br><small>(Phí phát sinh)</small></td><td><span class="c calc">hiện</span></td><td class="l"><span class="c warn">UI không mở ô gõ</span></td></tr>
+
+<tr><td class="l">T09 UI Thực tế</td><td>C027</td><td class="set">Biến</td><td class="set">Chuyến</td><td class="set">Hệ thống</td><td class="set">Hệ thống</td><td class="set">Mặc định</td><td class="set"><b>Có thể thêm tay</b></td><td class="set">Không</td><td class="set">Tùy chọn</td>
+<td><span class="c calc">1,000</span></td><td><span class="c no">chỉ đọc</span></td><td><span class="c ok">gõ được</span><br><small>(Phí phát sinh)</small></td><td><span class="c calc">hiện</span></td><td class="l"><span class="c warn">chưa thấy tác dụng</span></td></tr>
+
+<tr><td class="l">T10 nhà xe</td><td>C029</td><td class="set">Biến</td><td class="set">Chuyến</td><td class="set">Hệ thống</td><td class="set">Hệ thống</td><td class="set">Mặc định</td><td class="set">Mặc định</td><td class="set"><b>Có</b></td><td class="set">Tùy chọn</td>
+<td><span class="c calc">1,000</span></td><td><span class="c no">chỉ đọc</span></td><td><span class="c ok">gõ được</span><br><small>(Phí phát sinh)</small></td><td><span class="c hide">ẩn</span></td><td class="l">gộp vào "Chi phí trả cho nhà xe"</td></tr>
+
+<tr><td class="l">T11 Định phí</td><td>C014</td><td class="set"><b>Định</b></td><td class="set">Chuyến</td><td class="set">Hệ thống</td><td class="set">Hệ thống</td><td class="set">Mặc định</td><td class="set">Mặc định</td><td class="set">Không</td><td class="set">Tùy chọn</td>
+<td><span class="c calc">1,000</span></td><td><span class="c no">chỉ đọc</span></td><td><span class="c no">chỉ đọc</span></td><td><span class="c calc">hiện</span></td><td class="l">khác T01 chỉ ở Loại phí → Thực tế khóa</td></tr>
+
+<tr><td class="l">T12 hóa đơn</td><td>C017</td><td class="set">Định</td><td class="set">Chuyến</td><td class="set">Hệ thống</td><td class="set">Hệ thống</td><td class="set">Mặc định</td><td class="set">Mặc định</td><td class="set">Không</td><td class="set"><b>Bắt buộc</b></td>
+<td><span class="c calc">1,000</span></td><td><span class="c no">chỉ đọc</span></td><td><span class="c no">chỉ đọc</span></td><td><span class="c calc">hiện</span></td><td class="l"><span class="c warn">không thấy dấu hiệu hóa đơn</span></td></tr>
+
+<tr><td class="l">T13 đơn vị Giờ</td><td>C018</td><td class="set">Định</td><td class="set"><b>Giờ</b></td><td class="set">Hệ thống</td><td class="set">Hệ thống</td><td class="set">Mặc định</td><td class="set">Mặc định</td><td class="set">Không</td><td class="set">Tùy chọn</td>
+<td><span class="c calc">3.75 × 100 = 375</span></td><td><span class="c no">200 + 175</span></td><td><span class="c no">chỉ đọc</span></td><td><span class="c calc">hiện</span></td><td class="l">tính theo giờ từng chặng</td></tr>
+
+<tr><td class="l">T14 đơn vị Km</td><td>C030</td><td class="set">Biến</td><td class="set"><b>Km</b></td><td class="set">ĐPV nhập tay</td><td class="set">ĐPV nhập tay</td><td class="set">Mặc định</td><td class="set">Có thể thêm tay</td><td class="set">Có</td><td class="set">Bắt buộc</td>
+<td><span class="c calc">131.33 × 10 = 1,313</span></td><td><span class="c ok">gõ được</span></td><td><span class="c no">chỉ đọc</span><br><small>"Theo GPS"</small></td><td><span class="c hide">ẩn</span></td><td class="l">km lấy từ GPS khi chạy</td></tr>
+
+<tr><td class="l">T15 đối chứng</td><td>C004</td><td class="set">Biến</td><td class="set">Chuyến</td><td class="set">ĐPV nhập tay</td><td class="set">ĐPV nhập tay</td><td class="set">Có thể thêm tay</td><td class="set">Có thể thêm tay</td><td class="set">Có</td><td class="set">Tùy chọn</td>
+<td><span class="c no">0, "Chưa nhập chi phí"</span></td><td><span class="c ok">gõ được</span></td><td><span class="c ok">gõ được</span></td><td><span class="c hide">ẩn</span></td><td class="l">đơn giá TS bằng 0 nên ra "Chưa nhập"</td></tr>
+</table></div>
+
+<h2>B. Tóm gọn: mỗi cài đặt làm gì</h2>
+<div class="wrap"><table>
+<tr><th class="l">Cài đặt</th><th>Báo giá (phiên bản)</th><th>Lệnh: Dự kiến</th><th>Lệnh: Thực tế</th><th>Lệnh xe nhà xe</th><th>App tài xế</th></tr>
+<tr><td class="l"><b>Mặc định = Hệ thống</b></td><td><span class="c calc">tự tính từ đơn giá TS</span></td><td><span class="c no">chỉ đọc</span></td><td><span class="c ok">gõ được</span> nếu Biến phí + Chuyến<br><span class="c no">chỉ đọc</span> nếu Định phí / giờ / km</td><td><span class="c calc">hiện</span> (nếu nhà xe = Không)</td><td><span class="c no">không liên quan</span></td></tr>
+<tr><td class="l"><b>Mặc định = ĐPV nhập tay</b></td><td><span class="c calc">tính tiền</span>, hoặc số mặc định nếu có</td><td><span class="c ok">gõ được</span></td><td><span class="c ok">gõ được</span> (tự theo Dự kiến)</td><td>như trên</td><td><span class="c no">không liên quan</span></td></tr>
+<tr><td class="l"><b>Mặc định = Tài xế nhập tay</b></td><td><span class="c calc">tính tiền</span></td><td><span class="c ok">gõ được</span></td><td>theo Biến phí + Chuyến (không khóa riêng)</td><td>như trên</td><td><span class="c warn">app chỉ có 5 loại cố định</span></td></tr>
+<tr><td class="l"><b>Mặc định = Mặc định = 0</b></td><td><span class="c calc">vẫn tính tiền</span> (không ra 0)</td><td><span class="c ok">gõ được</span></td><td>theo Biến phí + Chuyến</td><td>như trên</td><td><span class="c no">không liên quan</span></td></tr>
+<tr><td class="l"><b>Cấu hình giao diện: Có thể thêm tay</b></td><td colspan="5"><span class="c warn">chưa thấy tác dụng ở web hay app (Q54)</span>: không mở ô gõ, không đổi danh sách "Thêm khoản chi phí"</td></tr>
+<tr><td class="l"><b>Nhà xe xử lý = Có</b></td><td><span class="c calc">vẫn tính</span></td><td><span class="c hide">ẩn khi gán xe nhà xe</span></td><td><span class="c hide">ẩn khi gán xe nhà xe</span></td><td><span class="c hide">gộp vào "Chi phí trả cho nhà xe" (gõ tay)</span></td><td><span class="c no">không liên quan</span></td></tr>
+<tr><td class="l"><b>Yêu cầu hóa đơn = Bắt buộc</b></td><td colspan="4"><span class="c warn">không thấy dấu hiệu trên web</span></td><td>app cho lưu mà không cần ảnh hóa đơn</td></tr>
+<tr><td class="l"><b>Loại phí = Định phí</b></td><td><span class="c calc">tính như Biến phí</span></td><td><span class="c no">chỉ đọc</span></td><td><span class="c no">chỉ đọc</span> (Biến phí + Chuyến mới gõ được)</td><td>như trên</td><td><span class="c no">không liên quan</span></td></tr>
+<tr><td class="l"><b>Đơn vị = Giờ / Km / Chuyến</b></td><td><span class="c calc">đơn giá × giờ, km hoặc chuyến</span></td><td><span class="c calc">chia 2 chặng</span></td><td>Giờ, Km: theo GPS hoặc giữ DK; Chuyến: xem trên</td><td>như trên</td><td><span class="c no">không liên quan</span></td></tr>
+</table></div>
+
+<h2>C. Tài xế nhập ở ứng dụng đi đâu</h2>
+<div class="wrap"><table>
+<tr><th class="l">Loại trong app</th><th>Hiện trên web</th><th>Vào chi phí vận hành thực tế?</th></tr>
+<tr><td class="l">Nhiên liệu</td><td>Tab Chi phí, nhóm Nhiên liệu, dòng <code>FUEL_LOG</code>, chặng 1</td><td><span class="c ok">có</span></td></tr>
+<tr><td class="l">Phụ phí</td><td>Tab Chi phí, nhóm Phụ phí, dòng <code>DRIVER_surcharge</code> ("Nhập tay"), chặng 1</td><td><span class="c ok">có</span></td></tr>
+<tr><td class="l">Khác</td><td>Tab Chi phí, mục Phí phát sinh, "Khác · Tài xế ghi nhận", chặng 1</td><td><span class="c ok">có</span></td></tr>
+<tr><td class="l">Phí nâng cont</td><td>Tab LOLO, "Dịch vụ LOLO thực tế", điểm nâng cont</td><td><span class="c no">không (chi hộ riêng)</span></td></tr>
+<tr><td class="l">Phí hạ cont</td><td>Tab LOLO, "Dịch vụ LOLO thực tế", điểm hạ cont</td><td><span class="c no">không (chi hộ riêng)</span></td></tr>
+</table></div>
+<div class="card">Hai điều đáng nhớ: (1) Dự kiến: <b>ô gõ được ⇔ nguồn mặc định khác "Hệ thống"</b>. (2) Thực tế: <b>Biến phí + Chuyến gõ được, Định phí không</b>; riêng mục "Phí phát sinh" luôn gõ được. Cột "Cấu hình giao diện" và "Yêu cầu hóa đơn" chưa thấy tác dụng. Nguồn: <code>02-session-8.md</code> mục 10.</div>
+<footer>Tạo 2026-11-11. Lệnh thử: <code>#BTC26SHP-201497</code> (phiên bản giá v6, BTCDG-0038).</footer>
+</main>
+<script>
+try{var b=document.getElementById('t');b.onclick=function(){var r=document.documentElement,d=r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);r.setAttribute('data-theme',d?'light':'dark')}}catch(e){}
+</script>
+</body>
+</html>
